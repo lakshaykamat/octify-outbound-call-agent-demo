@@ -507,30 +507,30 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
   const sparkLen = Math.min(14, buckets.length);
   const sparkSlice = buckets.slice(-sparkLen);
   const callsSpark = sparkSlice.map((b) => b.calls);
-  const connSpark = sparkSlice.map((b) => b.connected);
   const meetSpark = sparkSlice.map((b) => b.meetings);
-  const qualSpark = sparkSlice.map((b) =>
-    b.qualityN > 0 ? b.qualityTotal / b.qualityN : 0,
-  );
+
+  const rejectedOutcomes: Outcome[] = ["not_interested", "opted_out"];
+  const rejected = callsInRange.filter(
+    (c) => c.analysis && rejectedOutcomes.includes(c.analysis.outcome),
+  ).length;
+  const prevRejected = callsPrev.filter(
+    (c) => c.analysis && rejectedOutcomes.includes(c.analysis.outcome),
+  ).length;
+  const rejectedByDay = new Map<string, number>();
+  for (const call of callsInRange) {
+    if (!call.analysis || !rejectedOutcomes.includes(call.analysis.outcome))
+      continue;
+    const key = (call.startedAt ?? call.createdAt).slice(0, 10);
+    rejectedByDay.set(key, (rejectedByDay.get(key) ?? 0) + 1);
+  }
+  const rejSpark = sparkSlice.map((b) => rejectedByDay.get(b.date) ?? 0);
 
   const kpis: DashboardKpi[] = [
     {
-      label: "Calls",
+      label: "Total calls",
       value: dialed,
       delta: delta(dialed, prevDialed),
       spark: callsSpark,
-    },
-    {
-      label: "Connects",
-      value: connected,
-      delta: delta(connected, prevConnected),
-      spark: connSpark,
-    },
-    {
-      label: "Conversations",
-      value: conversations,
-      delta: delta(conversations, Math.round(prevConnected * 0.65)),
-      spark: connSpark.map((n) => Math.round(n * 0.65)),
     },
     {
       label: "Meetings booked",
@@ -539,17 +539,10 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
       spark: meetSpark,
     },
     {
-      label: "Show-up rate",
-      value: booked > 0 ? attended / booked : 0,
-      pct: true,
-      delta: 1.4,
-      spark: meetSpark.map((m) => (m > 0 ? 0.6 + Math.random() * 0.15 : 0.5)),
-    },
-    {
-      label: "Avg quality",
-      value: avgQuality,
-      delta: delta(avgQuality, 7.2),
-      spark: qualSpark,
+      label: "Call rejected",
+      value: rejected,
+      delta: delta(rejected, prevRejected),
+      spark: rejSpark,
     },
   ];
 
