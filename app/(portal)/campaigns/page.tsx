@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, SearchIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageHeader, EmptyState } from "@/components/patterns";
+import { EmptyState } from "@/components/patterns";
 import { CampaignCard } from "@/components/campaigns/CampaignCard";
 import { ErrorCard } from "@/components/ErrorCard";
 import { useAgents, useCampaigns, useUpdateCampaignStatus } from "@/hooks/queries";
@@ -22,6 +22,7 @@ const STATUS_TABS: Array<{ value: "all" | Campaign["status"]; label: string }> =
 
 export default function CampaignsPage() {
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]["value"]>("all");
+  const [query, setQuery] = useState("");
   const campaigns = useCampaigns();
   const agents = useAgents();
   const updateStatus = useUpdateCampaignStatus();
@@ -43,9 +44,13 @@ export default function CampaignsPage() {
 
   const filtered = useMemo(() => {
     const all = campaigns.data ?? [];
-    if (tab === "all") return all;
-    return all.filter((c) => c.status === tab);
-  }, [campaigns.data, tab]);
+    const q = query.trim().toLowerCase();
+    return all.filter((c) => {
+      if (tab !== "all" && c.status !== tab) return false;
+      if (!q) return true;
+      return c.name.toLowerCase().includes(q);
+    });
+  }, [campaigns.data, tab, query]);
 
   const onToggleStatus = async (id: string, next: Campaign["status"]) => {
     await updateStatus.mutateAsync({ id, status: next });
@@ -54,16 +59,31 @@ export default function CampaignsPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Pipeline"
-        title="Campaigns"
-        description="Outbound campaigns currently running across your AI SDR agents."
-        actions={
-          <Button render={<Link href="/campaigns/new" />}>
-            <PlusIcon className="size-4" /> New campaign
-          </Button>
-        }
-      />
+      <div className="flex items-center gap-2 px-4 lg:px-6">
+        <div className="relative flex-1">
+          <SearchIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search campaigns…"
+            className="h-9 w-full rounded-md border bg-card pl-9 pr-8 text-sm placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:outline-none"
+          />
+          {query ? (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 inline-flex size-5 -translate-y-1/2 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
+              aria-label="Clear search"
+            >
+              <XIcon className="size-3.5" />
+            </button>
+          ) : null}
+        </div>
+        <Button render={<Link href="/campaigns/new" />}>
+          <PlusIcon className="size-4" /> New campaign
+        </Button>
+      </div>
 
       <div className="flex flex-col gap-4 px-4 lg:px-6">
         <div className="flex flex-wrap gap-1.5">

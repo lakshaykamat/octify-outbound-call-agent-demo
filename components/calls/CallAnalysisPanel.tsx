@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { CheckCircle2Icon, AlertCircleIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import type { Analysis, XyloCall } from "@/lib/api/types";
+import type { Analysis, XyloCall } from "@/lib/mock";
 
 function TalkListenBar({ outcome }: { outcome: Analysis["outcome"] }) {
   // Booked calls: agent 45 / lead 55. Lost calls flip.

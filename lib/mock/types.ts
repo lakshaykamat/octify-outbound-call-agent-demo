@@ -1,7 +1,6 @@
-// Single source of truth for mock types. Phase-1 entities re-export the
-// existing api-gateway schemas so existing pages keep compiling.
-// Lead / Campaign / Agent are new fabric-only entities for later phases;
-// they're seeded now so the store has volume from day one.
+// Single source of truth for mock types. Shared Zod-derived shapes live in
+// ./schemas; this file adds the fabric-only entities (Lead, Campaign, Agent,
+// AgentScript, AgentVersion, etc.) on top.
 
 export type {
   Outcome, Sentiment, WritebackStatus, CallStatus,
@@ -12,7 +11,7 @@ export type {
   Organization, Member, MembersResponse,
   SessionUser, SessionResponse,
   ProductToggle,
-} from "@/lib/api/types";
+} from "./schemas";
 
 export type LeadStatus = "new" | "queued" | "calling" | "completed" | "dnc";
 export type LeadSource = "Website form" | "CSV import" | "HubSpot sync" | "Apollo" | "Manual";
@@ -127,7 +126,7 @@ export type TestCallEvent = {
 
 // Phase 4.3 — Workflows.
 
-type OutcomeRef = import("@/lib/api/types").Outcome;
+type OutcomeRef = import("@/lib/mock").Outcome;
 
 export type CrmMappingRule = {
   id: string;

@@ -6,10 +6,9 @@ import { CallsFilters, type OutcomeFilter } from "@/components/CallsFilters";
 import { CallsTable } from "@/components/CallsTable";
 import { CallDrawer } from "@/components/CallDrawer";
 import { ErrorCard } from "@/components/ErrorCard";
-import { PageHeader } from "@/components/patterns";
 import { useCalls } from "@/hooks/queries";
 import { useExportCalls } from "@/hooks/useExportCalls";
-import type { Outcome } from "@/lib/api/types";
+import type { Outcome } from "@/lib/mock";
 
 const PAGE_SIZE = 25;
 
@@ -72,11 +71,6 @@ export default function CallsPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Activity"
-        title="Calls"
-        description={`${total.toLocaleString()} calls placed across all campaigns.`}
-      />
       <div className="flex flex-col gap-4 px-4 lg:px-6">
         <CallsFilters
           outcome={outcome}

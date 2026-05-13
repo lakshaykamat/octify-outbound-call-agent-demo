@@ -12,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PageHeader } from "@/components/patterns";
 import { LeadsFilters, type LeadsFilterState } from "@/components/leads/LeadsFilters";
 import { LeadsTable } from "@/components/leads/LeadsTable";
 import { LeadDrawer } from "@/components/leads/LeadDrawer";
@@ -130,16 +129,14 @@ export default function LeadsPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Pipeline"
-        title="Leads"
-        description={`${total.toLocaleString()} leads in CRM.`}
-        actions={
-          <Button render={<Link href="/leads/import" />}>
-            <UploadIcon className="size-4" /> Import leads
-          </Button>
-        }
-      />
+      <div className="flex items-center justify-between gap-2 px-4 lg:px-6">
+        <span className="text-xs tabular-nums text-muted-foreground">
+          {total.toLocaleString()} leads in CRM
+        </span>
+        <Button render={<Link href="/leads/import" />}>
+          <UploadIcon className="size-4" /> Import leads
+        </Button>
+      </div>
 
       <div className="flex flex-col gap-4 px-4 lg:px-6">
         <LeadsFilters

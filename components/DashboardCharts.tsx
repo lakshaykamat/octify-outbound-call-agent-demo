@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/chart";
 import { ErrorCard } from "@/components/ErrorCard";
 import { useCalls } from "@/hooks/queries";
-import type { Outcome, XyloCall } from "@/lib/api/types";
+import type { Outcome, XyloCall } from "@/lib/mock";
 import { outcomeLabel } from "@/lib/outcomes";
 
 const TREND_DAYS = 30;

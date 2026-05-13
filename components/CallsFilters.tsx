@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { OUTCOME_OPTIONS } from "@/lib/outcomes";
-import type { Outcome } from "@/lib/api/types";
+import type { Outcome } from "@/lib/mock";
 
 export type OutcomeFilter = Outcome | "all";
 

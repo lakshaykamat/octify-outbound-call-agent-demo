@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { XyloCall } from "@/lib/api/types";
+import type { XyloCall } from "@/lib/mock";
 
 const STATUS_LABEL: Record<NonNullable<XyloCall["crmWritebackStatus"]>, string> = {
   pending: "Pending",

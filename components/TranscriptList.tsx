@@ -1,4 +1,4 @@
-import type { TranscriptLine } from "@/lib/api/types";
+import type { TranscriptLine } from "@/lib/mock";
 
 export function TranscriptList({ lines }: { lines: TranscriptLine[] }) {
   if (lines.length === 0) {

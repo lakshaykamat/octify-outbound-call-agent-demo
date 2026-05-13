@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PageHeader } from "@/components/patterns";
 import { ProfileSection } from "@/components/settings/ProfileSection";
 import { TeamSection } from "@/components/settings/TeamSection";
 import { BillingSection } from "@/components/settings/BillingSection";
@@ -23,13 +22,7 @@ export default function SettingsPage() {
   const [tab, setTab] = useState<string>("profile");
 
   return (
-    <>
-      <PageHeader
-        eyebrow="Workspace"
-        title="Settings"
-        description="Account, team, billing, and workspace preferences."
-      />
-      <div className="flex flex-col gap-4 px-4 lg:px-6">
+    <div className="flex flex-col gap-4 px-4 lg:px-6">
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="w-full justify-start overflow-x-auto">
             {TABS.map((t) => (
@@ -58,7 +51,6 @@ export default function SettingsPage() {
             <NotificationsSection />
           </TabsContent>
         </Tabs>
-      </div>
-    </>
+    </div>
   );
 }

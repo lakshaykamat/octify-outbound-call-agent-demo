@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Timeline, type TimelineItem } from "@/components/patterns";
 import { formatDuration } from "@/lib/format";
-import type { XyloCall } from "@/lib/api/types";
+import type { XyloCall } from "@/lib/mock";
 
 export function CallTimeline({ call }: { call: XyloCall }) {
   const items: TimelineItem[] = [];

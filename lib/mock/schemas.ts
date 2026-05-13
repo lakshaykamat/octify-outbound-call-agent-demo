@@ -215,6 +215,36 @@ export type BusinessHours = z.infer<typeof BusinessHoursSchema>;
 export const ProductToggleSchema = z.object({ enabled: z.boolean() });
 export type ProductToggle = z.infer<typeof ProductToggleSchema>;
 
+export const OrgContactSchema = z.object({
+  phone: z.string().optional().default(""),
+  email: z.string().optional().default(""),
+  bookingUrl: z.string().optional().default(""),
+  socialLinks: z.record(z.string(), z.string()).optional().default({}),
+});
+
+export const OrgBusinessHoursSchema = z.object({
+  timezone: z.string().optional().default("America/Los_Angeles"),
+  is24x7: z.boolean().optional().default(false),
+  schedule: z
+    .array(
+      z.object({
+        days: z.array(z.string()),
+        open: z.string(),
+        close: z.string(),
+      }),
+    )
+    .optional()
+    .default([]),
+});
+
+export const OrgLocationSchema = z.object({
+  address: z.string().optional().default(""),
+  city: z.string().optional().default(""),
+  country: z.string().optional().default(""),
+  mapsUrl: z.string().optional().default(""),
+  facilities: z.array(z.string()).optional().default([]),
+});
+
 export const OrganizationSchema = z
   .object({
     _id: z.string().optional(),
@@ -231,6 +261,9 @@ export const OrganizationSchema = z
     salesMotion: z.string().optional().default(""),
     salesChannel: z.string().optional().default(""),
     pricingNote: z.string().optional().default(""),
+    contactInfo: OrgContactSchema.optional(),
+    businessHours: OrgBusinessHoursSchema.optional(),
+    location: OrgLocationSchema.optional(),
     enabledProducts: z.record(z.string(), ProductToggleSchema).default({}),
   })
   .transform((o) => ({ ...o, id: (o.id ?? o._id) as string }));

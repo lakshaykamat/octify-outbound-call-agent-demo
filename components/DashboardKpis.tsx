@@ -8,7 +8,7 @@ import { StatTile } from "@/components/patterns";
 import { ErrorCard } from "@/components/ErrorCard";
 import { useAnalytics } from "@/hooks/queries";
 import { formatDuration } from "@/lib/format";
-import type { Analytics } from "@/lib/api/types";
+import type { Analytics } from "@/lib/mock";
 
 const numberFmt = new Intl.NumberFormat("en-US");
 const pctFmt = new Intl.NumberFormat("en-US", {

@@ -317,6 +317,50 @@ export async function listAgents() {
   return simulate(getStore().agents);
 }
 
+export type LiveSnapshot = {
+  callsToday: number;
+  meetingsToday: number;
+  callsInFlight: number;
+  avgDurationSec: number;
+};
+
+export async function getLiveSnapshot(): Promise<LiveSnapshot> {
+  const calls = getStore().calls;
+  const now = Date.now();
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+  const dayStart = startOfDay.getTime();
+
+  let callsToday = 0;
+  let meetingsToday = 0;
+  let durSum = 0;
+  let durN = 0;
+  let inFlight = 0;
+  for (const c of calls) {
+    const t = new Date(c.startedAt ?? c.createdAt).getTime();
+    if (t < dayStart) continue;
+    callsToday++;
+    if (c.analysis?.outcome === "meeting_booked") meetingsToday++;
+    // Last 20 calls of today drive avg duration.
+    if (durN < 20 && c.durationSec) {
+      durSum += c.durationSec;
+      durN++;
+    }
+    // "In flight" = started in the last 90s and not yet ended.
+    if (now - t < 90_000) inFlight++;
+  }
+
+  // Floor calls-in-flight to a small baseline so the live page never looks dead.
+  if (inFlight < 3) inFlight = 3 + Math.floor(Math.random() * 4);
+
+  return simulate({
+    callsToday,
+    meetingsToday,
+    callsInFlight: inFlight,
+    avgDurationSec: durN > 0 ? Math.round(durSum / durN) : 0,
+  });
+}
+
 export type RangeKey = "7d" | "30d" | "90d" | "qtd";
 
 export type DashboardKpi = {

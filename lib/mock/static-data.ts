@@ -5,15 +5,15 @@ import type { AgentConfig, AgentScript, AgentVersion, KnowledgeBase, VoiceOption
 export function staticAgentScript(): AgentScript {
   return {
     opening:
-      "Hey {{firstName}}, this is Xylo calling from Octify Technologies. Sorry to catch you out of the blue — do you have ninety seconds for me to share why I'm calling, and then you can tell me if it's worth a longer chat?",
+      "Hey {{firstName}}, this is Xylo calling from MotorNexo. Quick one — do you have ninety seconds for me to share why I'm calling, and then you can tell me if it's worth a longer chat?",
     qualification:
-      "Quick context — we work with revenue teams on outbound voice. Just to make sure I'm not wasting your time: are you the person who'd evaluate AI calling tools at {{company}}, or is that someone else on the team?",
+      "We work with dealerships, collision centers, and independent shops in {{region}}. Just so I'm not wasting your time — are you the person who looks after parts inventory or sourcing at {{company}}, or is that someone else on the team?",
     pitch:
-      "What teams like yours tell us is that the meaningful lift isn't dials per hour — it's how fast every conversation lands in HubSpot with the right next step queued up. That's what Xylo does. Most teams see a 25–35% lift on booked meetings inside six weeks.",
+      "Two things teams like yours tell us: aged parts sitting on the shelf are frozen capital, and hard-to-source SKUs hold bays hostage for days. MotorNexo turns the first into cash and shortens the second — it's a verified B2B marketplace across dealers, body shops, and service centers. It's free to use, and most members move their first aged-inventory dollars within two weeks.",
     objections:
-      "Totally fair. The fastest way to know if it's real is to hear thirty seconds of a live call and look at the CRM record it writes. Could I send a short recording and a sample writeback, and we can go from there?",
+      "Totally fair. The fastest way to know whether it fits is to see your aged-inventory snapshot in MotorNexo and run one live search against the network. Could I grab fifteen minutes with you to walk through it on your real SKUs?",
     close:
-      "Okay — what I'd love to do is grab twenty minutes on your calendar with one of our solution AEs to walk through your stack and show a live call. I have Thursday 10am or Friday 2pm Pacific — which works better?",
+      "Okay — I'd love to book a quick fifteen-to-twenty minute demo so we can pull your data in and show you the moves in real time. I have Thursday 10am or Friday 2pm Pacific — which works better?",
   };
 }
 
@@ -39,21 +39,21 @@ export function staticAgentVersions(): AgentVersion[] {
   const earlier = {
     ...script,
     pitch:
-      "We help revenue teams book more meetings with outbound AI calling. Most teams see a meaningful lift in the first month.",
+      "MotorNexo is a B2B parts marketplace — you can move aged inventory and source hard-to-find parts in one place. It's free to use.",
     close:
-      "Could I send some materials and circle back next week to find a time?",
+      "Could I send a one-pager and circle back next week to find a time?",
   };
   return [
     {
       id: "ver_04",
-      label: "v4 · Sharper pitch + softer close",
+      label: "v4 · Sharper aged-inventory pitch",
       createdAt: "2026-05-10T14:11:00.000Z",
       author: "noor@motornexo.com",
-      note: "Tightened the value prop, swapped close to a concrete two-slot ask.",
+      note: "Tightened the dual seller/buyer value prop, added two-slot close.",
       snapshot: {
-        name: "Xylo · Octify SDR",
+        name: "Xylo · MotorNexo SDR",
         objective:
-          "Qualify inbound leads, surface budget and timeline, and book a 20-min discovery call with an AE when the lead is decision-maker and budget is confirmed.",
+          "Qualify decision-makers at dealerships, body shops, and service centers, surface aged-inventory or sourcing pain, and book a 15–20 min product demo with a MotorNexo specialist.",
         voiceId: "11labs-clara",
         speed: 1.02,
         temperature: 0.4,
@@ -65,11 +65,10 @@ export function staticAgentVersions(): AgentVersion[] {
       label: "v3 · Pre-rewrite pitch",
       createdAt: "2026-05-04T09:24:00.000Z",
       author: "ravi@motornexo.com",
-      note: "Working draft before the pitch rewrite.",
+      note: "Working draft before the dual-angle rewrite.",
       snapshot: {
-        name: "Xylo · Octify SDR",
-        objective:
-          "Qualify inbound leads and offer a discovery call where it fits.",
+        name: "Xylo · MotorNexo SDR",
+        objective: "Qualify shops and dealers and offer a demo where it fits.",
         voiceId: "11labs-clara",
         speed: 1.00,
         temperature: 0.4,
@@ -83,9 +82,8 @@ export function staticAgentVersions(): AgentVersion[] {
       author: "owner@motornexo.com",
       note: "Promoted from staging.",
       snapshot: {
-        name: "Xylo · Octify SDR",
-        objective:
-          "Qualify inbound leads and offer a discovery call where it fits.",
+        name: "Xylo · MotorNexo SDR",
+        objective: "Qualify shops and dealers and offer a demo where it fits.",
         voiceId: "11labs-clara",
         speed: 1.00,
         temperature: 0.5,
@@ -99,18 +97,20 @@ export function staticAgentConfig(orgId: string): AgentConfig {
   return {
     orgId,
     enabled: true,
-    objective: "Qualify inbound leads, surface budget and timeline, and book a 20-min discovery call with an AE when the lead is decision-maker and budget is confirmed.",
+    objective:
+      "Qualify decision-makers at dealerships, body shops, and service centers in California, surface aged-inventory or hard-to-source pain, and book a 15–20 min product demo with a MotorNexo specialist when interest is real.",
     crmProvider: "hubspot",
     agent: {
       retellAgentId: "agent_01HXC7M3PQR8V2N4",
       retellLlmId: "llm_01HXC7M5T9K2B6X8",
       retellKnowledgeBaseId: "kb_01HXC8N2P6T4M7W9",
-      name: "Xylo · Octify SDR",
-      fromNumber: "+14155551217",
+      name: "Xylo · MotorNexo SDR",
+      fromNumber: "+16193042264",
       voice: { voiceId: "11labs-clara", language: "en-US", speed: 1.02 },
       llm: {
         model: "claude-sonnet-4-6",
-        systemPrompt: "You are Xylo, an outbound SDR for Octify Technologies. Be warm, brief, and specific. Ask one question at a time. If the contact is a decision-maker and confirms budget, offer the calendar and book the meeting. If they object, surface one rebuttal from the KB, then accept the answer. Never promise pricing not present in the KB.",
+        systemPrompt:
+          "You are Xylo, an outbound SDR for MotorNexo — a verified B2B auto parts marketplace. Be warm, brief, and specific. Ask one question at a time. Tailor the angle to the listener: dealerships and dealer groups care about moving aged or excess parts; body shops and service centers care about sourcing scarce OEM parts fast. If the contact is a decision-maker (parts manager, fixed ops director, GM, dealer principal, service manager, shop owner), surface one pain point and offer the calendar to book a 15–20 min demo. Never quote commissions, transaction economics, or internal pricing — defer to the demo. Never name specific competitors unless the prospect names them first.",
         temperature: 0.4,
         maxTokens: 800,
       },
@@ -119,8 +119,8 @@ export function staticAgentConfig(orgId: string): AgentConfig {
       timezone: "America/Los_Angeles",
       is24x7: false,
       schedule: [
-        { days: ["mon", "tue", "wed", "thu", "fri"], open: "09:00", close: "18:00" },
-        { days: ["sat"], open: "10:00", close: "14:00" },
+        { days: ["mon", "tue", "wed", "thu", "fri"], open: "10:00", close: "12:00" },
+        { days: ["mon", "tue", "wed", "thu", "fri"], open: "14:00", close: "17:00" },
       ],
     },
     callRules: {
@@ -130,9 +130,9 @@ export function staticAgentConfig(orgId: string): AgentConfig {
       crmWritebackMaxAttempts: 3,
     },
     stageMapping: {
-      pipelineId: "pipeline_inbound_2026",
+      pipelineId: "pipeline_motornexo_outbound_2026",
       newStageId: "stage_new",
-      onAppointmentScheduledStageId: "stage_meeting_booked",
+      onAppointmentScheduledStageId: "stage_demo_booked",
       onFollowUpStageId: "stage_follow_up",
       onNoAnswerStageId: "stage_no_answer",
       onClosedLostStageId: "stage_closed_lost",
@@ -149,42 +149,143 @@ export function staticKnowledgeBase(orgId: string): KnowledgeBase {
     orgId,
     updatedAt: "2026-05-09T17:22:00.000Z",
     products: [
-      { name: "Groovo Suite", description: "Voice + chat + CRM-writeback for revenue teams. Connects to HubSpot, Salesforce, and Pipedrive.", price: "$1,200 / month", pitch: "Cut inbound response time from hours to under sixty seconds, with every call summarised in your CRM before the rep opens the lead." },
-      { name: "Xylo Voice",   description: "Outbound SDR voice agent with calendar + CRM writeback. Built on Retell + Claude.",               price: "$600 / month per seat", pitch: "An SDR that never sleeps, never forgets the talk track, and books meetings while your reps are heads-down." },
-      { name: "RevPilot",     description: "Pipeline scoring + deal coaching for AEs. Surfaces stalled deals, predicts close dates.",         price: "$280 / month per AE",   pitch: "Stop guessing which deals are real. RevPilot reads every email and call so you can forecast in minutes, not days." },
+      {
+        name: "Inventory",
+        description:
+          "Upload, manage, and monitor aged or obsolete parts. Velocity and risk scoring surface the SKUs costing you carrying cost every day they sit on the shelf.",
+        price: "Free to use",
+        pitch:
+          "Turn frozen capital into cash. Most sellers move their first aged-inventory dollars within two weeks of listing.",
+      },
+      {
+        name: "Marketplace",
+        description:
+          "Search supplier inventory across the verified MotorNexo network, compare availability and condition, and purchase directly from other members.",
+        price: "Free to use",
+        pitch:
+          "Fewer bays go cold. Buyers find hard-to-source OEM parts in minutes instead of chasing four dealers by phone.",
+      },
+      {
+        name: "Orders",
+        description:
+          "Track every purchase and sale with full transaction history, status, and writeback to your DMS or shop management system.",
+        price: "Free to use",
+        pitch:
+          "One place for every MotorNexo transaction — your fixed ops director sees the trail without chasing emails.",
+      },
+      {
+        name: "Backorders",
+        description:
+          "Create and monitor demand for unavailable SKUs. We watch the network and notify you the moment a verified seller lists it.",
+        price: "Free to use",
+        pitch:
+          "Stop calling around for that one part. Post the backorder and let the network find you the moment supply shows up.",
+      },
     ],
     objections: [
-      { objection: "We already use a competing tool.", response: "Totally fair. Most teams who switch tell us Xylo writes back into CRM in ninety seconds rather than the next morning — would a fifteen-minute side-by-side help you see the difference?" },
-      { objection: "We don't have budget right now.",  response: "Understood. Could I send a one-pager and circle back at the start of next quarter when budgets reset?" },
-      { objection: "I'm not the right person.",         response: "No problem — who on your team owns inbound SDR tooling? I'd love to send them a short note with your context." },
-      { objection: "It sounds robotic.",                response: "I hear that a lot. Reps tell us prospects can't tell within the first thirty seconds — would you mind if I sent a thirty-second recording so you can hear for yourself?" },
-      { objection: "Security / compliance is a blocker.", response: "We're SOC 2 Type II, HIPAA-eligible, and your data never leaves your region. Happy to send the trust packet." },
+      {
+        objection: "We already have suppliers we're happy with.",
+        response:
+          "Totally fair — MotorNexo isn't a replacement, it's a second tap. Use your primary suppliers as usual; we step in when something's backordered or you have excess to move. Would you be open to a fifteen-minute walkthrough on your real SKUs?",
+      },
+      {
+        objection: "We don't have aged inventory to sell.",
+        response:
+          "Most shops we talk to discover 8–12% of their parts haven't moved in 180 days once we run the report. Could I pull a free aged-inventory snapshot for you so you can see for yourself?",
+      },
+      {
+        objection: "We can't trust an unknown supplier on parts.",
+        response:
+          "Every seller is dealership- or shop-verified before they list, with location, license, and rating visible on every SKU. Happy to walk through our verification process on a quick call.",
+      },
+      {
+        objection: "I don't have time to learn a new tool.",
+        response:
+          "Most parts managers are up and running in twenty minutes — upload a CSV from your DMS and the system handles the rest. No replatforming required.",
+      },
+      {
+        objection: "Sounds expensive.",
+        response:
+          "Actually MotorNexo is free for buyers and sellers — no subscription, no listing fees. Worth fifteen minutes to see what's possible at zero cost?",
+      },
+      {
+        objection: "I'm not the right person.",
+        response:
+          "No problem — who on your team owns parts inventory or sourcing? I'd love to send them a short note with your context.",
+      },
+      {
+        objection: "Send me an email.",
+        response:
+          "Happy to. To make it useful, do you lean more toward selling aged stock or sourcing hard-to-find parts? I'll tailor what I send.",
+      },
     ],
     caseStudies: [
-      { customer: "Ferris Wheel Fintech", outcome: "Booked 31% more discovery calls in the first 6 weeks", metric: "+31% discovery calls, ROI in 9 weeks" },
-      { customer: "Northwind Logistics",  outcome: "Replaced two contracted SDRs and saved $186k / year",   metric: "$186k saved · 4.1× meetings per dollar" },
-      { customer: "Atlas Health",         outcome: "Cut inbound first-touch from 4h to 38s while staying HIPAA-eligible", metric: "38-second first touch, 0 compliance incidents" },
+      {
+        customer: "Valley Ford Group (4 rooftops)",
+        outcome: "Moved $182k of aged parts inventory in the first 90 days",
+        metric: "$182k recovered · 23% aged-stock reduction in Q1",
+      },
+      {
+        customer: "Coastline Collision Centers (7 locations)",
+        outcome: "Cut hard-to-source OEM part wait time from 4.2 days to 14 hours",
+        metric: "14-hour average sourcing time · 91% bay availability",
+      },
+      {
+        customer: "Sunset Auto Service (6 bays, 3 locations)",
+        outcome: "Found a discontinued ECU through the network in 38 minutes",
+        metric: "Zero rental car days on that job — saved $640 in customer credit",
+      },
     ],
     faqs: [
-      { question: "Which CRMs do you support?",      answer: "HubSpot, Salesforce, Pipedrive, and Close are supported today. Custom connectors are available on the Scale plan." },
-      { question: "Can the agent call internationally?", answer: "Yes — Xylo supports outbound calls to 48 countries. Per-minute rates vary by destination." },
-      { question: "How long does setup take?",        answer: "Most teams are live within two business days. Onboarding includes a guided KB build and a calibration call." },
-      { question: "Is the conversation recorded?",    answer: "Calls are recorded only where local law permits, and we honour two-party consent automatically. Recordings live in your tenant for 30 days." },
+      {
+        question: "How is MotorNexo free to use?",
+        answer:
+          "Buyers and sellers don't pay subscriptions or listing fees. We're focused on growing the verified network first — defer commercial detail to a demo.",
+      },
+      {
+        question: "Who's allowed to buy and sell on MotorNexo?",
+        answer:
+          "Verified franchised dealerships, body shops, collision centers, and multi-location independent service centers. Every member is verified before they can list or purchase.",
+      },
+      {
+        question: "Do I need to replace my DMS or shop management system?",
+        answer:
+          "No. MotorNexo runs alongside your existing systems. You can upload aged-inventory CSVs from CDK, Reynolds, Tekion, Mitchell 1, and most major DMS exports.",
+      },
+      {
+        question: "What regions do you serve today?",
+        answer:
+          "California first — Los Angeles, San Diego, and the surrounding markets. We expand to a new region when seller density crosses a threshold.",
+      },
+      {
+        question: "What kinds of parts move on the marketplace?",
+        answer:
+          "OEM mechanical, collision and body panels, electrical and ECUs, and increasingly EV-specific parts. We're strongest on common North American and European brands.",
+      },
+      {
+        question: "How long does setup take?",
+        answer:
+          "Most accounts are live the same day. The verification check usually takes under an hour; uploading aged inventory is a single CSV step.",
+      },
     ],
-    competitorNotes: "Air.ai prioritises volume; we win on CRM-writeback quality and Claude-grade reasoning. Bland is cheaper per minute; we beat them on meeting-booked conversion and timezone safety. Salesloft Cadence has no voice; we complement, not replace.",
-    pricingNotes: "Quote list price. Discounting requires AE approval above 10%. Annual prepay unlocks 12% off. No discount on Trial. Never mention internal margin or unit cost.",
+    competitorNotes:
+      "Don't name specific competitors unless the prospect names them first. If they do: MotorNexo is verified-network-first (every seller is checked before listing) and dealer + shop + collision in one tap, versus dealer-only or shop-only point solutions. We're free; pure marketplaces that charge listing fees tend to under-serve aged inventory.",
+    pricingNotes:
+      "MotorNexo is free to use for buyers and sellers. Do NOT discuss commissions, transaction economics, internal pricing, or revenue model on the call — those questions belong in the demo. If pressed, say: \"We keep commercial detail for the demo, but the platform itself is free to use.\"",
     qualifyingQuestions: [
-      "Are you the person who owns inbound SDR tooling at your company?",
-      "Roughly how many inbound leads does your team handle per week?",
-      "What does your team use to follow up on inbound leads today?",
-      "What's the average response time on a new inbound lead right now?",
-      "If we could cut that response time to under a minute, would you want to see a live demo?",
+      "Are you the person who owns parts inventory or sourcing at your shop or dealership?",
+      "Roughly how much aged or excess inventory is sitting on the shelf today?",
+      "How often do you hit a part you can't source within 24 hours?",
+      "How are you handling aged stock or backorders today — phone calls, broker, or auctions?",
+      "If you could turn aged inventory into cash and shorten sourcing time in one place, would you want a 15-minute walkthrough?",
     ],
     doNotMention: [
-      "internal model names or providers",
-      "ongoing legal disputes",
+      "commissions, transaction economics, or revenue model",
+      "internal pricing details or supplier terms",
       "specific named competitors unless the prospect names them first",
-      "the names of other customers beyond the published case studies",
+      "names of customers beyond the published case studies",
+      "internal model names, providers, or infrastructure",
+      "ongoing legal or compliance matters",
     ],
   };
 }

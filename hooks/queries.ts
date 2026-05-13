@@ -6,7 +6,7 @@ import {
   listMembers, getOrganization, getRecordingUrl, getSession,
   listLeads, getLead, bulkUpdateLeads, deleteLeads, importLeads,
   listCampaigns, getCampaign, createCampaign, updateCampaignStatus,
-  previewAudience, listAgents, getCampaignStats, getDashboard,
+  previewAudience, listAgents, getCampaignStats, getDashboard, getLiveSnapshot,
   updateAgentConfig, updateAgentScript, aiRewriteSection, listVoiceOptions,
   listAgentVersions, saveAgentVersion, restoreAgentVersion, runTestCall,
   updateKnowledgeBase, aiSuggestObjections, aiSuggestFaqs, extractKbProductsFromFile,
@@ -107,6 +107,14 @@ export function useDashboard(range: RangeKey) {
     queryKey: ["xylo", "dashboard", range],
     queryFn: () => getDashboard(range),
     staleTime: 30_000,
+  });
+}
+
+export function useLiveSnapshot() {
+  return useQuery({
+    queryKey: ["xylo", "live-snapshot"],
+    queryFn: () => getLiveSnapshot(),
+    staleTime: 60_000,
   });
 }
 

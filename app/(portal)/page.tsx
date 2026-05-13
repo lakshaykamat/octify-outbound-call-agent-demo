@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { PageHeader } from "@/components/patterns";
 import { ErrorCard } from "@/components/ErrorCard";
 import { KpiGrid } from "@/components/dashboard/KpiGrid";
 import { PerformanceChart } from "@/components/dashboard/PerformanceChart";
@@ -38,12 +37,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Overview"
-        title="Dashboard"
-        description="Activity from your Xylo agents across every active campaign."
-      />
-
       <KpiGrid kpis={data?.kpis ?? []} loading={loading} />
 
       <div className="grid grid-cols-1 gap-4 px-4 lg:grid-cols-3 lg:px-6">

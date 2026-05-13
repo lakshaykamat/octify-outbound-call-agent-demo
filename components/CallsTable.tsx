@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/patterns";
 import { PhoneOffIcon } from "lucide-react";
-import type { XyloCall } from "@/lib/api/types";
+import type { XyloCall } from "@/lib/mock";
 import { formatDuration } from "@/lib/format";
 import {
   outcomeBadgeVariant,

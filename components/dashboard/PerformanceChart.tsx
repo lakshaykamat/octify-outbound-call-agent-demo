@@ -54,7 +54,7 @@ export function PerformanceChart({
   return (
     <SectionCard
       title="Performance"
-      description="Activity and conversion trend across the selected window."
+      description="Activity and conversion trend across the window."
       action={
         <div className="flex flex-wrap items-center gap-1.5">
           {(Object.keys(METRIC_LABEL) as Metric[]).map((m) => (
@@ -65,7 +65,7 @@ export function PerformanceChart({
                 "rounded-md border px-2 py-1 text-[11px] font-medium transition-colors",
                 metric === m
                   ? "border-foreground/30 bg-foreground/5 text-foreground"
-                  : "border-transparent text-muted-foreground hover:bg-muted",
+                  : "border-transparent text-muted-foreground hover:bg-muted"
               )}
             >
               {METRIC_LABEL[m]}
@@ -80,7 +80,7 @@ export function PerformanceChart({
                 "rounded-md border px-2 py-1 text-[11px] font-medium transition-colors",
                 range === r
                   ? "border-foreground/30 bg-foreground/5 text-foreground"
-                  : "border-transparent text-muted-foreground hover:bg-muted",
+                  : "border-transparent text-muted-foreground hover:bg-muted"
               )}
             >
               {RANGE_LABEL[r]}
@@ -93,11 +93,22 @@ export function PerformanceChart({
         <Skeleton className="h-64 w-full" />
       ) : (
         <ChartContainer config={config} className="h-64 w-full">
-          <AreaChart data={rows} margin={{ left: 4, right: 12, top: 8, bottom: 0 }}>
+          <AreaChart
+            data={rows}
+            margin={{ left: 4, right: 12, top: 8, bottom: 0 }}
+          >
             <defs>
               <linearGradient id="fillPerf" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--color-value)" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="var(--color-value)" stopOpacity={0} />
+                <stop
+                  offset="0%"
+                  stopColor="var(--color-value)"
+                  stopOpacity={0.35}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="var(--color-value)"
+                  stopOpacity={0}
+                />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
@@ -114,7 +125,9 @@ export function PerformanceChart({
               axisLine={false}
               width={32}
               allowDecimals={metric === "bookRate"}
-              tickFormatter={(v) => (metric === "bookRate" ? `${v.toFixed(1)}%` : String(v))}
+              tickFormatter={(v) =>
+                metric === "bookRate" ? `${v.toFixed(1)}%` : String(v)
+              }
               fontSize={11}
             />
             <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />

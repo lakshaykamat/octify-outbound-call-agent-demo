@@ -38,13 +38,14 @@ export type SeededStore = {
 
 const ORG_ID = "org_xylo_demo_001";
 
-// Per-scenario volume targets. Phase 1 only uses "happy-path"; others stubbed
-// for later phases to swap in. Tuned to match PLAN.md baselines.
+// Per-scenario volume targets. happy-path lands the prominent 30-day Calls
+// KPI at ~500 dials — realistic pilot-deployment volume for a single AI SDR
+// running ~23 dials/weekday into a curated B2B list.
 const SCENARIO_VOLUME: Record<Scenario, { leads: number; days: number; callsPerWeekday: number }> = {
-  "happy-path":     { leads: 4000, days: 90, callsPerWeekday: 95 },
-  "first-day":      { leads: 60,   days: 7,  callsPerWeekday: 12 },
-  "power-user":     { leads: 8200, days: 90, callsPerWeekday: 180 },
-  "investor-pitch": { leads: 5400, days: 90, callsPerWeekday: 130 },
+  "happy-path":     { leads: 900,  days: 90, callsPerWeekday: 23 },
+  "first-day":      { leads: 30,   days: 7,  callsPerWeekday: 4 },
+  "power-user":     { leads: 1800, days: 90, callsPerWeekday: 50 },
+  "investor-pitch": { leads: 1300, days: 90, callsPerWeekday: 35 },
 };
 
 function makeOrg(): Organization {
@@ -54,18 +55,45 @@ function makeOrg(): Organization {
     name: "MotorNexo",
     website: "https://motornexo.com",
     industry: "Automotive — B2B Auto Parts Marketplace",
-    description: "MotorNexo is a verified B2B auto parts marketplace built for the automotive repair ecosystem.",
-    ownerRole: "Dealer Principal / GM / Owner / Fixed Ops Director / Controller",
+    description:
+      "MotorNexo is a verified B2B auto parts marketplace built for the automotive repair ecosystem. It helps franchised dealerships, collision centers, and independent repair shops do two things at once: move aged or excess parts inventory (turning frozen capital into cash) and find hard-to-source parts faster across a broader verified network — so fewer bays go cold waiting on a part.",
     customerSegment: "b2b",
     icps: [
-      "SELLER — Franchised dealerships with aged/excess parts inventory to monetize",
-      "BUYER — Body shops and collision centers needing fast OEM parts sourcing",
+      "SELLER — Franchised dealerships (1–15 rooftops) with aged/excess parts inventory to monetize",
+      "BUYER — Body shops and collision centers (1–20 locations) needing fast OEM parts sourcing",
+      "BUYER — Independent service centers (3–25 bays, 2+ locations) chasing hard-to-find parts",
+      "SELLER + BUYER — Multi-rooftop dealer groups who both offload excess stock and source scarce parts",
     ],
     icpLocations: ["Los Angeles, California", "San Diego, California"],
-    productOrServiceSummary: "A verified B2B auto parts marketplace for inventory, sourcing, orders, and backorders.",
-    salesMotion: "Outbound demo-booking via AI voice.",
+    ownerRole: "Dealer Principal / GM / Owner / Fixed Ops Director / Controller",
+    productOrServiceSummary:
+      "A verified B2B auto parts marketplace with four core workflows: (1) Inventory — upload, manage, and monitor aged/obsolete parts with velocity and risk scoring; (2) Marketplace — search supplier inventory, compare availability, and purchase directly from verified network members; (3) Orders — track purchases and sales with full transaction history; (4) Backorders — create and monitor demand for unavailable SKUs until fulfilled. Free to use for buyers and sellers.",
+    salesMotion:
+      "Outbound demo-booking via AI voice. Seller pitch to parts managers and fixed ops directors (move aged inventory into cash). Buyer pitch to service managers, shop owners, and production managers (find hard-to-source parts faster). Dealer groups get both angles. Goal every call: book a 15–20 min demo.",
     salesChannel: "Outbound AI voice calling (direct sales)",
-    pricingNote: "Free to use. Defer pricing detail to the demo.",
+    pricingNote:
+      "Free to use. Do not discuss commissions, transaction economics, or internal pricing details on calls — defer to the demo.",
+    contactInfo: {
+      phone: "+16193042264",
+      email: "info@motornexo.com",
+      bookingUrl: "",
+      socialLinks: {},
+    },
+    businessHours: {
+      timezone: "America/Los_Angeles",
+      is24x7: false,
+      schedule: [
+        { days: ["Mon", "Tue", "Wed", "Thu", "Fri"], open: "10:00", close: "12:00" },
+        { days: ["Mon", "Tue", "Wed", "Thu", "Fri"], open: "14:00", close: "17:00" },
+      ],
+    },
+    location: {
+      address: "",
+      city: "",
+      country: "Mexico",
+      mapsUrl: "",
+      facilities: [],
+    },
     enabledProducts: { revpilot: { enabled: true }, xylo: { enabled: true } },
   };
 }

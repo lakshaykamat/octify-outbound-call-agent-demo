@@ -12,18 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorCard } from "@/components/ErrorCard";
 import { useOrganization } from "@/hooks/queries";
-import type { Organization } from "@/lib/api/types";
-import { PageHeader } from "@/components/patterns";
-
-function OrgHeader() {
-  return (
-    <PageHeader
-      eyebrow="Profile"
-      title="Organisation"
-      description="Identity and positioning the agent uses on every call."
-    />
-  );
-}
+import type { Organization } from "@/lib/mock";
 
 function Field({
   label,
@@ -164,35 +153,27 @@ export default function OrganizationPage() {
   const org = useOrganization();
   if (org.isError)
     return (
-      <>
-        <OrgHeader />
-        <div className="px-4 lg:px-6">
-          <ErrorCard
-            message="Couldn't load organisation."
-            detail={org.error instanceof Error ? org.error.message : undefined}
-          />
-        </div>
-      </>
+      <div className="px-4 lg:px-6">
+        <ErrorCard
+          message="Couldn't load organisation."
+          detail={org.error instanceof Error ? org.error.message : undefined}
+        />
+      </div>
     );
   if (org.isLoading || !org.data) {
     return (
-      <>
-        <OrgHeader />
-        <div className="flex flex-col gap-4 px-4 lg:px-6">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <Skeleton className="h-48" />
-            <Skeleton className="h-48" />
-          </div>
-          <Skeleton className="h-24" />
+      <div className="flex flex-col gap-4 px-4 lg:px-6">
+        <div className="grid gap-4 lg:grid-cols-2">
+          <Skeleton className="h-48" />
           <Skeleton className="h-48" />
         </div>
-      </>
+        <Skeleton className="h-24" />
+        <Skeleton className="h-48" />
+      </div>
     );
   }
   const o = org.data;
   return (
-    <>
-    <OrgHeader />
     <div className="flex flex-col gap-4 px-4 lg:px-6">
       <div className="grid gap-4 lg:grid-cols-2">
         <OrgHeroCard o={o} />
@@ -203,6 +184,5 @@ export default function OrganizationPage() {
       </div>
       <IcpCard o={o} />
     </div>
-    </>
   );
 }

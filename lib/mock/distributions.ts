@@ -5,21 +5,24 @@
 import type { Outcome, Sentiment } from "./types";
 import type { Rng } from "./rng";
 
-// Outcome mix across all dials (PLAN.md).
+// Outcome mix on dials that get past the no-answer roll. Calibrated to
+// real-world B2B cold-outbound benchmarks: ~35% live human pickups, ~30%
+// voicemail, 3-5% meeting-booked, 6-8% callback. See dashboard funnel.
 const OUTCOME_WEIGHTS: [Outcome, number][] = [
-  ["voicemail", 38],
+  ["voicemail", 30],
   ["not_interested", 18],
-  ["callback_requested", 8],
-  ["meeting_booked", 6],
-  ["wrong_number", 4],
+  ["callback_requested", 6],
+  ["meeting_booked", 4],
+  ["wrong_number", 3],
   ["opted_out", 2],
   ["other", 2],
 ];
 
 // "no-answer" is a CallStatus, not an Outcome — when an outcome doesn't apply
 // we leave analysis null and durationSec ~0. We model that as a separate roll
-// happening before outcome assignment.
-const NO_ANSWER_RATE = 0.22;
+// happening before outcome assignment. 35% matches typical ring-out rates on
+// unscrubbed cold lists.
+const NO_ANSWER_RATE = 0.35;
 
 export function rollDialResult(rng: Rng): { connected: boolean; outcome: Outcome | null } {
   if (rng.bool(NO_ANSWER_RATE)) return { connected: false, outcome: null };

@@ -1,4 +1,4 @@
-import type { Outcome, Sentiment } from "@/lib/api/types";
+import type { Outcome, Sentiment } from "@/lib/mock";
 
 type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
 

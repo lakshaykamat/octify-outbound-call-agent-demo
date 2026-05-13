@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { Sentiment, TranscriptLine } from "@/lib/api/types";
+import type { Sentiment, TranscriptLine } from "@/lib/mock";
 
 function seededHash(s: string): number {
   let h = 0;

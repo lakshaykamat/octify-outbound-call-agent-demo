@@ -23,7 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { ErrorCard } from "@/components/ErrorCard";
 import { useCall } from "@/hooks/queries";
-import type { XyloCall } from "@/lib/api/types";
+import type { XyloCall } from "@/lib/mock";
 import { formatDuration } from "@/lib/format";
 import { outcomeLabel, sentimentLabel } from "@/lib/outcomes";
 import { Waveform } from "@/components/calls/Waveform";

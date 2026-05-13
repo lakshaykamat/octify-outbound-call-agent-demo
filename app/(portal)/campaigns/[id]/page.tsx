@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PageHeader, StatTile, SectionCard } from "@/components/patterns";
+import { StatTile, SectionCard } from "@/components/patterns";
 import { ErrorCard } from "@/components/ErrorCard";
 import { CampaignFunnel } from "@/components/campaigns/CampaignFunnel";
 import {
@@ -92,50 +92,45 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
 
   return (
     <>
-      <PageHeader
-        eyebrow="Campaign"
-        title={c.name}
-        description={
-          <span className="inline-flex items-center gap-2">
-            <Badge variant="outline" className={cn(STATUS_TONE[c.status])}>
-              {c.status}
-            </Badge>
-            <span>·</span>
-            <span>{agentName}</span>
-            <span>·</span>
-            <span>{c.scheduleSummary}</span>
-            <span>·</span>
-            <span className="tabular-nums">
-              {c.startedAt ? `Started ${format(new Date(c.startedAt), "MMM d, yyyy")}` : "Not started"}
-            </span>
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 lg:px-6">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <h2 className="text-lg font-semibold tracking-tight">{c.name}</h2>
+          <Badge variant="outline" className={cn(STATUS_TONE[c.status])}>
+            {c.status}
+          </Badge>
+          <span className="text-muted-foreground">·</span>
+          <span className="text-muted-foreground">{agentName}</span>
+          <span className="text-muted-foreground">·</span>
+          <span className="text-muted-foreground">{c.scheduleSummary}</span>
+          <span className="text-muted-foreground">·</span>
+          <span className="tabular-nums text-muted-foreground">
+            {c.startedAt ? `Started ${format(new Date(c.startedAt), "MMM d, yyyy")}` : "Not started"}
           </span>
-        }
-        actions={
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" render={<Link href="/campaigns" />}>
-              <ArrowLeftIcon className="size-3.5" /> All campaigns
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" render={<Link href="/campaigns" />}>
+            <ArrowLeftIcon className="size-3.5" /> All campaigns
+          </Button>
+          {c.status === "active" && (
+            <Button variant="outline" size="sm" onClick={() => toggle("paused")}>
+              <PauseIcon className="size-3.5" /> Pause
             </Button>
-            {c.status === "active" && (
-              <Button variant="outline" size="sm" onClick={() => toggle("paused")}>
-                <PauseIcon className="size-3.5" /> Pause
-              </Button>
-            )}
-            {c.status === "paused" && (
-              <Button variant="outline" size="sm" onClick={() => toggle("active")}>
-                <PlayIcon className="size-3.5" /> Resume
-              </Button>
-            )}
-            <Button variant="outline" size="sm" disabled>
-              <CopyIcon className="size-3.5" /> Duplicate
+          )}
+          {c.status === "paused" && (
+            <Button variant="outline" size="sm" onClick={() => toggle("active")}>
+              <PlayIcon className="size-3.5" /> Resume
             </Button>
-            {c.status !== "completed" && (
-              <Button variant="outline" size="sm" onClick={() => toggle("completed")}>
-                <XCircleIcon className="size-3.5" /> End
-              </Button>
-            )}
-          </div>
-        }
-      />
+          )}
+          <Button variant="outline" size="sm" disabled>
+            <CopyIcon className="size-3.5" /> Duplicate
+          </Button>
+          {c.status !== "completed" && (
+            <Button variant="outline" size="sm" onClick={() => toggle("completed")}>
+              <XCircleIcon className="size-3.5" /> End
+            </Button>
+          )}
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-3 px-4 lg:grid-cols-4 lg:px-6">
         <StatTile
