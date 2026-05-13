@@ -1,0 +1,27 @@
+import type { CallsQuery, InboxQuery, LeadsQuery } from "@/lib/mock";
+
+export const queryKeys = {
+  session: () => ["auth", "session"] as const,
+  organization: (orgId: string) => ["org", orgId] as const,
+  members: () => ["org", "members"] as const,
+  analytics: () => ["xylo", "analytics"] as const,
+  calls: (query: CallsQuery) => ["xylo", "calls", query] as const,
+  call: (id: string) => ["xylo", "call", id] as const,
+  recording: (id: string) => ["xylo", "recording", id] as const,
+  agent: () => ["xylo", "agent"] as const,
+  agentScript: () => ["xylo", "agent", "script"] as const,
+  agentVersions: () => ["xylo", "agent", "versions"] as const,
+  voiceOptions: () => ["xylo", "voice-options"] as const,
+  agents: () => ["xylo", "agents"] as const,
+  knowledgeBase: () => ["xylo", "knowledge-base"] as const,
+  leads: (query: LeadsQuery) => ["xylo", "leads", query] as const,
+  lead: (id: string) => ["xylo", "lead", id] as const,
+  campaigns: () => ["xylo", "campaigns"] as const,
+  campaign: (id: string) => ["xylo", "campaign", id] as const,
+  campaignStats: (id: string) => ["xylo", "campaign", id, "stats"] as const,
+  crmRules: () => ["xylo", "workflows", "crm-rules"] as const,
+  segmentSchedules: () => ["xylo", "workflows", "segment-schedules"] as const,
+  retryPolicies: () => ["xylo", "workflows", "retry-policies"] as const,
+  inbox: (query: InboxQuery) => ["xylo", "inbox", query] as const,
+  inboxCounts: () => ["xylo", "inbox", "counts"] as const,
+} as const;
