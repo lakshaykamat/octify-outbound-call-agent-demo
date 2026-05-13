@@ -11,6 +11,9 @@ import { EmptyState } from "@/components/patterns";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle,
+} from "@/components/ui/sheet";
+import {
   useBulkUpdateInbox, useInbox, useMembers, useUpdateInboxItem,
 } from "@/hooks/queries";
 import type { InboxItem, InboxItemKind, InboxItemStatus } from "@/lib/mock";
@@ -152,6 +155,7 @@ export function InboxList() {
   const [status, setStatus] = useState<InboxItemStatus | "all">("unread");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [openItemState, setOpenItemState] = useState<InboxItem | null>(null);
 
   const items = useInbox({ kind, status });
   const members = useMembers();
@@ -162,22 +166,28 @@ export function InboxList() {
   const list = useMemo(() => {
     const raw = items.data ?? [];
     const q = query.trim().toLowerCase();
-    if (!q) return raw;
-    return raw.filter((it) => {
-      const hay = [
-        it.title,
-        it.summary,
-        it.meta.leadName,
-        it.meta.company,
-        it.meta.callId,
-        it.meta.error,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      return hay.includes(q);
-    });
-  }, [items.data, query]);
+    const base = !q
+      ? raw
+      : raw.filter((it) => {
+          const hay = [
+            it.title,
+            it.summary,
+            it.meta.leadName,
+            it.meta.company,
+            it.meta.callId,
+            it.meta.error,
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+          return hay.includes(q);
+        });
+    if (openItemState && !base.some((i) => i.id === openItemState.id)) {
+      const stillExists = raw.find((i) => i.id === openItemState.id) ?? openItemState;
+      return [stillExists, ...base];
+    }
+    return base;
+  }, [items.data, query, openItemState]);
 
   function toggle(id: string) {
     setSelected((s) => {
@@ -217,6 +227,16 @@ export function InboxList() {
   async function reopen(item: InboxItem) {
     await updateOne.mutateAsync({ id: item.id, patch: { status: "unread" } });
   }
+  function openItem(item: InboxItem) {
+    setOpenItemState(item);
+    if (item.status === "unread") {
+      updateOne.mutate({ id: item.id, patch: { status: "read" } });
+    }
+  }
+
+  const openItemData = openItemState
+    ? list.find((i) => i.id === openItemState.id) ?? openItemState
+    : null;
 
   const allSelected = list.length > 0 && selected.size === list.length;
   const someSelected = selected.size > 0 && !allSelected;
@@ -289,7 +309,7 @@ export function InboxList() {
         <CardContent className="p-0">
           {/* Select-all strip */}
         {list.length > 0 ? (
-          <div className="flex items-center gap-3 border-b bg-muted/20 px-4 py-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
+          <div className="flex items-center gap-3 border-b px-4 py-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
             <input
               type="checkbox"
               checked={allSelected}
@@ -300,9 +320,6 @@ export function InboxList() {
               className="size-3.5 rounded border-input"
               aria-label="Select all"
             />
-            <span className="font-mono">
-              {list.length} {list.length === 1 ? "item" : "items"}
-            </span>
           </div>
         ) : null}
 
@@ -333,9 +350,11 @@ export function InboxList() {
               return (
                 <li
                   key={item.id}
+                  onClick={() => openItem(item)}
                   className={cn(
-                    "group relative flex items-center gap-3 pl-4 pr-3 py-2.5 transition-colors",
+                    "group relative flex cursor-pointer items-center gap-3 pl-4 pr-3 py-2.5 transition-colors",
                     isSelected ? "bg-primary/[0.04]" : "hover:bg-muted/30",
+                    openItemState?.id === item.id && "bg-muted/50",
                     isResolved && "opacity-65",
                   )}
                 >
@@ -350,6 +369,7 @@ export function InboxList() {
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => toggle(item.id)}
+                    onClick={(e) => e.stopPropagation()}
                     className={cn(
                       "size-3.5 shrink-0 rounded border-input transition-opacity",
                       isSelected
@@ -406,7 +426,10 @@ export function InboxList() {
                   </div>
 
                   {/* Right cluster */}
-                  <div className="flex shrink-0 items-center gap-2">
+                  <div
+                    className="flex shrink-0 items-center gap-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {/* Hover actions */}
                     <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
                       {isResolved ? (
@@ -441,6 +464,122 @@ export function InboxList() {
         )}
         </CardContent>
       </Card>
+
+      <Sheet
+        open={openItemData !== null}
+        onOpenChange={(o) => { if (!o) setOpenItemState(null); }}
+      >
+        <SheetContent side="right" className="w-full sm:max-w-md">
+          {openItemData ? (
+            <InboxDetail
+              item={openItemData}
+              members={memberList}
+              onAssign={(email) => assignTo(openItemData, email)}
+              onResolve={() => resolve(openItemData)}
+              onReopen={() => reopen(openItemData)}
+              onClose={() => setOpenItemState(null)}
+            />
+          ) : null}
+        </SheetContent>
+      </Sheet>
     </div>
+  );
+}
+
+function InboxDetail({
+  item, members, onAssign, onResolve, onReopen, onClose,
+}: {
+  item: InboxItem;
+  members: { _id: string; email: string }[];
+  onAssign: (email: string | null) => void;
+  onResolve: () => Promise<void> | void;
+  onReopen: () => Promise<void> | void;
+  onClose: () => void;
+}) {
+  const meta = KIND_META[item.kind];
+  const KindIcon = meta.icon;
+  const isResolved = item.status === "resolved";
+  return (
+    <>
+      <SheetHeader>
+        <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+          <KindIcon className={cn("size-3.5", meta.iconTone)} />
+          <span>{meta.label}</span>
+          <span className="h-3 w-px bg-border" aria-hidden />
+          <span>{item.status}</span>
+        </div>
+        <SheetTitle className="text-base">{item.title}</SheetTitle>
+        <SheetDescription>{item.summary}</SheetDescription>
+      </SheetHeader>
+
+      <div className="flex flex-col gap-4 overflow-y-auto px-4 pb-4">
+        <dl className="grid grid-cols-3 gap-x-3 gap-y-2 text-xs">
+          {item.meta.leadName ? (
+            <>
+              <dt className="text-muted-foreground">Lead</dt>
+              <dd className="col-span-2 inline-flex items-center gap-1.5">
+                <User className="size-3 opacity-60" />
+                {item.meta.leadName}
+              </dd>
+            </>
+          ) : null}
+          {item.meta.company ? (
+            <>
+              <dt className="text-muted-foreground">Company</dt>
+              <dd className="col-span-2 inline-flex items-center gap-1.5">
+                <Building2 className="size-3 opacity-60" />
+                {item.meta.company}
+              </dd>
+            </>
+          ) : null}
+          {item.meta.callId ? (
+            <>
+              <dt className="text-muted-foreground">Call</dt>
+              <dd className="col-span-2 font-mono">{item.meta.callId}</dd>
+            </>
+          ) : null}
+          {item.meta.error ? (
+            <>
+              <dt className="text-muted-foreground">Error</dt>
+              <dd className="col-span-2 font-mono text-rose-400/90">{item.meta.error}</dd>
+            </>
+          ) : null}
+          <dt className="text-muted-foreground">Created</dt>
+          <dd className="col-span-2 font-mono">{new Date(item.createdAt).toLocaleString()}</dd>
+          <dt className="text-muted-foreground">Assignee</dt>
+          <dd className="col-span-2">
+            <select
+              value={item.assigneeEmail ?? ""}
+              onChange={(e) => onAssign(e.target.value || null)}
+              className="h-7 w-full rounded-md border bg-card px-2 text-xs"
+            >
+              <option value="">Unassigned</option>
+              {members.map((m) => (
+                <option key={m._id} value={m.email}>{m.email}</option>
+              ))}
+            </select>
+          </dd>
+        </dl>
+
+        <div className="rounded-md border bg-muted/20 p-3 text-sm leading-relaxed">
+          {item.summary}
+        </div>
+
+        <div className="flex items-center justify-end gap-2 pt-2">
+          <Button variant="ghost" size="sm" onClick={onClose}>Close</Button>
+          {isResolved ? (
+            <Button size="sm" onClick={() => onReopen()}>
+              <RefreshCw className="size-3" />
+              Reopen
+            </Button>
+          ) : (
+            <Button size="sm" onClick={() => onResolve()}>
+              <Check className="size-3" />
+              Resolve
+            </Button>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

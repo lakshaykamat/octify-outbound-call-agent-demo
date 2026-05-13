@@ -1,0 +1,300 @@
+{
+  "firstNames": [
+    "Jose", "Juan", "Luis", "Carlos", "Miguel", "Jorge", "Ricardo", "Roberto",
+    "Eduardo", "Fernando", "Javier", "Sergio", "Hector", "Manuel", "Oscar",
+    "Maria", "Guadalupe", "Carmen", "Rosa", "Patricia", "Sandra", "Veronica",
+    "Lupita", "Adriana", "Esperanza", "Marisol", "Yesenia", "Ana", "Diana",
+    "Michael", "David", "John", "Mark", "Steve", "Mike", "Brian", "Kevin",
+    "Tom", "Jim", "Bob", "Ron", "Chris", "Greg", "Scott", "Doug", "Rick",
+    "Bill", "Larry", "Gary", "Dan", "Joe", "Frank", "Tony",
+    "Jennifer", "Karen", "Susan", "Lisa", "Michelle", "Stephanie", "Amanda",
+    "Hyun", "Jinwoo", "Sung", "Min-ho", "Joon", "Daniel", "Kevin",
+    "Soo-jin", "Hae-won", "Eunji",
+    "Tuan", "Hung", "Khoa", "Long", "Thanh", "Quan", "Bao",
+    "Linh", "Mai", "Thuy", "Trang",
+    "Wei", "Hao", "Jian", "Ming", "Bo", "Chen",
+    "Mei", "Hui", "Ling",
+    "Reza", "Arman", "Bahram", "Kian", "Farhad", "Cyrus",
+    "Aram", "Vahan", "Sevag", "Ara", "Hovik",
+    "Maral", "Nairi", "Anahit",
+    "Marcus", "Andre", "Darnell", "Tyrone", "Jamal", "DeShawn",
+    "Aaliyah", "Latoya", "Tamika",
+    "Anthony", "Vincent", "Salvatore", "Dominic",
+    "Aleksandr", "Mikhail", "Pavel",
+    "Igor", "Boris"
+  ],
+  "lastNames": [
+    "Garcia", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez",
+    "Perez", "Sanchez", "Ramirez", "Torres", "Flores", "Rivera", "Gomez",
+    "Diaz", "Reyes", "Morales", "Cruz", "Ortiz", "Gutierrez", "Chavez",
+    "Mendoza", "Ruiz", "Alvarez", "Castillo", "Vasquez", "Romero", "Herrera",
+    "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis",
+    "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
+    "Lee", "Walker", "Hall", "Allen", "Young", "King", "Wright", "Scott",
+    "Green", "Adams", "Baker", "Nelson", "Carter", "Mitchell", "Roberts",
+    "Kim", "Park", "Lee", "Choi", "Jung", "Kang", "Cho", "Yoon", "Han",
+    "Nguyen", "Tran", "Le", "Pham", "Huynh", "Vu", "Vo", "Bui", "Dang", "Do",
+    "Wang", "Li", "Zhang", "Liu", "Chen", "Yang", "Huang", "Zhao", "Wu", "Lin",
+    "Tanaka", "Sato", "Yamamoto", "Nakamura",
+    "Hosseini", "Rahimi", "Karimi", "Ahmadi", "Mohammadi", "Sadeghi", "Bahrami",
+    "Sarkisian", "Hovhannisyan", "Avetisyan", "Khachaturyan", "Tatevosyan",
+    "Petrosyan", "Ghazaryan", "Manukyan",
+    "Washington", "Jefferson", "Jackson", "Williams", "Brooks",
+    "Russo", "Romano", "Marino", "Rizzo", "Greco",
+    "Petrov", "Volkov", "Sokolov", "Popov",
+    "O'Brien", "Murphy", "Sullivan", "Kelly"
+  ],
+  "familyNames": [
+    "Penske", "Galpin", "Rusnak", "Bunnin", "McKenna", "Hoehn", "Mossy",
+    "Keyes", "Drew", "Vista", "Power", "Reeves", "Cardinal", "Crown",
+    "Empire", "Diamond", "Royal", "Elite", "Premier", "Bayshore", "Coast",
+    "Sunshine", "Westshore", "Foothill", "Sierra", "Pacific", "Coastline",
+    "Harbor", "Sunset", "Valley", "Metro", "Citywide", "South Bay",
+    "Inland", "Crossroads", "Anchor", "Heritage", "Liberty", "Patriot",
+    "Freedom", "Star", "Five Star", "Allstar", "Tradition", "Legacy",
+    "Apex", "Summit", "Pinnacle"
+  ],
+  "autoBrands": [
+    "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Hyundai", "Kia",
+    "Mazda", "Subaru", "Jeep", "Ram", "GMC", "Buick", "Cadillac",
+    "Lexus", "BMW", "Mercedes-Benz", "Audi", "Acura", "Infiniti",
+    "Volkswagen", "Volvo", "MINI", "Lincoln", "Genesis", "Land Rover",
+    "Mitsubishi", "Dodge", "Chrysler"
+  ],
+  "dealerTemplates": [
+    "{family} {brand}",
+    "{family} {brand} of {city}",
+    "{brand} of {city}",
+    "{city} {brand}",
+    "{brand} {city}",
+    "{family} Auto Group",
+    "{family} {brand} Center",
+    "{first} {last} {brand}"
+  ],
+  "bodyShopTemplates": [
+    "{family} Collision Center",
+    "{family} Collision",
+    "{city} Auto Body",
+    "{family} Body & Paint",
+    "{family} Coachworks",
+    "{city} Collision Center",
+    "{family} Brothers Collision",
+    "{family} Auto Body",
+    "{last}'s Body Shop"
+  ],
+  "serviceShopTemplates": [
+    "{family} Tire & Auto",
+    "{family} Automotive",
+    "{family} Brothers Automotive",
+    "{city} Auto Service",
+    "{family} Auto Repair",
+    "Express {family} Auto",
+    "{last}'s Auto Service",
+    "{family} Performance & Service"
+  ],
+  "businessTypeWeights": [
+    ["dealer", 55],
+    ["body_shop", 28],
+    ["service", 17]
+  ],
+  "cities": [
+    { "name": "Long Beach",        "state": "CA", "lng": -118.19, "lat": 33.77, "areaCodes": ["562"] },
+    { "name": "Pasadena",          "state": "CA", "lng": -118.14, "lat": 34.16, "areaCodes": ["626"] },
+    { "name": "Torrance",          "state": "CA", "lng": -118.34, "lat": 33.84, "areaCodes": ["310", "424"] },
+    { "name": "Burbank",           "state": "CA", "lng": -118.31, "lat": 34.18, "areaCodes": ["818", "747"] },
+    { "name": "Glendale",          "state": "CA", "lng": -118.25, "lat": 34.14, "areaCodes": ["818", "747"] },
+    { "name": "Santa Monica",      "state": "CA", "lng": -118.49, "lat": 34.02, "areaCodes": ["310", "424"] },
+    { "name": "Inglewood",         "state": "CA", "lng": -118.35, "lat": 33.96, "areaCodes": ["310", "424"] },
+    { "name": "Downey",            "state": "CA", "lng": -118.13, "lat": 33.94, "areaCodes": ["562"] },
+    { "name": "Norwalk",           "state": "CA", "lng": -118.08, "lat": 33.90, "areaCodes": ["562"] },
+    { "name": "Lakewood",          "state": "CA", "lng": -118.13, "lat": 33.85, "areaCodes": ["562"] },
+    { "name": "Carson",            "state": "CA", "lng": -118.28, "lat": 33.83, "areaCodes": ["310", "424"] },
+    { "name": "Gardena",           "state": "CA", "lng": -118.30, "lat": 33.88, "areaCodes": ["310", "424"] },
+    { "name": "Hawthorne",         "state": "CA", "lng": -118.35, "lat": 33.92, "areaCodes": ["310", "424"] },
+    { "name": "El Segundo",        "state": "CA", "lng": -118.41, "lat": 33.91, "areaCodes": ["310"] },
+    { "name": "Van Nuys",          "state": "CA", "lng": -118.44, "lat": 34.18, "areaCodes": ["818"] },
+    { "name": "North Hollywood",   "state": "CA", "lng": -118.37, "lat": 34.17, "areaCodes": ["818", "747"] },
+    { "name": "Sherman Oaks",      "state": "CA", "lng": -118.44, "lat": 34.15, "areaCodes": ["818"] },
+    { "name": "Woodland Hills",    "state": "CA", "lng": -118.60, "lat": 34.16, "areaCodes": ["818"] },
+    { "name": "Northridge",        "state": "CA", "lng": -118.53, "lat": 34.22, "areaCodes": ["818", "747"] },
+    { "name": "Chatsworth",        "state": "CA", "lng": -118.60, "lat": 34.25, "areaCodes": ["818", "747"] },
+    { "name": "Whittier",          "state": "CA", "lng": -118.03, "lat": 33.97, "areaCodes": ["562", "626"] },
+    { "name": "West Covina",       "state": "CA", "lng": -117.93, "lat": 34.06, "areaCodes": ["626", "909"] },
+    { "name": "Pomona",            "state": "CA", "lng": -117.75, "lat": 34.05, "areaCodes": ["909"] },
+    { "name": "Compton",           "state": "CA", "lng": -118.22, "lat": 33.89, "areaCodes": ["310", "424"] },
+    { "name": "Montebello",        "state": "CA", "lng": -118.11, "lat": 34.01, "areaCodes": ["323"] },
+    { "name": "Huntington Park",   "state": "CA", "lng": -118.22, "lat": 33.98, "areaCodes": ["323"] },
+    { "name": "Los Angeles",       "state": "CA", "lng": -118.24, "lat": 34.05, "areaCodes": ["213", "323"] },
+    { "name": "San Diego",         "state": "CA", "lng": -117.16, "lat": 32.72, "areaCodes": ["619", "858"] },
+    { "name": "Chula Vista",       "state": "CA", "lng": -117.08, "lat": 32.64, "areaCodes": ["619"] },
+    { "name": "National City",     "state": "CA", "lng": -117.10, "lat": 32.68, "areaCodes": ["619"] },
+    { "name": "El Cajon",          "state": "CA", "lng": -116.96, "lat": 32.79, "areaCodes": ["619"] },
+    { "name": "La Mesa",           "state": "CA", "lng": -117.02, "lat": 32.77, "areaCodes": ["619"] },
+    { "name": "Santee",            "state": "CA", "lng": -116.98, "lat": 32.84, "areaCodes": ["619"] },
+    { "name": "Escondido",         "state": "CA", "lng": -117.09, "lat": 33.12, "areaCodes": ["760", "442"] },
+    { "name": "Oceanside",         "state": "CA", "lng": -117.38, "lat": 33.20, "areaCodes": ["760", "442"] },
+    { "name": "Vista",             "state": "CA", "lng": -117.24, "lat": 33.20, "areaCodes": ["760", "442"] },
+    { "name": "Carlsbad",          "state": "CA", "lng": -117.35, "lat": 33.16, "areaCodes": ["760", "442"] },
+    { "name": "San Marcos",        "state": "CA", "lng": -117.17, "lat": 33.14, "areaCodes": ["760", "442"] },
+    { "name": "Encinitas",         "state": "CA", "lng": -117.29, "lat": 33.04, "areaCodes": ["760", "442"] },
+    { "name": "Poway",             "state": "CA", "lng": -117.04, "lat": 32.96, "areaCodes": ["858"] }
+  ],
+  "titlesByType": {
+    "dealer": [
+      "Parts Manager", "Parts Director", "Fixed Operations Director",
+      "Fixed Ops Manager", "Service Director", "Service Manager",
+      "General Manager", "Dealer Principal", "Owner", "Used Car Manager",
+      "Wholesale Parts Manager", "Parts Counter Lead", "Inventory Manager",
+      "Controller", "GSM"
+    ],
+    "body_shop": [
+      "Owner", "Owner / Operator", "Shop Manager", "Production Manager",
+      "Estimator", "Lead Estimator", "Body Shop Manager", "Parts Coordinator",
+      "Front Office Manager"
+    ],
+    "service": [
+      "Owner", "Shop Foreman", "Service Manager", "Service Advisor",
+      "Lead Technician", "Parts Coordinator", "Operations Manager"
+    ]
+  },
+  "phoneFormatWeights": [
+    ["+1XXXXXXXXXX", 35],
+    ["(XXX) XXX-XXXX", 30],
+    ["XXX-XXX-XXXX", 20],
+    ["+1 (XXX) XXX-XXXX", 10],
+    ["XXXXXXXXXX", 5]
+  ],
+  "emailPatternWeights": [
+    ["first.last", 38],
+    ["flast", 18],
+    ["firstl", 8],
+    ["first", 10],
+    ["last", 4],
+    ["role:service", 4],
+    ["role:parts", 5],
+    ["role:info", 3],
+    ["role:bodyshop", 2],
+    ["empty", 3],
+    ["personal:gmail", 4],
+    ["personal:yahoo", 1]
+  ],
+  "objectionTags": [
+    "oem_only_policy",
+    "existing_supplier",
+    "not_decision_maker",
+    "moves_via_auction",
+    "no_aged_inventory",
+    "tried_locator_service",
+    "corporate_controls_parts",
+    "sounds_robotic",
+    "just_renewed_contract",
+    "needs_pm_approval",
+    "covid_overstock_already_cleared",
+    "captive_oem_distributor"
+  ],
+  "followUpActions": [
+    "Send platform walkthrough link",
+    "Loop in MotorNexo marketplace lead",
+    "Send aged-inventory monetization one-pager",
+    "Forward to parts manager",
+    "Schedule follow-up after inventory cycle close",
+    "Add to quarterly nudge sequence",
+    "Send OEM sourcing case study",
+    "Send buyer-network onboarding deck",
+    "Drop sample SKU velocity report"
+  ],
+  "transcriptOpeners": {
+    "seller": [
+      "Hi {first}, this is Xylo calling on behalf of MotorNexo — I have ninety seconds about your aged parts shelf, is now a good time?",
+      "Hey {first}, Xylo here from MotorNexo. Quick one about obsolete inventory at {company} — can I grab a minute?",
+      "{first}? This is Xylo with MotorNexo. We work with parts departments at groups like {company}. Got ninety seconds?",
+      "Hi, am I speaking with {first}? Calling from MotorNexo about something most parts managers are sitting on — got a minute?"
+    ],
+    "buyer": [
+      "Hi {first}, Xylo from MotorNexo. Quick question on how {company} is sourcing hard-to-find parts right now — ninety seconds?",
+      "Hey {first}, this is Xylo with MotorNexo. Shops your size are pulling OEM parts in under an hour through us — can I share how?",
+      "{first}? Xylo with MotorNexo. Got a minute? Wanted to ask about your backorder situation."
+    ]
+  },
+  "transcriptBookPitches": {
+    "seller": [
+      "We turn aged parts into cash by listing them across a verified buyer network — no commission, no listing fee. Three dealer groups your size moved over a hundred thousand in dead stock last quarter. Worth fifteen minutes Thursday?",
+      "Most parts managers we talk to have six figures sitting on the shelf past 180 days. We pull it through the buyer network and you get cash on the wire. Could I grab fifteen minutes to walk you through it?",
+      "Free to list, free to sell. Dealers in your zone are clearing six-month-plus inventory in roughly thirty days through us. Want to see the dashboard?"
+    ],
+    "buyer": [
+      "We help shops find OEM parts faster across a verified dealer network — usually under thirty minutes for what used to take days on backorder. Worth a fifteen-minute look?",
+      "Body shops in your area are pulling hard-to-source SKUs from us in under an hour instead of waiting on backorder. Want a quick walkthrough Thursday?",
+      "Free to use on the buyer side — you just search the network, see who has the part, and order. Could I show you the search side in fifteen?"
+    ]
+  },
+  "transcriptUserInterested": [
+    "Yeah, dead stock is a real problem. Send something over.",
+    "Free, really? What's the catch?",
+    "Thursday at two works. Send the invite to my email.",
+    "Send me the link, I'll loop in our parts manager.",
+    "Interesting. We tried something similar with Hollander, didn't stick. What's different?",
+    "Sure, what's the platform called again?",
+    "OK, send the deck. I'll review with the GM.",
+    "We've got about eighty grand sitting past nine months. Talk to me.",
+    "Yeah we use a locator service now but it's slow. Worth hearing.",
+    "Send the case study, I'll forward to the owner."
+  ],
+  "transcriptUserObjection": [
+    "We've got a guy we always go to. Not looking right now.",
+    "We use OEM only — talk to corporate, not me.",
+    "Manager isn't in. Try back next week.",
+    "We don't carry aged stock — we send it to auction.",
+    "Sounds robotic, not interested.",
+    "We're moving to in-house parts only. Pass.",
+    "Just renewed with our DMS vendor. Buried.",
+    "I'd need the parts manager's approval and he's slammed.",
+    "Already cleared our covid overstock. Don't need it.",
+    "Captive distributor handles all our parts. Hands tied.",
+    "Take me off this list please."
+  ],
+  "transcriptCloseBooked": [
+    "Done. Calendar invite for {day} at 10am Pacific going to {first}@{domain}. I'll loop in our marketplace lead.",
+    "Great, fifteen-minute slot {day} morning. Invite hitting your inbox in five.",
+    "Confirmed — {day} at 2pm PT. Looking forward to it.",
+    "Perfect, sending the invite now. Talk {day}."
+  ],
+  "transcriptCloseLost": [
+    "Totally understand. Mind if I check back end of quarter when inventory cycles?",
+    "No worries. I'll add you to a quarterly nudge — only if something changes.",
+    "Appreciate the time. I'll send a one-pager in case it helps anyone on your team.",
+    "Got it. I'll mark you down and only reach back out if we ship something new."
+  ],
+  "leadSources": [
+    "Website form",
+    "CSV import",
+    "HubSpot sync",
+    "Apollo",
+    "Manual"
+  ],
+  "leadStatuses": [
+    "new",
+    "queued",
+    "calling",
+    "completed",
+    "dnc"
+  ],
+  "transcriptUserVm": [
+    "[voicemail beep]"
+  ],
+  "noteFragments": [
+    "Asked to be called between 8-10am only.",
+    "Spanish-speaking — flagged for follow-up.",
+    "Out on vacation until next Monday.",
+    "Parts manager is the actual buyer, not this contact.",
+    "Family-owned, 3 rooftops.",
+    "Said maybe Q3.",
+    "DM voicemail twice, no callback.",
+    "Asked to email instead of calling.",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

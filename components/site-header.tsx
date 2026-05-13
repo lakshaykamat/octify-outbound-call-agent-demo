@@ -17,7 +17,6 @@ const TITLES: Record<string, string> = {
   "/live": "Live",
   "/agent": "Agent",
   "/knowledge-base": "Knowledge Base",
-  "/workflows": "Workflows",
   "/inbox": "Inbox",
   "/organization": "Organisation",
   "/settings": "Settings",

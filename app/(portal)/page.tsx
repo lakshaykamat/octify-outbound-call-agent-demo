@@ -40,7 +40,7 @@ export default function DashboardPage() {
       <KpiGrid kpis={data?.kpis ?? []} loading={loading} />
 
       <div className="grid grid-cols-1 gap-4 px-4 lg:grid-cols-3 lg:px-6">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 lg:flex lg:flex-col">
           <PerformanceChart
             data={data?.performance ?? []}
             loading={loading}
@@ -65,7 +65,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 px-4 lg:grid-cols-3 lg:px-6">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 lg:flex lg:flex-col">
           <Heatmap data={data?.heatmap ?? []} />
         </div>
         <Insights insights={data?.insights ?? []} />

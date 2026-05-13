@@ -15,10 +15,8 @@ export default function AgentPage() {
   if (agent.isLoading) {
     return (
       <div className="flex flex-col gap-4 px-4 lg:px-6">
-        <div className="grid gap-4 lg:grid-cols-2">
-          <Skeleton className="h-72" />
-          <Skeleton className="h-72" />
-        </div>
+        <Skeleton className="h-32" />
+        <Skeleton className="h-72" />
         <Skeleton className="h-[420px]" />
         <Skeleton className="h-72" />
         <Skeleton className="h-48" />
@@ -39,10 +37,8 @@ export default function AgentPage() {
 
   return (
     <div className="flex flex-col gap-4 px-4 lg:px-6">
-      <div className="grid gap-4 lg:grid-cols-2">
-        <AgentIdentityCard a={a} />
-        <VoiceCard a={a} />
-      </div>
+      <AgentIdentityCard a={a} />
+      <VoiceCard a={a} />
       <ScriptEditor />
       <ScheduleGrid a={a} />
       <VersionsCard a={a} />

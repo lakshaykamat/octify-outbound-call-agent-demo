@@ -12,6 +12,18 @@ import {
   staticAgentConfig, staticAgentScript, staticAgentVersions,
   staticKnowledgeBase, staticVoiceOptions,
 } from "./static-data";
+import orgJson from "./data/org.json";
+import teamJson from "./data/team.json";
+
+const team = teamJson as {
+  membersCreatedAt: string;
+  members: Omit<Member, "organizationId" | "createdAt" | "updatedAt">[];
+  agents: Omit<Agent, "orgId">[];
+  crmRules: CrmMappingRule[];
+  segmentSchedules: SegmentScheduleRule[];
+  retryPolicies: RetryPolicyRule[];
+  inbox: (Omit<InboxItem, "createdAt"> & { minutesAgo: number })[];
+};
 
 export type Scenario = "happy-path" | "first-day" | "power-user" | "investor-pitch";
 
@@ -36,7 +48,7 @@ export type SeededStore = {
   calls: XyloCall[];
 };
 
-const ORG_ID = "org_xylo_demo_001";
+const ORG_ID = (orgJson as { id: string }).id;
 
 // Per-scenario volume targets. happy-path lands the prominent 30-day Calls
 // KPI at ~500 dials — realistic pilot-deployment volume for a single AI SDR
@@ -49,133 +61,43 @@ const SCENARIO_VOLUME: Record<Scenario, { leads: number; days: number; callsPerW
 };
 
 function makeOrg(): Organization {
-  return {
-    id: ORG_ID,
-    _id: ORG_ID,
-    name: "MotorNexo",
-    website: "https://motornexo.com",
-    industry: "Automotive — B2B Auto Parts Marketplace",
-    description:
-      "MotorNexo is a verified B2B auto parts marketplace built for the automotive repair ecosystem. It helps franchised dealerships, collision centers, and independent repair shops do two things at once: move aged or excess parts inventory (turning frozen capital into cash) and find hard-to-source parts faster across a broader verified network — so fewer bays go cold waiting on a part.",
-    customerSegment: "b2b",
-    icps: [
-      "SELLER — Franchised dealerships (1–15 rooftops) with aged/excess parts inventory to monetize",
-      "BUYER — Body shops and collision centers (1–20 locations) needing fast OEM parts sourcing",
-      "BUYER — Independent service centers (3–25 bays, 2+ locations) chasing hard-to-find parts",
-      "SELLER + BUYER — Multi-rooftop dealer groups who both offload excess stock and source scarce parts",
-    ],
-    icpLocations: ["Los Angeles, California", "San Diego, California"],
-    ownerRole: "Dealer Principal / GM / Owner / Fixed Ops Director / Controller",
-    productOrServiceSummary:
-      "A verified B2B auto parts marketplace with four core workflows: (1) Inventory — upload, manage, and monitor aged/obsolete parts with velocity and risk scoring; (2) Marketplace — search supplier inventory, compare availability, and purchase directly from verified network members; (3) Orders — track purchases and sales with full transaction history; (4) Backorders — create and monitor demand for unavailable SKUs until fulfilled. Free to use for buyers and sellers.",
-    salesMotion:
-      "Outbound demo-booking via AI voice. Seller pitch to parts managers and fixed ops directors (move aged inventory into cash). Buyer pitch to service managers, shop owners, and production managers (find hard-to-source parts faster). Dealer groups get both angles. Goal every call: book a 15–20 min demo.",
-    salesChannel: "Outbound AI voice calling (direct sales)",
-    pricingNote:
-      "Free to use. Do not discuss commissions, transaction economics, or internal pricing details on calls — defer to the demo.",
-    contactInfo: {
-      phone: "+16193042264",
-      email: "info@motornexo.com",
-      bookingUrl: "",
-      socialLinks: {},
-    },
-    businessHours: {
-      timezone: "America/Los_Angeles",
-      is24x7: false,
-      schedule: [
-        { days: ["Mon", "Tue", "Wed", "Thu", "Fri"], open: "10:00", close: "12:00" },
-        { days: ["Mon", "Tue", "Wed", "Thu", "Fri"], open: "14:00", close: "17:00" },
-      ],
-    },
-    location: {
-      address: "",
-      city: "",
-      country: "Mexico",
-      mapsUrl: "",
-      facilities: [],
-    },
-    enabledProducts: { revpilot: { enabled: true }, xylo: { enabled: true } },
-  };
+  return orgJson as Organization;
 }
 
 function makeMembers(): Member[] {
-  const base = "2026-03-01T12:00:00.000Z";
-  return [
-    { _id: "u_owner_001", email: "owner@motornexo.com",   role: "owner",  organizationId: ORG_ID, credits: 240, isEmailVerified: true,  isOrganizationEmailVerified: true,  createdAt: base, updatedAt: base },
-    { _id: "u_admin_001", email: "noor@motornexo.com",    role: "admin",  organizationId: ORG_ID, credits: 80,  isEmailVerified: true,  isOrganizationEmailVerified: true,  createdAt: base, updatedAt: base },
-    { _id: "u_admin_002", email: "ravi@motornexo.com",    role: "admin",  organizationId: ORG_ID, credits: 60,  isEmailVerified: true,  isOrganizationEmailVerified: true,  createdAt: base, updatedAt: base },
-    { _id: "u_mem_001",   email: "ji-ho@motornexo.com",   role: "member", organizationId: ORG_ID, credits: 20,  isEmailVerified: true,  isOrganizationEmailVerified: true,  createdAt: base, updatedAt: base },
-    { _id: "u_mem_002",   email: "amina@motornexo.com",   role: "member", organizationId: ORG_ID, credits: 10,  isEmailVerified: true,  isOrganizationEmailVerified: false, createdAt: base, updatedAt: base },
-    { _id: "u_view_001",  email: "viewer@motornexo.com",  role: "viewer", organizationId: ORG_ID, credits: 0,   isEmailVerified: false, isOrganizationEmailVerified: false, createdAt: base, updatedAt: base },
-  ];
+  const base = team.membersCreatedAt;
+  return team.members.map((m) => ({
+    ...m,
+    organizationId: ORG_ID,
+    createdAt: base,
+    updatedAt: base,
+  }));
 }
 
 function makeCrmRules(): CrmMappingRule[] {
-  return [
-    { id: "crm_01", when: { outcome: "meeting_booked" },     then: { stage: "Meeting Booked",  notifyOwner: true,  addTag: "xylo-booked" }, enabled: true },
-    { id: "crm_02", when: { outcome: "callback_requested" }, then: { stage: "Follow Up",       notifyOwner: false, addTag: "callback" },    enabled: true },
-    { id: "crm_03", when: { outcome: "not_interested" },     then: { stage: "Closed Lost",     notifyOwner: false, addTag: null },          enabled: true },
-    { id: "crm_04", when: { outcome: "voicemail" },          then: { stage: "Attempting Contact", notifyOwner: false, addTag: null },       enabled: true },
-    { id: "crm_05", when: { outcome: "opted_out" },          then: { stage: "Do Not Contact",  notifyOwner: true,  addTag: "dnc" },         enabled: true },
-    { id: "crm_06", when: { outcome: "wrong_number" },       then: { stage: "Invalid Contact", notifyOwner: false, addTag: null },          enabled: false },
-  ];
+  return team.crmRules;
 }
 
 function makeSegmentSchedules(): SegmentScheduleRule[] {
-  const tz = "America/Los_Angeles";
-  return [
-    { id: "seg_01", segment: "Enterprise",      days: ["tue", "wed", "thu"],          open: "10:00", close: "16:00", timezone: tz, enabled: true },
-    { id: "seg_02", segment: "Mid-Market",      days: ["mon", "tue", "wed", "thu"],   open: "09:00", close: "17:00", timezone: tz, enabled: true },
-    { id: "seg_03", segment: "SMB",             days: ["mon", "tue", "wed", "thu", "fri"], open: "08:00", close: "18:00", timezone: tz, enabled: true },
-    { id: "seg_04", segment: "Renewals",        days: ["tue", "thu"],                 open: "10:00", close: "14:00", timezone: tz, enabled: true },
-  ];
+  return team.segmentSchedules;
 }
 
 function makeRetryPolicies(): RetryPolicyRule[] {
-  return [
-    { id: "ret_01", outcome: "no_answer",         delayHours: 18, maxAttempts: 4, enabled: true },
-    { id: "ret_02", outcome: "voicemail",         delayHours: 24, maxAttempts: 2, enabled: true },
-    { id: "ret_03", outcome: "callback_requested", delayHours: 48, maxAttempts: 3, enabled: true },
-    { id: "ret_04", outcome: "wrong_number",      delayHours: 0,  maxAttempts: 0, enabled: false },
-  ];
+  return team.retryPolicies;
 }
 
 function makeInbox(now: Date): InboxItem[] {
-  const iso = (mins: number) => new Date(now.getTime() - mins * 60_000).toISOString();
-  return [
-    { id: "ibx_01", kind: "hot_reply", status: "unread", assigneeEmail: null,                  createdAt: iso(14),
-      title: "Renata at Cordova Logistics wants pricing", summary: "Asked for an annual quote on the Scale plan after the demo call. Reply via WhatsApp expected.",
-      meta: { leadName: "Renata Vargas", company: "Cordova Logistics", callId: "call_seed_01" } },
-    { id: "ibx_02", kind: "hot_reply", status: "unread", assigneeEmail: null,                  createdAt: iso(42),
-      title: "Marcus at Driftwood Auto re-engaged", summary: "Replied to the post-call email: \"Tuesday 2pm works on my side — please send the invite.\"",
-      meta: { leadName: "Marcus Lee", company: "Driftwood Auto", callId: "call_seed_02" } },
-    { id: "ibx_03", kind: "crm_sync_failed", status: "unread", assigneeEmail: null,            createdAt: iso(67),
-      title: "HubSpot writeback failed · 3 calls", summary: "HubSpot rate-limit hit during the 11am burst. Calls queued for retry — manual nudge recommended.",
-      meta: { error: "429 Too Many Requests · pipeline_inbound_2026" } },
-    { id: "ibx_04", kind: "agent_error", status: "unread", assigneeEmail: null,                createdAt: iso(95),
-      title: "Agent paused mid-call · call_seed_03", summary: "Knowledge base lookup timed out after 4s. Agent fell back to the generic objection response.",
-      meta: { error: "kb_timeout", callId: "call_seed_03" } },
-    { id: "ibx_05", kind: "hot_reply", status: "read", assigneeEmail: "noor@motornexo.com",    createdAt: iso(220),
-      title: "Priya at Northstar wants a security packet", summary: "Compliance review before any next step. Trust packet sent already; follow-up Thursday.",
-      meta: { leadName: "Priya Anand", company: "Northstar Health" } },
-    { id: "ibx_06", kind: "crm_sync_failed", status: "read", assigneeEmail: "ravi@motornexo.com", createdAt: iso(310),
-      title: "Salesforce field mapping rejected one record", summary: "Custom field 'lifecycle_stage_v2' missing on the Leads object. Owner notified to add the field.",
-      meta: { error: "Salesforce 400 · Unknown field" } },
-    { id: "ibx_07", kind: "hot_reply", status: "resolved", assigneeEmail: "ravi@motornexo.com", createdAt: iso(720),
-      title: "Anil at Pinpoint booked via WhatsApp",     summary: "Booked Thursday 10am Pacific. Invite confirmed. Closed the loop in CRM.",
-      meta: { leadName: "Anil K", company: "Pinpoint" } },
-    { id: "ibx_08", kind: "agent_error", status: "resolved", assigneeEmail: "owner@motornexo.com", createdAt: iso(1380),
-      title: "Voice connection dropped twice on call_seed_08", summary: "Twilio reported codec mismatch. Routing changed to fallback carrier.",
-      meta: { error: "rtp_codec_mismatch", callId: "call_seed_08" } },
-  ];
+  return team.inbox.map((item) => {
+    const { minutesAgo, ...rest } = item;
+    return {
+      ...rest,
+      createdAt: new Date(now.getTime() - minutesAgo * 60_000).toISOString(),
+    } as InboxItem;
+  });
 }
 
 function makeAgents(): Agent[] {
-  return [
-    { id: "agent_001", orgId: ORG_ID, name: "Xylo · Octify SDR",    persona: "Warm, brief, decisive", voice: "11labs-clara",   enabled: true,  avgQuality: 7.6, totalCalls: 0 },
-    { id: "agent_002", orgId: ORG_ID, name: "Xylo · Enterprise BDR", persona: "Polished, formal",      voice: "11labs-marcus",  enabled: true,  avgQuality: 7.2, totalCalls: 0 },
-    { id: "agent_003", orgId: ORG_ID, name: "Xylo · Renewals",      persona: "Familiar, casual",      voice: "11labs-sienna",  enabled: false, avgQuality: 6.9, totalCalls: 0 },
-  ];
+  return team.agents.map((a) => ({ ...a, orgId: ORG_ID }));
 }
 
 export function seedStore(scenario: Scenario = "happy-path"): SeededStore {

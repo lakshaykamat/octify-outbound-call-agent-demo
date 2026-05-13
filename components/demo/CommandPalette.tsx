@@ -58,7 +58,6 @@ export function CommandPalette() {
       { id: "nav-agent", group: "Navigate", label: "Agent Studio", icon: <Sparkles className="size-4" />, run: () => go("/agent") },
       { id: "nav-kb", group: "Navigate", label: "Knowledge Base", icon: <BookOpen className="size-4" />, run: () => go("/knowledge-base") },
       { id: "nav-inbox", group: "Navigate", label: "Inbox", icon: <MessageSquare className="size-4" />, run: () => go("/inbox") },
-      { id: "nav-workflows", group: "Navigate", label: "Workflows", icon: <Calendar className="size-4" />, run: () => go("/workflows") },
       { id: "nav-org", group: "Navigate", label: "Organisation", icon: <Building2 className="size-4" />, run: () => go("/organization") },
       { id: "nav-settings", group: "Navigate", label: "Settings", icon: <Settings className="size-4" />, run: () => go("/settings") },
 

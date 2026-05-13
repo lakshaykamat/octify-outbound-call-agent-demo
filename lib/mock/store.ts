@@ -8,7 +8,7 @@
 import { seedStore, type Scenario, type SeededStore } from "./seed";
 
 const STORAGE_KEY = "xylo-portal:mock-store";
-const STORAGE_VERSION = 2;
+const STORAGE_VERSION = 6;
 
 export type Store = SeededStore;
 

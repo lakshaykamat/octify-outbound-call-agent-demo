@@ -13,7 +13,6 @@ import {
   MegaphoneIcon,
   RadioIcon,
   InboxIcon,
-  WorkflowIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -79,7 +78,6 @@ function useNavSections(): NavSection[] {
         { title: "Calls", url: "/calls", icon: <PhoneCallIcon /> },
         { title: "Agent", url: "/agent", icon: <BotIcon /> },
         { title: "Knowledge Base", url: "/knowledge-base", icon: <BookOpenIcon /> },
-        { title: "Workflows", url: "/workflows", icon: <WorkflowIcon /> },
       ],
     },
     {
@@ -115,7 +113,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
                 <span className="font-medium">{orgName}</span>
-                <span className="text-xs text-muted-foreground">Xylo Portal</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

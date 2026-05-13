@@ -55,6 +55,8 @@ export function PerformanceChart({
     <SectionCard
       title="Performance"
       description="Activity and conversion trend across the window."
+      className="flex h-full flex-col"
+      contentClassName="flex flex-1 flex-col"
       action={
         <div className="flex flex-wrap items-center gap-1.5">
           {(Object.keys(METRIC_LABEL) as Metric[]).map((m) => (
@@ -90,9 +92,9 @@ export function PerformanceChart({
       }
     >
       {loading ? (
-        <Skeleton className="h-64 w-full" />
+        <Skeleton className="min-h-64 w-full flex-1" />
       ) : (
-        <ChartContainer config={config} className="h-64 w-full">
+        <ChartContainer config={config} className="min-h-64 w-full flex-1">
           <AreaChart
             data={rows}
             margin={{ left: 4, right: 12, top: 8, bottom: 0 }}

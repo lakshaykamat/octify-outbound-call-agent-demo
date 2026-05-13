@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { UploadIcon, Trash2Icon, BanIcon, FolderInputIcon } from "lucide-react";
+import { UploadIcon, Trash2Icon, BanIcon, FolderInputIcon, SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -129,10 +130,20 @@ export default function LeadsPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-2 px-4 lg:px-6">
-        <span className="text-xs tabular-nums text-muted-foreground">
-          {total.toLocaleString()} leads in CRM
-        </span>
+      <div className="flex items-center gap-3 px-4 lg:px-6">
+        <div className="relative flex-1">
+          <SearchIcon className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={filters.search}
+            onChange={(e) => {
+              setFilters({ ...filters, search: e.target.value });
+              setPage(1);
+              clearSelection();
+            }}
+            placeholder="Search name, company, email or phone"
+            className="pl-8"
+          />
+        </div>
         <Button render={<Link href="/leads/import" />}>
           <UploadIcon className="size-4" /> Import leads
         </Button>

@@ -1,7 +1,6 @@
 "use client";
 
-import { SearchIcon, XIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -46,72 +45,68 @@ export function LeadsFilters({
     value: LeadsFilterState[K],
   ) => onChange({ ...state, [key]: value });
 
+  const hasActiveFilter =
+    state.search !== "" ||
+    state.status !== "all" ||
+    state.source !== "all" ||
+    state.view !== "all";
+
   return (
-    <div className="flex flex-col gap-3 rounded-xl border bg-card p-3">
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="relative min-w-[220px] flex-1">
-          <SearchIcon className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={state.search}
-            onChange={(e) => set("search", e.target.value)}
-            placeholder="Search name, company, email or phone"
-            className="pl-8"
-          />
-        </div>
+    <div className="flex flex-wrap items-center gap-1.5">
+      {VIEWS.map((view) => {
+        const active = state.view === view.value;
+        return (
+          <button
+            key={view.value}
+            type="button"
+            onClick={() => set("view", view.value)}
+            className={
+              "h-8 rounded-md px-2.5 text-xs font-medium transition-colors " +
+              (active
+                ? "bg-muted text-foreground"
+                : "text-muted-foreground hover:bg-muted/60 hover:text-foreground")
+            }
+          >
+            {view.label}
+          </button>
+        );
+      })}
 
-        <Select value={state.status} onValueChange={(v) => set("status", v as LeadStatus | "all")}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            {LEAD_STATUS_OPTIONS.map((o) => (
-              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <span className="mx-1 h-4 w-px bg-border" aria-hidden />
 
-        <Select value={state.source} onValueChange={(v) => set("source", v as LeadSource | "all")}>
-          <SelectTrigger className="w-[170px]">
-            <SelectValue placeholder="Source" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All sources</SelectItem>
-            {LEAD_SOURCE_OPTIONS.map((o) => (
-              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <Select value={state.status} onValueChange={(v) => set("status", v as LeadStatus | "all")}>
+        <SelectTrigger size="sm" className="h-8 w-[130px]">
+          <SelectValue placeholder="Status" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All statuses</SelectItem>
+          {LEAD_STATUS_OPTIONS.map((o) => (
+            <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-        <Button variant="ghost" size="sm" onClick={onReset}>
+      <Select value={state.source} onValueChange={(v) => set("source", v as LeadSource | "all")}>
+        <SelectTrigger size="sm" className="h-8 w-[150px]">
+          <SelectValue placeholder="Source" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All sources</SelectItem>
+          {LEAD_SOURCE_OPTIONS.map((o) => (
+            <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      {hasActiveFilter ? (
+        <Button variant="ghost" size="xs" onClick={onReset} className="h-8 px-2 text-muted-foreground">
           <XIcon className="size-3.5" /> Reset
         </Button>
+      ) : null}
 
-        <span className="ml-auto text-xs tabular-nums text-muted-foreground">
-          {resultCount.toLocaleString()} leads
-        </span>
-      </div>
-
-      <div className="flex flex-wrap gap-1.5">
-        {VIEWS.map((view) => {
-          const active = state.view === view.value;
-          return (
-            <button
-              key={view.value}
-              type="button"
-              onClick={() => set("view", view.value)}
-              className={
-                "rounded-full border px-2.5 py-1 text-xs transition-colors " +
-                (active
-                  ? "border-foreground/30 bg-foreground/5 font-medium text-foreground"
-                  : "border-transparent text-muted-foreground hover:bg-muted")
-              }
-            >
-              {view.label}
-            </button>
-          );
-        })}
-      </div>
+      <span className="ml-auto text-[11px] font-mono tabular-nums text-muted-foreground">
+        {resultCount.toLocaleString()} leads
+      </span>
     </div>
   );
 }

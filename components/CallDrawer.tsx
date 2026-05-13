@@ -77,29 +77,23 @@ function CloseButton() {
   );
 }
 
-function QualityRing({ score }: { score: number }) {
-  const pct = Math.max(0, Math.min(100, score * 10));
-  const circumference = 2 * Math.PI * 18;
-  const offset = circumference - (pct / 100) * circumference;
-  const tone = score >= 8 ? "text-emerald-500" : score >= 6 ? "text-amber-500" : "text-rose-500";
+function QualityChip({ score }: { score: number }) {
+  const tone =
+    score >= 8
+      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+      : score >= 6
+        ? "border-amber-500/30 bg-amber-500/10 text-amber-400"
+        : "border-rose-500/30 bg-rose-500/10 text-rose-400";
   return (
-    <div className="relative flex size-12 items-center justify-center">
-      <svg viewBox="0 0 40 40" className={cn("size-12 -rotate-90", tone)}>
-        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeOpacity="0.15" strokeWidth="3" />
-        <circle
-          cx="20"
-          cy="20"
-          r="18"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
-      </svg>
-      <span className="absolute text-[11px] font-semibold tabular-nums">{score.toFixed(1)}</span>
-    </div>
+    <span
+      className={cn(
+        "inline-flex h-6 items-center gap-1.5 rounded-full border px-2 text-[11px] font-medium",
+        tone,
+      )}
+    >
+      <span className="text-[9px] font-mono uppercase tracking-wider opacity-80">Score</span>
+      <span className="font-mono tabular-nums">{score.toFixed(1)}</span>
+    </span>
   );
 }
 
@@ -123,26 +117,27 @@ function CallHeader({ call }: { call: XyloCall }) {
         </DrawerDescription>
       </div>
 
-      {(call.analysis?.outcome || call.analysis?.sentiment || call.crmWritebackStatus) && (
-        <div className="flex items-center gap-3">
+      {(call.analysis?.score !== undefined ||
+        call.analysis?.outcome ||
+        call.analysis?.sentiment ||
+        call.crmWritebackStatus) && (
+        <div className="my-2 flex flex-wrap items-center gap-1.5">
           {call.analysis?.score !== undefined && (
-            <QualityRing score={call.analysis.score} />
+            <QualityChip score={call.analysis.score} />
           )}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {call.analysis?.outcome && (
-              <Badge>{outcomeLabel(call.analysis.outcome)}</Badge>
-            )}
-            {call.analysis?.sentiment && (
-              <Badge variant="outline">
-                {sentimentLabel(call.analysis.sentiment)}
-              </Badge>
-            )}
-            <WritebackBadge status={call.crmWritebackStatus} />
-          </div>
+          {call.analysis?.outcome && (
+            <Badge>{outcomeLabel(call.analysis.outcome)}</Badge>
+          )}
+          {call.analysis?.sentiment && (
+            <Badge variant="outline">
+              {sentimentLabel(call.analysis.sentiment)}
+            </Badge>
+          )}
+          <WritebackBadge status={call.crmWritebackStatus} />
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3 pt-1 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-3 rounded-lg border bg-muted/20 p-3 sm:grid-cols-4">
         <MetaItem
           icon={<CalendarIcon className="size-3.5" />}
           label="When"

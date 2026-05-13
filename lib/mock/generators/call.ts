@@ -6,9 +6,14 @@ import {
 import {
   FOLLOW_UP_ACTIONS, OBJECTION_TAGS,
   TRANSCRIPT_AGENT_CLOSE_BOOKED, TRANSCRIPT_AGENT_CLOSE_LOST,
-  TRANSCRIPT_BOOK, TRANSCRIPT_OPENERS,
+  TRANSCRIPT_BOOK_BUYER, TRANSCRIPT_BOOK_SELLER,
+  TRANSCRIPT_OPENERS_BUYER, TRANSCRIPT_OPENERS_SELLER,
   TRANSCRIPT_USER_INTERESTED, TRANSCRIPT_USER_OBJECTION,
 } from "../data/pools";
+
+function isSeller(lead: Lead): boolean {
+  return lead.industry.includes("Dealership");
+}
 
 function fill(template: string, vars: Record<string, string>) {
   return template.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
@@ -16,25 +21,27 @@ function fill(template: string, vars: Record<string, string>) {
 
 function makeTranscript(rng: Rng, lead: Lead, outcome: Outcome | null): TranscriptLine[] {
   const first = lead.firstName;
-  const domain = lead.email.split("@")[1] ?? "example.com";
+  const domain = (lead.email.split("@")[1] ?? "").trim() || "example.com";
   const day = rng.pick(["Tuesday", "Wednesday", "Thursday", "Friday"]);
   const vars = { first, company: lead.company, domain, day };
+  const openers = isSeller(lead) ? TRANSCRIPT_OPENERS_SELLER : TRANSCRIPT_OPENERS_BUYER;
+  const bookPitch = isSeller(lead) ? TRANSCRIPT_BOOK_SELLER : TRANSCRIPT_BOOK_BUYER;
 
   if (outcome === null) {
     return [
-      { role: "agent", content: fill(rng.pick(TRANSCRIPT_OPENERS), vars) },
+      { role: "agent", content: fill(rng.pick(openers), vars) },
       { role: "agent", content: "[no answer]" },
     ];
   }
   if (outcome === "voicemail") {
     return [
       { role: "agent", content: "[voicemail tone]" },
-      { role: "agent", content: `Hi ${first}, this is Xylo from Octify. I'll try again tomorrow morning — feel free to call us back at 415-555-1217.` },
+      { role: "agent", content: `Hi ${first}, this is Xylo calling on behalf of MotorNexo. I'll try again tomorrow — feel free to call us back at 619-304-2264.` },
     ];
   }
   if (outcome === "wrong_number") {
     return [
-      { role: "agent", content: fill(rng.pick(TRANSCRIPT_OPENERS), vars) },
+      { role: "agent", content: fill(rng.pick(openers), vars) },
       { role: "user", content: "You have the wrong number." },
       { role: "agent", content: "Apologies — I'll remove this contact. Have a good day." },
     ];
@@ -43,22 +50,32 @@ function makeTranscript(rng: Rng, lead: Lead, outcome: Outcome | null): Transcri
   const userTurn = interested ? rng.pick(TRANSCRIPT_USER_INTERESTED) : rng.pick(TRANSCRIPT_USER_OBJECTION);
   const close = interested ? rng.pick(TRANSCRIPT_AGENT_CLOSE_BOOKED) : rng.pick(TRANSCRIPT_AGENT_CLOSE_LOST);
   return [
-    { role: "agent", content: fill(rng.pick(TRANSCRIPT_OPENERS), vars) },
+    { role: "agent", content: fill(rng.pick(openers), vars) },
     { role: "user", content: userTurn },
-    { role: "agent", content: fill(rng.pick(TRANSCRIPT_BOOK), vars) },
+    { role: "agent", content: fill(rng.pick(bookPitch), vars) },
     { role: "user", content: interested ? rng.pick(TRANSCRIPT_USER_INTERESTED) : rng.pick(TRANSCRIPT_USER_OBJECTION) },
     { role: "agent", content: fill(close, vars) },
   ];
 }
 
 function summarise(rng: Rng, lead: Lead, outcome: Outcome): string {
+  const role = lead.title ? lead.title.toLowerCase() : "operations";
+  const seller = isSeller(lead);
   switch (outcome) {
     case "meeting_booked":
-      return `${lead.firstName} agreed to a 15-minute discovery call. Owns ${lead.title.toLowerCase()} decisions, currently evaluating alternatives.`;
+      return seller
+        ? `${lead.firstName} (${role}) agreed to a 15-minute marketplace walkthrough. Confirmed aged-parts shelf is a problem; wants to see SKU velocity reporting.`
+        : `${lead.firstName} (${role}) agreed to a 15-minute demo on OEM sourcing speed. Currently waiting on backorders — open to a faster channel.`;
     case "callback_requested":
-      return `${lead.firstName} asked to be called back next week. Showed interest but needs to align internally.`;
+      return `${lead.firstName} asked for a callback. Interested but needs to align with the ${seller ? "parts manager / fixed ops" : "owner / shop manager"} first.`;
     case "not_interested":
-      return `Prospect declined — ${rng.pick(["already under contract", "no budget this quarter", "tried similar before"])}.`;
+      return `Prospect declined — ${rng.pick([
+        "already moves aged stock through auction",
+        "captive OEM distributor handles all parts",
+        "long-time supplier, not looking",
+        "tried a locator service before, didn't stick",
+        "no aged inventory to monetize",
+      ])}.`;
     case "voicemail":
       return "Voicemail left. No callback received.";
     case "wrong_number":

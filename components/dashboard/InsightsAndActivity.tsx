@@ -7,7 +7,6 @@ import {
   UploadCloudIcon,
   UserPlusIcon,
   BotIcon,
-  SparklesIcon,
   TrendingUpIcon,
 } from "lucide-react";
 import { SectionCard } from "@/components/patterns";
@@ -31,11 +30,7 @@ function ActivityIcon({ type }: { type: DashboardData["activity"][number]["type"
 export function Insights({ insights }: { insights: DashboardData["insights"] }) {
   return (
     <SectionCard
-      title={
-        <span className="inline-flex items-center gap-1.5">
-          <SparklesIcon className="size-4" /> AI insights
-        </span>
-      }
+      title="AI insights"
       description="Computed from the calls in this window."
     >
       {insights.length === 0 ? (

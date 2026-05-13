@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +31,7 @@ function initials(email: string) {
 export function ProfileSection() {
   const session = useSession();
   const [avatar, setAvatar] = useState<string | null>(null);
-  const [name, setName] = useState("Riley Carter");
+  const [name, setName] = useState("Ankur Sharma");
   const [email, setEmail] = useState<string | null>(null);
   const [title, setTitle] = useState("Head of Sales Development");
 
@@ -48,14 +54,18 @@ export function ProfileSection() {
     <Card>
       <CardHeader>
         <CardTitle>Profile</CardTitle>
-        <CardDescription>How you appear in Xylo and on call invites.</CardDescription>
+        <CardDescription>
+          How you appear in Xylo and on call invites.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex items-start gap-4">
           <label className="group relative cursor-pointer">
             <Avatar className="size-16">
               {avatar ? <AvatarImage src={avatar} alt="Avatar" /> : null}
-              <AvatarFallback className="text-base">{initials(live)}</AvatarFallback>
+              <AvatarFallback className="text-base">
+                {initials(live)}
+              </AvatarFallback>
             </Avatar>
             <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 text-white opacity-0 transition group-hover:opacity-100">
               <Camera className="size-5" />
@@ -70,7 +80,9 @@ export function ProfileSection() {
           </label>
           <div className="min-w-0 flex-1 space-y-3">
             <div>
-              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Name</div>
+              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Name
+              </div>
               <InlineEditField
                 value={name}
                 onSave={async (v) => {
@@ -80,7 +92,9 @@ export function ProfileSection() {
               />
             </div>
             <div>
-              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Email</div>
+              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Email
+              </div>
               <InlineEditField
                 value={live}
                 onSave={async (v) => {
@@ -90,7 +104,9 @@ export function ProfileSection() {
               />
             </div>
             <div>
-              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Title</div>
+              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Title
+              </div>
               <InlineEditField
                 value={title}
                 onSave={async (v) => {
@@ -102,7 +118,11 @@ export function ProfileSection() {
           </div>
           <div className="flex flex-col items-end gap-2">
             {u.role ? <Badge variant="secondary">{u.role}</Badge> : null}
-            <Button size="sm" variant="outline" onClick={() => toast.message("Password reset email sent")}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => toast.message("Password reset email sent")}
+            >
               Reset password
             </Button>
           </div>

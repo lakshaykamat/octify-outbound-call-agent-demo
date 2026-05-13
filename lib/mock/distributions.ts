@@ -79,7 +79,7 @@ export function leadScore(rng: Rng): number {
 // Tue–Thu 10–11am and 2–4pm peak. Weekends ~10% volume.
 // dow: 0=Sun … 6=Sat. hour: 0–23.
 export function activityMultiplier(dow: number, hour: number): number {
-  if (dow === 0 || dow === 6) return 0.1;
+  if (dow === 0 || dow === 6) return 0.35;
   if (hour < 8 || hour >= 19) return 0.05;
   const peak =
     (dow >= 2 && dow <= 4) &&

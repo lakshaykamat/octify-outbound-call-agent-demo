@@ -1,0 +1,113 @@
+{
+  "script": {
+    "opening":       "Hey {{firstName}}, this is Xylo calling from MotorNexo. Quick one — do you have ninety seconds for me to share why I'm calling, and then you can tell me if it's worth a longer chat?",
+    "qualification": "We work with dealerships, collision centers, and independent shops in {{region}}. Just so I'm not wasting your time — are you the person who looks after parts inventory or sourcing at {{company}}, or is that someone else on the team?",
+    "pitch":         "Two things teams like yours tell us: aged parts sitting on the shelf are frozen capital, and hard-to-source SKUs hold bays hostage for days. MotorNexo turns the first into cash and shortens the second — it's a verified B2B marketplace across dealers, body shops, and service centers. It's free to use, and most members move their first aged-inventory dollars within two weeks.",
+    "objections":    "Totally fair. The fastest way to know whether it fits is to see your aged-inventory snapshot in MotorNexo and run one live search against the network. Could I grab fifteen minutes with you to walk through it on your real SKUs?",
+    "close":         "Okay — I'd love to book a quick fifteen-to-twenty minute demo so we can pull your data in and show you the moves in real time. I have Thursday 10am or Friday 2pm Pacific — which works better?"
+  },
+  "earlierScriptOverrides": {
+    "pitch":         "MotorNexo is a B2B parts marketplace — you can move aged inventory and source hard-to-find parts in one place. It's free to use.",
+    "close":         "Could I send a one-pager and circle back next week to find a time?"
+  },
+  "voiceOptions": [
+    { "id": "11labs-clara",  "name": "Clara",  "accent": "US · West Coast",   "gender": "female",  "tone": "Warm, decisive",      "waveSeed": 1 },
+    { "id": "11labs-marcus", "name": "Marcus", "accent": "US · Mid-Atlantic", "gender": "male",    "tone": "Polished, formal",    "waveSeed": 2 },
+    { "id": "11labs-sienna", "name": "Sienna", "accent": "US · Southern",     "gender": "female",  "tone": "Familiar, casual",    "waveSeed": 3 },
+    { "id": "11labs-arjun",  "name": "Arjun",  "accent": "UK · London",       "gender": "male",    "tone": "Crisp, professional", "waveSeed": 4 },
+    { "id": "11labs-ines",   "name": "Inés",   "accent": "ES · Madrid",       "gender": "female",  "tone": "Bright, energetic",   "waveSeed": 5 },
+    { "id": "11labs-river",  "name": "River",  "accent": "US · Pacific NW",   "gender": "neutral", "tone": "Measured, neutral",   "waveSeed": 6 }
+  ],
+  "versions": [
+    {
+      "id": "ver_04",
+      "label": "v4 · Sharper aged-inventory pitch",
+      "createdAt": "2026-05-10T14:11:00.000Z",
+      "author": "noor@motornexo.com",
+      "note": "Tightened the dual seller/buyer value prop, added two-slot close.",
+      "snapshot": {
+        "name": "Xylo · MotorNexo SDR",
+        "objective": "Qualify decision-makers at dealerships, body shops, and service centers, surface aged-inventory or sourcing pain, and book a 15–20 min product demo with a MotorNexo specialist.",
+        "voiceId": "11labs-clara",
+        "speed": 1.02,
+        "temperature": 0.4,
+        "useScript": "current"
+      }
+    },
+    {
+      "id": "ver_03",
+      "label": "v3 · Pre-rewrite pitch",
+      "createdAt": "2026-05-04T09:24:00.000Z",
+      "author": "ravi@motornexo.com",
+      "note": "Working draft before the dual-angle rewrite.",
+      "snapshot": {
+        "name": "Xylo · MotorNexo SDR",
+        "objective": "Qualify shops and dealers and offer a demo where it fits.",
+        "voiceId": "11labs-clara",
+        "speed": 1.00,
+        "temperature": 0.4,
+        "useScript": "earlier"
+      }
+    },
+    {
+      "id": "ver_02",
+      "label": "v2 · First production cut",
+      "createdAt": "2026-04-22T16:02:00.000Z",
+      "author": "ankur@octifytechnologies.com",
+      "note": "Promoted from staging.",
+      "snapshot": {
+        "name": "Xylo · MotorNexo SDR",
+        "objective": "Qualify shops and dealers and offer a demo where it fits.",
+        "voiceId": "11labs-clara",
+        "speed": 1.00,
+        "temperature": 0.5,
+        "useScript": "earlier"
+      }
+    }
+  ],
+  "agentConfig": {
+    "enabled": true,
+    "objective": "Qualify decision-makers at dealerships, body shops, and service centers in California, surface aged-inventory or hard-to-source pain, and book a 15–20 min product demo with a MotorNexo specialist when interest is real.",
+    "crmProvider": "hubspot",
+    "agent": {
+      "retellAgentId": "agent_01HXC7M3PQR8V2N4",
+      "retellLlmId": "llm_01HXC7M5T9K2B6X8",
+      "retellKnowledgeBaseId": "kb_01HXC8N2P6T4M7W9",
+      "name": "Xylo · MotorNexo SDR",
+      "fromNumber": "+16193042264",
+      "voice": { "voiceId": "11labs-clara", "language": "en-US", "speed": 1.02 },
+      "llm": {
+        "model": "claude-sonnet-4-6",
+        "systemPrompt": "You are Xylo, an outbound SDR for MotorNexo — a verified B2B auto parts marketplace. Be warm, brief, and specific. Ask one question at a time. Tailor the angle to the listener: dealerships and dealer groups care about moving aged or excess parts; body shops and service centers care about sourcing scarce OEM parts fast. If the contact is a decision-maker (parts manager, fixed ops director, GM, dealer principal, service manager, shop owner), surface one pain point and offer the calendar to book a 15–20 min demo. Never quote commissions, transaction economics, or internal pricing — defer to the demo. Never name specific competitors unless the prospect names them first.",
+        "temperature": 0.4,
+        "maxTokens": 800
+      }
+    },
+    "businessHours": {
+      "timezone": "America/Los_Angeles",
+      "is24x7": false,
+      "schedule": [
+        { "days": ["mon", "tue", "wed", "thu", "fri"], "open": "10:00", "close": "12:00" },
+        { "days": ["mon", "tue", "wed", "thu", "fri"], "open": "14:00", "close": "17:00" }
+      ]
+    },
+    "callRules": {
+      "maxAttemptsPerLead": 3,
+      "retryAfterNotConnectedHours": 18,
+      "dedupeWindowHours": 24,
+      "crmWritebackMaxAttempts": 3
+    },
+    "stageMapping": {
+      "pipelineId": "pipeline_motornexo_outbound_2026",
+      "newStageId": "stage_new",
+      "onAppointmentScheduledStageId": "stage_demo_booked",
+      "onFollowUpStageId": "stage_follow_up",
+      "onNoAnswerStageId": "stage_no_answer",
+      "onClosedLostStageId": "stage_closed_lost",
+      "onInvalidContactStageId": "stage_invalid",
+      "onDoNotContactStageId": "stage_dnc"
+    },
+    "createdAt": "2025-09-20T08:00:00.000Z",
+    "updatedAt": "2026-05-10T14:11:00.000Z"
+  }
+}

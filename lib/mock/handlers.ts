@@ -507,6 +507,7 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
   const sparkLen = Math.min(14, buckets.length);
   const sparkSlice = buckets.slice(-sparkLen);
   const callsSpark = sparkSlice.map((b) => b.calls);
+  const connSpark = sparkSlice.map((b) => b.connected);
   const meetSpark = sparkSlice.map((b) => b.meetings);
 
   const rejectedOutcomes: Outcome[] = ["not_interested", "opted_out"];
@@ -531,6 +532,12 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
       value: dialed,
       delta: delta(dialed, prevDialed),
       spark: callsSpark,
+    },
+    {
+      label: "Connects",
+      value: connected,
+      delta: delta(connected, prevConnected),
+      spark: connSpark,
     },
     {
       label: "Meetings booked",

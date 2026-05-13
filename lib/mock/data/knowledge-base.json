@@ -1,0 +1,87 @@
+{
+  "updatedAt": "2026-05-09T17:22:00.000Z",
+  "products": [
+    {
+      "name": "Inventory",
+      "description": "Upload, manage, and monitor aged or obsolete parts. Velocity and risk scoring surface the SKUs costing you carrying cost every day they sit on the shelf.",
+      "price": "Free to use",
+      "pitch": "Turn frozen capital into cash. Most sellers move their first aged-inventory dollars within two weeks of listing."
+    },
+    {
+      "name": "Marketplace",
+      "description": "Search supplier inventory across the verified MotorNexo network, compare availability and condition, and purchase directly from other members.",
+      "price": "Free to use",
+      "pitch": "Fewer bays go cold. Buyers find hard-to-source OEM parts in minutes instead of chasing four dealers by phone."
+    },
+    {
+      "name": "Orders",
+      "description": "Track every purchase and sale with full transaction history, status, and writeback to your DMS or shop management system.",
+      "price": "Free to use",
+      "pitch": "One place for every MotorNexo transaction — your fixed ops director sees the trail without chasing emails."
+    },
+    {
+      "name": "Backorders",
+      "description": "Create and monitor demand for unavailable SKUs. We watch the network and notify you the moment a verified seller lists it.",
+      "price": "Free to use",
+      "pitch": "Stop calling around for that one part. Post the backorder and let the network find you the moment supply shows up."
+    }
+  ],
+  "objections": [
+    { "objection": "We already have suppliers we're happy with.",
+      "response":  "Totally fair — MotorNexo isn't a replacement, it's a second tap. Use your primary suppliers as usual; we step in when something's backordered or you have excess to move. Would you be open to a fifteen-minute walkthrough on your real SKUs?" },
+    { "objection": "We don't have aged inventory to sell.",
+      "response":  "Most shops we talk to discover 8–12% of their parts haven't moved in 180 days once we run the report. Could I pull a free aged-inventory snapshot for you so you can see for yourself?" },
+    { "objection": "We can't trust an unknown supplier on parts.",
+      "response":  "Every seller is dealership- or shop-verified before they list, with location, license, and rating visible on every SKU. Happy to walk through our verification process on a quick call." },
+    { "objection": "I don't have time to learn a new tool.",
+      "response":  "Most parts managers are up and running in twenty minutes — upload a CSV from your DMS and the system handles the rest. No replatforming required." },
+    { "objection": "Sounds expensive.",
+      "response":  "Actually MotorNexo is free for buyers and sellers — no subscription, no listing fees. Worth fifteen minutes to see what's possible at zero cost?" },
+    { "objection": "I'm not the right person.",
+      "response":  "No problem — who on your team owns parts inventory or sourcing? I'd love to send them a short note with your context." },
+    { "objection": "Send me an email.",
+      "response":  "Happy to. To make it useful, do you lean more toward selling aged stock or sourcing hard-to-find parts? I'll tailor what I send." }
+  ],
+  "caseStudies": [
+    { "customer": "Valley Ford Group (4 rooftops)",
+      "outcome":  "Moved $182k of aged parts inventory in the first 90 days",
+      "metric":   "$182k recovered · 23% aged-stock reduction in Q1" },
+    { "customer": "Coastline Collision Centers (7 locations)",
+      "outcome":  "Cut hard-to-source OEM part wait time from 4.2 days to 14 hours",
+      "metric":   "14-hour average sourcing time · 91% bay availability" },
+    { "customer": "Sunset Auto Service (6 bays, 3 locations)",
+      "outcome":  "Found a discontinued ECU through the network in 38 minutes",
+      "metric":   "Zero rental car days on that job — saved $640 in customer credit" }
+  ],
+  "faqs": [
+    { "question": "How is MotorNexo free to use?",
+      "answer":   "Buyers and sellers don't pay subscriptions or listing fees. We're focused on growing the verified network first — defer commercial detail to a demo." },
+    { "question": "Who's allowed to buy and sell on MotorNexo?",
+      "answer":   "Verified franchised dealerships, body shops, collision centers, and multi-location independent service centers. Every member is verified before they can list or purchase." },
+    { "question": "Do I need to replace my DMS or shop management system?",
+      "answer":   "No. MotorNexo runs alongside your existing systems. You can upload aged-inventory CSVs from CDK, Reynolds, Tekion, Mitchell 1, and most major DMS exports." },
+    { "question": "What regions do you serve today?",
+      "answer":   "California first — Los Angeles, San Diego, and the surrounding markets. We expand to a new region when seller density crosses a threshold." },
+    { "question": "What kinds of parts move on the marketplace?",
+      "answer":   "OEM mechanical, collision and body panels, electrical and ECUs, and increasingly EV-specific parts. We're strongest on common North American and European brands." },
+    { "question": "How long does setup take?",
+      "answer":   "Most accounts are live the same day. The verification check usually takes under an hour; uploading aged inventory is a single CSV step." }
+  ],
+  "competitorNotes": "Don't name specific competitors unless the prospect names them first. If they do: MotorNexo is verified-network-first (every seller is checked before listing) and dealer + shop + collision in one tap, versus dealer-only or shop-only point solutions. We're free; pure marketplaces that charge listing fees tend to under-serve aged inventory.",
+  "pricingNotes": "MotorNexo is free to use for buyers and sellers. Do NOT discuss commissions, transaction economics, internal pricing, or revenue model on the call — those questions belong in the demo. If pressed, say: \"We keep commercial detail for the demo, but the platform itself is free to use.\"",
+  "qualifyingQuestions": [
+    "Are you the person who owns parts inventory or sourcing at your shop or dealership?",
+    "Roughly how much aged or excess inventory is sitting on the shelf today?",
+    "How often do you hit a part you can't source within 24 hours?",
+    "How are you handling aged stock or backorders today — phone calls, broker, or auctions?",
+    "If you could turn aged inventory into cash and shorten sourcing time in one place, would you want a 15-minute walkthrough?"
+  ],
+  "doNotMention": [
+    "commissions, transaction economics, or revenue model",
+    "internal pricing details or supplier terms",
+    "specific named competitors unless the prospect names them first",
+    "names of customers beyond the published case studies",
+    "internal model names, providers, or infrastructure",
+    "ongoing legal or compliance matters"
+  ]
+}

@@ -18,8 +18,10 @@ export function Heatmap({ data }: { data: DashboardData["heatmap"] }) {
     <SectionCard
       title="When connects happen"
       description="Connect rate by day-of-week and hour-of-day."
+      className="flex h-full flex-col"
+      contentClassName="flex flex-1 flex-col"
     >
-      <div className="overflow-x-auto">
+      <div className="flex-1 overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr>
