@@ -35,7 +35,8 @@ const topo = topology as unknown as TopologyLike;
 const statesObject = (topo as any).objects.states as GeometryCollectionLike;
 
 const states = feature(topo, statesObject) as unknown as FeatureCollection<Geometry>;
-const borders = mesh(topo, statesObject, (a, b) => a !== b);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const borders = mesh(topo, statesObject as any, (a, b) => a !== b);
 
 const projection = geoAlbersUsa().fitSize([VIEW_W, VIEW_H], states);
 const path = geoPath(projection);
