@@ -81,12 +81,12 @@ function OrgIdentityCard({ o }: { o: Organization }) {
       <CardContent>
         <dl className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
           <Field label="Organisation ID" value={o.id} />
-          <Field label="Owner role" value={o.ownerRole || "—"} />
+          <Field label="Owner role" value={o.ownerRole || "-"} />
           <Field
             label="Segment"
-            value={o.customerSegment ? o.customerSegment.toUpperCase() : "—"}
+            value={o.customerSegment ? o.customerSegment.toUpperCase() : "-"}
           />
-          <Field label="Sales channel" value={o.salesChannel || "—"} />
+          <Field label="Sales channel" value={o.salesChannel || "-"} />
         </dl>
       </CardContent>
     </Card>

@@ -17,10 +17,11 @@ export function makeCity(rng: Rng): CityRecord & { region: string } {
   return { ...city, region: city.state };
 }
 
-// MotorNexo's ICP: dealerships (sellers), body shops (buyers), service centers
-// (buyers). Pick a business type, then build a realistic name from one of the
-// templates for that type. Domain is slugged from the visible name minus
-// brand/suffix words so it looks like a real dealer/shop website.
+// Apex Capital's ICP: brokerages (sellers/listing-side), property management
+// firms (buyers/operators), real estate investment groups (buyers). Pick a
+// business type, then build a realistic name from one of the templates for
+// that type. Domain is slugged from the visible name minus common suffix
+// words so it looks like a real firm website.
 export function makeBusiness(rng: Rng, city: CityRecord, owner: { firstName: string; lastName: string }): {
   type: BusinessType;
   name: string;
@@ -45,21 +46,24 @@ export function makeBusiness(rng: Rng, city: CityRecord, owner: { firstName: str
     .replace(/\{last\}/g, owner.lastName);
 
   const industry =
-    type === "dealer" ? "Automotive — Franchised Dealership"
-    : type === "body_shop" ? "Automotive — Collision Repair"
-    : "Automotive — Independent Service";
+    type === "dealer" ? "Commercial Real Estate, Brokerage"
+    : type === "body_shop" ? "Commercial Real Estate, Property Management"
+    : "Commercial Real Estate, Investment";
 
   return { type, name, domain: slugifyDomain(name), industry };
 }
 
-// Realistic dealer/shop domains drop common suffix words ("Auto Group",
-// "Collision Center", "Auto Body", "& Paint"…) so the result looks hand-picked
-// rather than slugged. `crowntoyota.com` not `crowntoyota-of-pasadena.com`.
+// Realistic brokerage/firm domains drop common suffix words ("Capital
+// Partners", "Realty Group", "Property Management"...) so the result looks
+// hand-picked rather than slugged. `summitcapital.com` not
+// `summitcapitalpartners.com`.
 const DOMAIN_DROP_WORDS = [
-  "auto group", "auto body", "body shop", "collision center", "collision",
-  "body & paint", "& paint", "and paint", "auto service", "auto repair",
-  "automotive", "tire & auto", "tire and auto", "performance & service",
-  "performance and service", "service", "center", "brothers",
+  "capital partners", "realty group", "property management",
+  "asset management", "investments", "real estate", "holdings",
+  "equity partners", "family office", "ventures", "advisors", "commercial",
+  "residential", "portfolio services", "management group", "real estate services",
+  "realty advisors", "investment group", "multifamily management",
+  "capital", "realty", "brokers", "partners",
 ];
 
 function slugifyDomain(name: string): string {
@@ -68,18 +72,18 @@ function slugifyDomain(name: string): string {
     s = s.replace(new RegExp(`\\b${w.replace(/[&]/g, "\\&")}\\b`, "g"), " ");
   }
   s = s
-    .replace(/mercedes-benz/g, "mercedes")
-    .replace(/land rover/g, "landrover")
+    .replace(/single-tenant nnn/g, "nnn")
+    .replace(/mixed-use/g, "mixeduse")
     .replace(/[^a-z0-9 ]/g, "")
     .replace(/\s+/g, "")
     .trim();
-  if (s.length === 0) s = "shop";
+  if (s.length === 0) s = "firm";
   if (s.length > 28) s = s.slice(0, 28);
   return `${s}.com`;
 }
 
 export function makeTitle(rng: Rng, type: BusinessType): string {
-  // ~4% of CRM rows have a blank title — leads from form fills or imports
+  // ~4% of CRM rows have a blank title, leads from form fills or imports
   // where the title column wasn't populated.
   if (rng.bool(0.04)) return "";
   return rng.pick(TITLES_BY_TYPE[type]);

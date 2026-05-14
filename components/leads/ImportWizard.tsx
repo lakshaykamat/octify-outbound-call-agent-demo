@@ -60,16 +60,16 @@ const SOURCE_TILES = [
 ];
 
 const SAMPLE_CSV = `name,email,phone,company,title,city,state
-Aiden Park,aiden.park@northcoreparts.com,+12135551080,Northcore Parts,Service Manager,Los Angeles,CA
-Bea Costa,bea.costa@valleyautoworks.com,+16195551041,Valley Autoworks,Owner,San Diego,CA
-Cyrus Maldonado,cyrus.m@ridgewayfleet.com,+13105551073,Ridgeway Fleet,Fleet Director,Long Beach,CA
-Dara Whitfield,dara@anaheimcollision.com,+17145551018,Anaheim Collision,Body Shop Lead,Anaheim,CA
-Elif Marchetti,elif@orangedealersgroup.com,+19495551007,Orange Dealers Group,Fixed Ops Director,Irvine,CA
-Farhan Boateng,farhan.b@harborautobody.com,+15625551062,Harbor Auto Body,Estimator,Torrance,CA
-Gia Rasmussen,gia@palmsmotorworks.com,+13235551094,Palms Motorworks,GM,Hollywood,CA
-Hideo Salaman,hideo@compactdiesel.com,+18185551033,Compact Diesel,Parts Buyer,Burbank,CA
-Imani Lockhart,imani@beachcityauto.com,+14245551086,Beach City Auto,Controller,Santa Monica,CA
-Jovan Penaloza,jovan@westsidemotors.com,+13105551049,Westside Motors,Service Director,Los Angeles,CA`;
+Aiden Park,aiden.park@northcorerealty.com,+12135551080,Northcore Realty Group,Senior Broker,Los Angeles,CA
+Bea Costa,bea.costa@valleycapital.com,+16195551041,Valley Capital Partners,Owner,San Diego,CA
+Cyrus Maldonado,cyrus.m@ridgewayinvest.com,+13105551073,Ridgeway Investments,Investment Director,Long Beach,CA
+Dara Whitfield,dara@anaheimproperty.com,+17145551018,Anaheim Property Management,Operations Director,Anaheim,CA
+Elif Marchetti,elif@orangepartners.com,+19495551007,Orange Equity Partners,Principal,Irvine,CA
+Farhan Boateng,farhan.b@harborassets.com,+15625551062,Harbor Asset Management,Regional Property Manager,Torrance,CA
+Gia Rasmussen,gia@palmscommercial.com,+13235551094,Palms Commercial,General Manager,Hollywood,CA
+Hideo Salaman,hideo@compactholdings.com,+18185551033,Compact Holdings,Acquisitions Director,Burbank,CA
+Imani Lockhart,imani@beachcityrealty.com,+14245551086,Beach City Realty Advisors,Asset Manager,Santa Monica,CA
+Jovan Penaloza,jovan@westsidecapital.com,+13105551049,Westside Capital,Director of Acquisitions,Los Angeles,CA`;
 
 function StepRail({
   step,
@@ -250,7 +250,7 @@ function SourceStep({
           size="sm"
           onClick={(e) => {
             e.stopPropagation();
-            onChooseCsv(SAMPLE_CSV, "motornexo-sample.csv");
+            onChooseCsv(SAMPLE_CSV, "apex-capital-sample.csv");
           }}
         >
           <FileTextIcon className="size-3.5" /> Use sample CSV
@@ -337,10 +337,10 @@ function MappingStep({
                   onValueChange={(v) => onChange(f.key, v === "__none" ? "" : v)}
                 >
                   <SelectTrigger className="w-[220px]">
-                    {col ? col : <span className="text-muted-foreground">— Not mapped —</span>}
+                    {col ? col : <span className="text-muted-foreground">- Not mapped -</span>}
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="__none">— Not mapped —</SelectItem>
+                    <SelectItem value="__none">- Not mapped -</SelectItem>
                     {parsed.columns.map((c) => (
                       <SelectItem key={c} value={c}>{c}</SelectItem>
                     ))}

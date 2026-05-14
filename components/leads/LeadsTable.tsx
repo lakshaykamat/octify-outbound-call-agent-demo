@@ -130,7 +130,7 @@ export function LeadsTable({
                   {campaign ? (
                     <span className="text-muted-foreground">{campaign}</span>
                   ) : (
-                    <span className="text-muted-foreground">—</span>
+                    <span className="text-muted-foreground">-</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -139,7 +139,7 @@ export function LeadsTable({
                 <TableCell className="text-xs tabular-nums text-muted-foreground">
                   {lead.lastTouchedAt
                     ? format(new Date(lead.lastTouchedAt), "MMM d, HH:mm")
-                    : "—"}
+                    : "-"}
                 </TableCell>
               </TableRow>
             );

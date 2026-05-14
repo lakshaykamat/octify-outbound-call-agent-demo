@@ -2,83 +2,83 @@
   "updatedAt": "2026-05-09T17:22:00.000Z",
   "products": [
     {
-      "name": "Inventory",
-      "description": "Upload, manage, and monitor aged or obsolete parts. Velocity and risk scoring surface the SKUs costing you carrying cost every day they sit on the shelf.",
-      "price": "Free to use",
-      "pitch": "Turn frozen capital into cash. Most sellers move their first aged-inventory dollars within two weeks of listing."
+      "name": "Valuation Desk",
+      "description": "A free initial property valuation and decision worksheet for owners weighing sell, refi, or hold. We pull comps, model a quick cash-on-cash, and lay out three paths in plain numbers.",
+      "price": "Free",
+      "pitch": "Most owners we work with want to know what the market would pay without sticking a sign on the property. The valuation is free and arrives within five business days."
     },
     {
-      "name": "Marketplace",
-      "description": "Search supplier inventory across the verified MotorNexo network, compare availability and condition, and purchase directly from other members.",
-      "price": "Free to use",
-      "pitch": "Fewer bays go cold. Buyers find hard-to-source OEM parts in minutes instead of chasing four dealers by phone."
+      "name": "Off-Market Marketplace",
+      "description": "Investors and family offices search pre-listing inventory across the Apex Capital network. Filter by asset class, geography, cap rate band, and ticket size.",
+      "price": "Free for verified investors",
+      "pitch": "The best deals never hit LoopNet or Crexi. We surface deals before they go public so buyers in your buy box get a real shot at clean inventory."
     },
     {
-      "name": "Orders",
-      "description": "Track every purchase and sale with full transaction history, status, and writeback to your DMS or shop management system.",
-      "price": "Free to use",
-      "pitch": "One place for every MotorNexo transaction — your fixed ops director sees the trail without chasing emails."
+      "name": "Disposition Services",
+      "description": "A managed off-market sale for owners who want to test the market without a public listing. Apex Capital runs targeted outreach to a vetted buyer pool and brings you priced indications inside 30 days.",
+      "price": "Quoted at the discovery call",
+      "pitch": "Sell without the listing, the open houses, or the public price discovery. Owners keep optionality and only proceed if the indications make sense."
     },
     {
-      "name": "Backorders",
-      "description": "Create and monitor demand for unavailable SKUs. We watch the network and notify you the moment a verified seller lists it.",
-      "price": "Free to use",
-      "pitch": "Stop calling around for that one part. Post the backorder and let the network find you the moment supply shows up."
+      "name": "Acquisition Sourcing",
+      "description": "Buy-side off-market sourcing for investors with a defined buy box. We source, screen, and present curated deals so principals only spend time on the ones that fit.",
+      "price": "Quoted at the discovery call",
+      "pitch": "If you have capital ready and a clear buy box, we feed you sourced, off-market opportunities month over month. No cold deal flow, no LoopNet hunting."
     }
   ],
   "objections": [
-    { "objection": "We already have suppliers we're happy with.",
-      "response":  "Totally fair — MotorNexo isn't a replacement, it's a second tap. Use your primary suppliers as usual; we step in when something's backordered or you have excess to move. Would you be open to a fifteen-minute walkthrough on your real SKUs?" },
-    { "objection": "We don't have aged inventory to sell.",
-      "response":  "Most shops we talk to discover 8–12% of their parts haven't moved in 180 days once we run the report. Could I pull a free aged-inventory snapshot for you so you can see for yourself?" },
-    { "objection": "We can't trust an unknown supplier on parts.",
-      "response":  "Every seller is dealership- or shop-verified before they list, with location, license, and rating visible on every SKU. Happy to walk through our verification process on a quick call." },
-    { "objection": "I don't have time to learn a new tool.",
-      "response":  "Most parts managers are up and running in twenty minutes — upload a CSV from your DMS and the system handles the rest. No replatforming required." },
-    { "objection": "Sounds expensive.",
-      "response":  "Actually MotorNexo is free for buyers and sellers — no subscription, no listing fees. Worth fifteen minutes to see what's possible at zero cost?" },
+    { "objection": "We're not selling right now.",
+      "response":  "Totally fair, the valuation is free and there's no listing involved. Most owners we run it for hold the report and check back in six months. Would you want the snapshot anyway?" },
+    { "objection": "We already have a broker.",
+      "response":  "Understood, we're not asking you to switch. Owners often run our off-market valuation alongside their broker's number as a second opinion before any decision. Worth fifteen minutes for a parallel view?" },
+    { "objection": "The market's too soft right now.",
+      "response":  "Soft market is exactly when off-market matters, public listings sit and the price erodes. Quiet outreach to a vetted buyer pool keeps optionality. Could I show you what we're seeing on similar assets?" },
+    { "objection": "We don't have a portfolio big enough.",
+      "response":  "Single-asset owners are a big part of what we do. The valuation desk and discovery call work the same whether you own one property or twenty. Want me to run it on the one asset?" },
+    { "objection": "I don't have time for this.",
+      "response":  "Fifteen minutes, no prep on your side. We pull the comps and the rent roll if you have it, and you tell us at the end if you want to go further." },
     { "objection": "I'm not the right person.",
-      "response":  "No problem — who on your team owns parts inventory or sourcing? I'd love to send them a short note with your context." },
+      "response":  "No problem, who on your team looks at asset-level decisions or acquisitions? Happy to send them a short note with your context." },
     { "objection": "Send me an email.",
-      "response":  "Happy to. To make it useful, do you lean more toward selling aged stock or sourcing hard-to-find parts? I'll tailor what I send." }
+      "response":  "Happy to. To make it useful, do you lean more toward evaluating a sale or refi, or toward off-market acquisitions? I'll tailor what I send." }
   ],
   "caseStudies": [
-    { "customer": "Valley Ford Group (4 rooftops)",
-      "outcome":  "Moved $182k of aged parts inventory in the first 90 days",
-      "metric":   "$182k recovered · 23% aged-stock reduction in Q1" },
-    { "customer": "Coastline Collision Centers (7 locations)",
-      "outcome":  "Cut hard-to-source OEM part wait time from 4.2 days to 14 hours",
-      "metric":   "14-hour average sourcing time · 91% bay availability" },
-    { "customer": "Sunset Auto Service (6 bays, 3 locations)",
-      "outcome":  "Found a discontinued ECU through the network in 38 minutes",
-      "metric":   "Zero rental car days on that job — saved $640 in customer credit" }
+    { "customer": "Westside multifamily owner (82-unit, Mid-City LA)",
+      "outcome":  "Sold off-market at a 6.4% cap inside 28 days, no public listing",
+      "metric":   "$14.2M closed · 4 priced indications in 21 days" },
+    { "customer": "Family office, retail strip buyer (San Diego County)",
+      "outcome":  "Sourced 3 off-market retail strips matching their buy box in one quarter",
+      "metric":   "$22M deployed · zero deals from public listings" },
+    { "customer": "Suburban office sponsor (Pasadena, 38k sqft)",
+      "outcome":  "Refinanced after the valuation showed equity was stronger than expected",
+      "metric":   "Held the asset · $1.8M cash-out at refi instead of selling" }
   ],
   "faqs": [
-    { "question": "How is MotorNexo free to use?",
-      "answer":   "Buyers and sellers don't pay subscriptions or listing fees. We're focused on growing the verified network first — defer commercial detail to a demo." },
-    { "question": "Who's allowed to buy and sell on MotorNexo?",
-      "answer":   "Verified franchised dealerships, body shops, collision centers, and multi-location independent service centers. Every member is verified before they can list or purchase." },
-    { "question": "Do I need to replace my DMS or shop management system?",
-      "answer":   "No. MotorNexo runs alongside your existing systems. You can upload aged-inventory CSVs from CDK, Reynolds, Tekion, Mitchell 1, and most major DMS exports." },
+    { "question": "How is the initial valuation free?",
+      "answer":   "We invest the time up front because most relationships pay back over a multi-year window. Owners are under no obligation to list or sell after the valuation." },
+    { "question": "Who's allowed to access the off-market marketplace?",
+      "answer":   "Verified investors and family offices with a defined buy box and proof of funds. Every member is verified before they see inventory." },
+    { "question": "Do I need to switch from my current broker?",
+      "answer":   "No. Owners often run our valuation alongside their existing broker's number. We only get involved as the disposition lead if and when you ask us to." },
+    { "question": "What asset classes do you cover?",
+      "answer":   "Multifamily, retail strip, small to mid office, light industrial, mixed-use, self-storage, and select medical office and single-tenant NNN. Hospitality and raw land case by case." },
     { "question": "What regions do you serve today?",
-      "answer":   "California first — Los Angeles, San Diego, and the surrounding markets. We expand to a new region when seller density crosses a threshold." },
-    { "question": "What kinds of parts move on the marketplace?",
-      "answer":   "OEM mechanical, collision and body panels, electrical and ECUs, and increasingly EV-specific parts. We're strongest on common North American and European brands." },
-    { "question": "How long does setup take?",
-      "answer":   "Most accounts are live the same day. The verification check usually takes under an hour; uploading aged inventory is a single CSV step." }
+      "answer":   "Southern California first, Greater LA, San Diego, and Inland Empire. We expand into a new market when sponsor density crosses a threshold." },
+    { "question": "How long does a discovery call run?",
+      "answer":   "Fifteen to twenty minutes. You bring the address and any rent roll you have, we bring the comps and the model. You decide at the end whether to go further." }
   ],
-  "competitorNotes": "Don't name specific competitors unless the prospect names them first. If they do: MotorNexo is verified-network-first (every seller is checked before listing) and dealer + shop + collision in one tap, versus dealer-only or shop-only point solutions. We're free; pure marketplaces that charge listing fees tend to under-serve aged inventory.",
-  "pricingNotes": "MotorNexo is free to use for buyers and sellers. Do NOT discuss commissions, transaction economics, internal pricing, or revenue model on the call — those questions belong in the demo. If pressed, say: \"We keep commercial detail for the demo, but the platform itself is free to use.\"",
+  "competitorNotes": "Don't name specific competitors unless the prospect names them first. If they do: Apex Capital is off-market-first (we don't lead with a public listing) and we run both sell-side and buy-side under one roof, versus listing-only brokerages or acquisition-only shops. The initial valuation is free; brokers who push a listing agreement on day one tend to under-serve owners who aren't sure yet.",
+  "pricingNotes": "The initial valuation and discovery call are free. Do NOT discuss commissions, fee splits, internal pricing, or transaction economics on the call, those questions belong in the discovery conversation. If pressed, say: \"We keep commercial detail for the discovery call, but the valuation itself is free.\"",
   "qualifyingQuestions": [
-    "Are you the person who owns parts inventory or sourcing at your shop or dealership?",
-    "Roughly how much aged or excess inventory is sitting on the shelf today?",
-    "How often do you hit a part you can't source within 24 hours?",
-    "How are you handling aged stock or backorders today — phone calls, broker, or auctions?",
-    "If you could turn aged inventory into cash and shorten sourcing time in one place, would you want a 15-minute walkthrough?"
+    "Are you the person who looks at sell, refi, or acquisition decisions on the asset?",
+    "Roughly what does the portfolio look like today, single asset or multiple, and what asset classes?",
+    "When was the last time you got an outside valuation on the property?",
+    "How are you sourcing acquisitions today, public listings, brokers, or off-market?",
+    "If you could see what the off-market would pay for the asset without listing it, would you want that snapshot?"
   ],
   "doNotMention": [
-    "commissions, transaction economics, or revenue model",
-    "internal pricing details or supplier terms",
+    "commissions, fee splits, or transaction economics",
+    "internal pricing details or fee schedules",
     "specific named competitors unless the prospect names them first",
     "names of customers beyond the published case studies",
     "internal model names, providers, or infrastructure",

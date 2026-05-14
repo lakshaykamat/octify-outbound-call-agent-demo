@@ -124,7 +124,7 @@ export type TestCallEvent = {
   outcome?: "meeting_booked" | "not_interested" | "voicemail" | "callback_requested";
 };
 
-// Phase 4.3 — Workflows.
+// Phase 4.3, Workflows.
 
 type OutcomeRef = import("@/lib/mock").Outcome;
 
@@ -157,7 +157,7 @@ export type RetryPolicyRule = {
   enabled: boolean;
 };
 
-// Phase 4.3 — Inbox.
+// Phase 4.3, Inbox.
 
 export type InboxItemKind = "hot_reply" | "crm_sync_failed" | "agent_error";
 export type InboxItemStatus = "unread" | "read" | "resolved";

@@ -20,7 +20,7 @@ type Props = {
 export function InlineEditField({
   value,
   onSave,
-  placeholder = "—",
+  placeholder = "-",
   multiline,
   className,
   inputClassName,

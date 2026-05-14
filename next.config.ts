@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 
-// xylo-portal is a self-contained demo — no network calls, no api gateway.
+// xylo-portal is a self-contained demo, no network calls, no api gateway.
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,

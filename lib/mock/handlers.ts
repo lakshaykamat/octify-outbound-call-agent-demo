@@ -221,7 +221,7 @@ export async function importLeads(
       fullName: `${firstName} ${lastName}`.trim() || email || phone,
       email: email || `${firstName}.${lastName}@example.com`.toLowerCase(),
       phone,
-      company: row[mapping.company] ?? "—",
+      company: row[mapping.company] ?? "-",
       title: row[mapping.title] ?? "",
       industry: options.enrich ? "Software" : "",
       city: row[mapping.city] ?? "",
@@ -510,21 +510,19 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
   const connSpark = sparkSlice.map((b) => b.connected);
   const meetSpark = sparkSlice.map((b) => b.meetings);
 
-  const rejectedOutcomes: Outcome[] = ["not_interested", "opted_out"];
-  const rejected = callsInRange.filter(
-    (c) => c.analysis && rejectedOutcomes.includes(c.analysis.outcome),
-  ).length;
-  const prevRejected = callsPrev.filter(
-    (c) => c.analysis && rejectedOutcomes.includes(c.analysis.outcome),
-  ).length;
-  const rejectedByDay = new Map<string, number>();
+  // Ghosted = no-answer (no analysis at all) + voicemail. These are dials
+  // where the prospect never actually engaged.
+  const isGhosted = (c: typeof callsInRange[number]) =>
+    !c.analysis || c.analysis.outcome === "voicemail";
+  const ghosted = callsInRange.filter(isGhosted).length;
+  const prevGhosted = callsPrev.filter(isGhosted).length;
+  const ghostedByDay = new Map<string, number>();
   for (const call of callsInRange) {
-    if (!call.analysis || !rejectedOutcomes.includes(call.analysis.outcome))
-      continue;
+    if (!isGhosted(call)) continue;
     const key = (call.startedAt ?? call.createdAt).slice(0, 10);
-    rejectedByDay.set(key, (rejectedByDay.get(key) ?? 0) + 1);
+    ghostedByDay.set(key, (ghostedByDay.get(key) ?? 0) + 1);
   }
-  const rejSpark = sparkSlice.map((b) => rejectedByDay.get(b.date) ?? 0);
+  const ghostedSpark = sparkSlice.map((b) => ghostedByDay.get(b.date) ?? 0);
 
   const kpis: DashboardKpi[] = [
     {
@@ -546,10 +544,10 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
       spark: meetSpark,
     },
     {
-      label: "Call rejected",
-      value: rejected,
-      delta: delta(rejected, prevRejected),
-      spark: rejSpark,
+      label: "Ghosted",
+      value: ghosted,
+      delta: delta(ghosted, prevGhosted),
+      spark: ghostedSpark,
     },
   ];
 
@@ -642,11 +640,11 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
     const best = topCampaigns[0];
     insights.push({
       title: "Top performer",
-      body: `"${best.name}" books ${(best.bookRate * 100).toFixed(1)}% — ${best.bookRate > 0.06 ? "above" : "below"} the org-wide ${(((booked || 1) / (dialed || 1)) * 100).toFixed(1)}% baseline.`,
+      body: `"${best.name}" books ${(best.bookRate * 100).toFixed(1)}%, ${best.bookRate > 0.06 ? "above" : "below"} the org-wide ${(((booked || 1) / (dialed || 1)) * 100).toFixed(1)}% baseline.`,
     });
   }
 
-  // Activity stream — synthesize from store state plus the most recent booked calls.
+  // Activity stream, synthesize from store state plus the most recent booked calls.
   const recentBooked = callsInRange
     .filter((c) => c.analysis?.outcome === "meeting_booked")
     .sort((a, b) => (b.startedAt ?? "").localeCompare(a.startedAt ?? ""))
@@ -657,7 +655,7 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
       id: `act_${call._id}`,
       type: "call.booked",
       at: call.startedAt ?? call.createdAt,
-      message: `${call.prospectName ?? "Lead"} at ${call.company ?? "—"} booked a meeting`,
+      message: `${call.prospectName ?? "Lead"} at ${call.company ?? "-"} booked a meeting`,
     });
   }
   const recentCampaigns = [...store.campaigns]
@@ -733,7 +731,7 @@ export async function getCampaignStats(id: string) {
   return simulate({ dialed, connected, conversations, qualified, booked, objections });
 }
 
-// Phase 4.1 — Agent Studio.
+// Phase 4.1, Agent Studio.
 
 export async function getAgentScript(): Promise<AgentScript> {
   return simulate(getStore().agentScript);
@@ -771,24 +769,24 @@ export async function updateAgentScript(section: ScriptSectionKey, value: string
 
 const REWRITE_PRESETS: Record<ScriptSectionKey, string[]> = {
   opening: [
-    "Hey {{firstName}}, this is Xylo from Octify. I'll be quick — sixty seconds to share why I'm calling, then you tell me if it's worth more time. Fair?",
-    "Hi {{firstName}}, Xylo from Octify here — I know you weren't expecting this. One sentence on why I picked up the phone, and then I'll let you decide if we keep talking.",
+    "Hey {{firstName}}, this is Lara from Apex Capital. I'll be quick, sixty seconds to share why I'm calling, then you tell me if it's worth more time. Fair?",
+    "Hi {{firstName}}, Lara from Apex Capital here, I know you weren't expecting this. One sentence on why I picked up the phone, and then I'll let you decide if we keep talking.",
   ],
   qualification: [
-    "Quick check so I don't waste your minute: at {{company}}, are you the person who'd evaluate an outbound AI calling tool, or is that on someone else's plate?",
-    "Before I go further — does AI calling tooling fall in your scope at {{company}}, or should I be talking to someone else?",
+    "Quick check so I don't waste your minute: at {{company}}, are you the person who'd weigh a sell, refi, or hold decision on an asset, or is that on someone else's plate?",
+    "Before I go further, do asset-level decisions fall in your scope at {{company}}, or should I be talking to someone else?",
   ],
   pitch: [
-    "Teams switch to us for one reason: every conversation lands in HubSpot in under ninety seconds with the next step queued. The compounding effect is a 25–35% lift on booked meetings inside six weeks.",
-    "The headline isn't dials per hour — it's CRM-writeback quality. That's where teams using Xylo see meetings booked move 25–35% inside the first six weeks.",
+    "Owners switch to us for one reason: a free off-market valuation that surfaces what the market would actually pay without sticking a sign on the property. The compounding effect is a real second opinion before any listing decision.",
+    "The headline isn't more brokers, it's quiet off-market price discovery. That's where owners working with Apex see priced indications inside thirty days, no public listing required.",
   ],
   objections: [
-    "Fair. The fastest way to make it real is thirty seconds of a live call and a screenshot of the writeback it produced. Can I send those over today?",
-    "I hear that a lot. Would a thirty-second sample call plus a redacted CRM record change anything? If not, I'll drop it.",
+    "Fair. The fastest way to make it real is a thirty-second valuation snapshot and a redacted recent comp set. Can I send those over today?",
+    "I hear that a lot. Would a quick valuation snapshot plus a redacted comp set change anything? If not, I'll drop it.",
   ],
   close: [
-    "Okay — twenty minutes with a solution AE, we walk your stack and show a live call. Thursday 10 Pacific or Friday 2 Pacific — which lands?",
-    "Let's lock twenty minutes. Thursday 10am or Friday 2pm Pacific — pick one and I'll send the invite before we hang up.",
+    "Okay, twenty minutes with our managing partner, we walk the asset and show three priced paths. Thursday 10 Pacific or Friday 2 Pacific, which lands?",
+    "Let's lock twenty minutes. Thursday 10am or Friday 2pm Pacific, pick one and I'll send the invite before we hang up.",
   ],
 };
 
@@ -870,7 +868,7 @@ export async function runTestCall(phone: string): Promise<{ events: TestCallEven
     t += 2200;
     events.push({ kind: "transcript", at: t, role: "user", text: "Hi, you've reached me. Leave a message and I'll get back." });
     t += 8500;
-    events.push({ kind: "transcript", at: t, role: "agent", text: "Hi — this is Xylo from Octify, I'll try again. Have a great day." });
+    events.push({ kind: "transcript", at: t, role: "agent", text: "Hi, this is Lara from Apex Capital, I'll try again. Have a great day." });
     t += 6800;
     events.push({ kind: "outcome", at: t, outcome });
     events.push({ kind: "ended", at: t + 1200 });
@@ -882,26 +880,26 @@ export async function runTestCall(phone: string): Promise<{ events: TestCallEven
 
   const lines: Array<[TestCallEvent["role"], string, number]> = [
     ["user", "Hello?", 3200],
-    ["agent", `Hey, this is Xylo calling from Octify Technologies. I know I'm catching you cold — got ninety seconds for me to share why I'm calling, and then you can tell me if it's worth more time?`, 14500],
+    ["agent", `Hey, this is Lara calling from Apex Capital. I know I'm catching you cold, got ninety seconds for me to share why I'm calling, and then you can tell me if it's worth more time?`, 14500],
     ["user", "Uh, sure, go ahead.", 4200],
-    ["agent", "Appreciate it. Teams like yours tell us the meaningful win isn't more dials — it's how fast every conversation lands in HubSpot with the right next step queued.", 15800],
-    ["user", "We already use a tool for that.", 5600],
+    ["agent", "Appreciate it. Owners we work with tell us the meaningful win isn't more brokers in the rotation, it's a quiet off-market read on what the asset would actually trade for.", 15800],
+    ["user", "We already work with a broker.", 5600],
   ];
 
   if (outcome === "not_interested") {
-    lines.push(["agent", "Got it. Mind if I ask which one — and if there's anything you'd want it to do better?", 10500]);
+    lines.push(["agent", "Got it. Mind if I ask which one, and if there's anything you'd want it to do better?", 10500]);
     lines.push(["user", "Honestly we're heads down on a launch right now. Not the right time.", 8200]);
     lines.push(["agent", "Totally fair. I'll drop a one-pager in email and circle back next quarter. Have a good one.", 10000]);
   } else if (outcome === "callback_requested") {
-    lines.push(["agent", "Makes sense. Would a thirty-second sample call plus a redacted CRM record be worth a look?", 11200]);
+    lines.push(["agent", "Makes sense. Would a quick valuation snapshot plus a redacted comp set be worth a look?", 11200]);
     lines.push(["user", "Send it over. I'll have time Thursday.", 5600]);
-    lines.push(["agent", "Perfect — I'll email it now and follow up Thursday morning. Thanks for the time.", 8400]);
+    lines.push(["agent", "Perfect, I'll email it now and follow up Thursday morning. Thanks for the time.", 8400]);
   } else {
-    lines.push(["agent", "Makes sense. The piece teams switch for is CRM writeback quality — every call summarised before the rep opens the lead. Want a twenty-minute look?", 14200]);
+    lines.push(["agent", "Makes sense. The piece owners come to us for is quiet off-market price discovery, no public listing required. Want a twenty-minute look?", 14200]);
     lines.push(["user", "Yeah okay, that could be useful.", 5600]);
-    lines.push(["agent", "Great. I've got Thursday 10am or Friday 2pm Pacific — which works?", 8400]);
+    lines.push(["agent", "Great. I've got Thursday 10am or Friday 2pm Pacific, which works?", 8400]);
     lines.push(["user", "Thursday works.", 3800]);
-    lines.push(["agent", "Locked in — invite is on its way. Talk Thursday.", 7000]);
+    lines.push(["agent", "Locked in, invite is on its way. Talk Thursday.", 7000]);
   }
 
   for (const [role, text, dur] of lines) {
@@ -914,7 +912,7 @@ export async function runTestCall(phone: string): Promise<{ events: TestCallEven
   return simulate({ events }, 200, 400);
 }
 
-// Phase 4.2 — Knowledge Base editor.
+// Phase 4.2, Knowledge Base editor.
 
 export type KnowledgeBasePatch = Partial<
   Pick<
@@ -935,15 +933,15 @@ export async function updateKnowledgeBase(patch: KnowledgeBasePatch): Promise<Kn
 }
 
 const OBJECTION_SUGGESTIONS: KbObjection[] = [
-  { objection: "We're rebuilding our outbound motion next quarter.",          response: "Makes sense. Most teams plug us in during a rebuild because we don't replace your reps — we route warm conversations to them. Worth a fifteen-minute look before you finalise the stack?" },
+  { objection: "We're rebuilding our outbound motion next quarter.",          response: "Makes sense. Most teams plug us in during a rebuild because we don't replace your reps, we route warm conversations to them. Worth a fifteen-minute look before you finalise the stack?" },
   { objection: "Our prospects can tell it's AI within five seconds.",          response: "That's the bar we hold ourselves to. Could I send a thirty-second clip from a recent call? If you can pick it within five seconds, I'll buy you coffee." },
-  { objection: "We tried voice AI six months ago — wasn't ready.",            response: "Totally fair, it's moved a lot. Two specific things have changed: CRM writeback latency and interruption handling. Worth a side-by-side?" },
-  { objection: "Our compliance team won't sign off on outbound AI.",          response: "We hear that — we're SOC 2 Type II and route through your numbers under your TCPA consent records. Happy to send the trust packet directly to security." },
+  { objection: "We tried voice AI six months ago, wasn't ready.",            response: "Totally fair, it's moved a lot. Two specific things have changed: CRM writeback latency and interruption handling. Worth a side-by-side?" },
+  { objection: "Our compliance team won't sign off on outbound AI.",          response: "We hear that, we're SOC 2 Type II and route through your numbers under your TCPA consent records. Happy to send the trust packet directly to security." },
   { objection: "We don't have the volume to justify it.",                      response: "Fair. Our smallest production tenants run fifty dials a day and still book a meeting a week. Want a fifteen-minute look at what that looks like at your scale?" },
 ];
 
 const FAQ_SUGGESTIONS: KbFaq[] = [
-  { question: "Can we use our own phone numbers?",                  answer: "Yes — bring your numbers via SIP or our managed-number pool. We honour your area-code matching rules either way." },
+  { question: "Can we use our own phone numbers?",                  answer: "Yes, bring your numbers via SIP or our managed-number pool. We honour your area-code matching rules either way." },
   { question: "What happens if the lead asks a question off-script?", answer: "The agent draws on the knowledge base in real time. If it can't answer with confidence, it offers a callback from a human and writes the question to CRM." },
   { question: "How do you handle do-not-call lists?",                 answer: "We hit the national DNC + your internal suppression list before every dial. Opt-outs heard on the call write back instantly and propagate across campaigns." },
   { question: "Do you support multi-language calls?",                 answer: "English, Spanish, and Portuguese are GA. French and German are in early access. The agent can switch mid-call if the prospect changes language." },
@@ -966,7 +964,7 @@ export type PdfExtraction = {
   products: KbProduct[];
 };
 
-// Phase 4.3 — Workflows.
+// Phase 4.3, Workflows.
 
 export async function listCrmRules(): Promise<CrmMappingRule[]> {
   return simulate(getStore().crmRules);
@@ -990,7 +988,7 @@ export async function updateRetryPolicies(next: RetryPolicyRule[]): Promise<Retr
   return simulate(next, 100, 240);
 }
 
-// Phase 4.3 — Inbox.
+// Phase 4.3, Inbox.
 
 export type InboxQuery = {
   kind?: InboxItem["kind"] | "all";

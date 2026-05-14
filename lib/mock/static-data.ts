@@ -1,6 +1,6 @@
 // Thin typed loader over data/agent-runtime.json + data/knowledge-base.json.
 // The voice waveform is the one piece that stays computed in TS because it's
-// decorative noise, not data — the seed value lives in JSON.
+// decorative noise, not data, the seed value lives in JSON.
 
 import type {
   AgentConfig, AgentScript, AgentVersion, KnowledgeBase, VoiceOption,

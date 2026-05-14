@@ -12,7 +12,7 @@ import {
 } from "../data/pools";
 
 function isSeller(lead: Lead): boolean {
-  return lead.industry.includes("Dealership");
+  return lead.industry.includes("Brokerage");
 }
 
 function fill(template: string, vars: Record<string, string>) {
@@ -36,14 +36,14 @@ function makeTranscript(rng: Rng, lead: Lead, outcome: Outcome | null): Transcri
   if (outcome === "voicemail") {
     return [
       { role: "agent", content: "[voicemail tone]" },
-      { role: "agent", content: `Hi ${first}, this is Xylo calling on behalf of MotorNexo. I'll try again tomorrow — feel free to call us back at 619-304-2264.` },
+      { role: "agent", content: `Hi ${first}, this is Lara calling on behalf of Apex Capital. I'll try again tomorrow, feel free to call us back at 310-555-0182.` },
     ];
   }
   if (outcome === "wrong_number") {
     return [
       { role: "agent", content: fill(rng.pick(openers), vars) },
       { role: "user", content: "You have the wrong number." },
-      { role: "agent", content: "Apologies — I'll remove this contact. Have a good day." },
+      { role: "agent", content: "Apologies, I'll remove this contact. Have a good day." },
     ];
   }
   const interested = outcome === "meeting_booked" || outcome === "callback_requested";
@@ -64,17 +64,17 @@ function summarise(rng: Rng, lead: Lead, outcome: Outcome): string {
   switch (outcome) {
     case "meeting_booked":
       return seller
-        ? `${lead.firstName} (${role}) agreed to a 15-minute marketplace walkthrough. Confirmed aged-parts shelf is a problem; wants to see SKU velocity reporting.`
-        : `${lead.firstName} (${role}) agreed to a 15-minute demo on OEM sourcing speed. Currently waiting on backorders — open to a faster channel.`;
+        ? `${lead.firstName} (${role}) agreed to a 15-minute valuation walkthrough. Confirmed they are weighing a sell or refi on at least one asset; wants to see the off-market valuation worksheet.`
+        : `${lead.firstName} (${role}) agreed to a 15-minute discovery call on off-market deal flow. Has a defined buy box, open to a curated pipeline.`;
     case "callback_requested":
-      return `${lead.firstName} asked for a callback. Interested but needs to align with the ${seller ? "parts manager / fixed ops" : "owner / shop manager"} first.`;
+      return `${lead.firstName} asked for a callback. Interested but needs to align with the ${seller ? "managing partner / asset manager" : "investment committee / principal"} first.`;
     case "not_interested":
-      return `Prospect declined — ${rng.pick([
-        "already moves aged stock through auction",
-        "captive OEM distributor handles all parts",
-        "long-time supplier, not looking",
-        "tried a locator service before, didn't stick",
-        "no aged inventory to monetize",
+      return `Prospect declined, ${rng.pick([
+        "already has a broker on the asset",
+        "family office handles all acquisitions internally",
+        "long-time advisor, not looking",
+        "tried an off-market shop before, didn't stick",
+        "no plans to sell, hold strategy",
       ])}.`;
     case "voicemail":
       return "Voicemail left. No callback received.";

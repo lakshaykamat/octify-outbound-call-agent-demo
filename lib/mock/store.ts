@@ -2,13 +2,13 @@
 // mutations (created campaigns, assigned inbox items, resolved threads,
 // updated agent config, etc.) survive page reloads.
 //
-// Bump STORAGE_VERSION whenever the SeededStore shape changes — old
+// Bump STORAGE_VERSION whenever the SeededStore shape changes, old
 // payloads will be discarded and the seed re-runs.
 
 import { seedStore, type Scenario, type SeededStore } from "./seed";
 
 const STORAGE_KEY = "xylo-portal:mock-store";
-const STORAGE_VERSION = 7;
+const STORAGE_VERSION = 9;
 
 export type Store = SeededStore;
 
@@ -40,7 +40,7 @@ function persistNow(): void {
     const env: Envelope = { v: STORAGE_VERSION, data: current };
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(env));
   } catch (err) {
-    // Quota exceeded or serialization issue — silently drop; demo continues
+    // Quota exceeded or serialization issue, silently drop; demo continues
     // in-memory until next reload.
     console.warn("[mock] persist failed", err);
   }

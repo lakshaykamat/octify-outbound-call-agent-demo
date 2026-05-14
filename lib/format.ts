@@ -8,7 +8,7 @@ export function maskPhone(phone: string): string {
 }
 
 export function formatDuration(seconds: number | null | undefined): string {
-  if (seconds == null) return "—";
+  if (seconds == null) return "-";
   const minutes = Math.floor(seconds / 60);
   const remainder = seconds % 60;
   return `${minutes}:${remainder.toString().padStart(2, "0")}`;

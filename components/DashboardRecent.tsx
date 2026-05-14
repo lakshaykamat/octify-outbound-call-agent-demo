@@ -102,7 +102,7 @@ export function DashboardRecent() {
                           {outcomeLabel(call.analysis.outcome)}
                         </Badge>
                       ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
+                        <span className="text-xs text-muted-foreground">-</span>
                       )}
                     </div>
                   </li>

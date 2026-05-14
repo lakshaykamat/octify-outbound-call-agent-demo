@@ -55,42 +55,38 @@
     "Apex", "Summit", "Pinnacle"
   ],
   "autoBrands": [
-    "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Hyundai", "Kia",
-    "Mazda", "Subaru", "Jeep", "Ram", "GMC", "Buick", "Cadillac",
-    "Lexus", "BMW", "Mercedes-Benz", "Audi", "Acura", "Infiniti",
-    "Volkswagen", "Volvo", "MINI", "Lincoln", "Genesis", "Land Rover",
-    "Mitsubishi", "Dodge", "Chrysler"
+    "Multifamily", "Retail", "Office", "Industrial", "Mixed-Use",
+    "Self-Storage", "Medical Office", "Single-Tenant NNN", "Hospitality", "Land"
   ],
   "dealerTemplates": [
-    "{family} {brand}",
-    "{family} {brand} of {city}",
-    "{brand} of {city}",
-    "{city} {brand}",
-    "{brand} {city}",
-    "{family} Auto Group",
-    "{family} {brand} Center",
-    "{first} {last} {brand}"
+    "{family} Capital Partners",
+    "{family} Realty Group",
+    "{family} Commercial",
+    "{family} Commercial Real Estate",
+    "{family} Realty Advisors",
+    "{city} Capital Partners",
+    "{family} & {brand} Realty",
+    "{family} Brokers"
   ],
   "bodyShopTemplates": [
-    "{family} Collision Center",
-    "{family} Collision",
-    "{city} Auto Body",
-    "{family} Body & Paint",
-    "{family} Coachworks",
-    "{city} Collision Center",
-    "{family} Brothers Collision",
-    "{family} Auto Body",
-    "{last}'s Body Shop"
+    "{family} Property Management",
+    "{family} Asset Management",
+    "{family} Residential",
+    "{city} Property Group",
+    "{family} Multifamily Management",
+    "{family} Real Estate Services",
+    "{last} Management Group",
+    "{family} Portfolio Services"
   ],
   "serviceShopTemplates": [
-    "{family} Tire & Auto",
-    "{family} Automotive",
-    "{family} Brothers Automotive",
-    "{city} Auto Service",
-    "{family} Auto Repair",
-    "Express {family} Auto",
-    "{last}'s Auto Service",
-    "{family} Performance & Service"
+    "{family} Investments",
+    "{family} Capital",
+    "{family} Holdings",
+    "{family} Equity Partners",
+    "{family} Real Estate Partners",
+    "{last} Family Office",
+    "{family} Ventures",
+    "{family} Investment Group"
   ],
   "businessTypeWeights": [
     ["dealer", 55],
@@ -141,20 +137,19 @@
   ],
   "titlesByType": {
     "dealer": [
-      "Parts Manager", "Parts Director", "Fixed Operations Director",
-      "Fixed Ops Manager", "Service Director", "Service Manager",
-      "General Manager", "Dealer Principal", "Owner", "Used Car Manager",
-      "Wholesale Parts Manager", "Parts Counter Lead", "Inventory Manager",
-      "Controller", "GSM"
+      "Managing Partner", "Principal Broker", "Director of Acquisitions",
+      "Director of Dispositions", "Senior Broker", "Investment Sales Lead",
+      "Capital Markets Director", "President", "Owner", "Asset Manager"
     ],
     "body_shop": [
-      "Owner", "Owner / Operator", "Shop Manager", "Production Manager",
-      "Estimator", "Lead Estimator", "Body Shop Manager", "Parts Coordinator",
-      "Front Office Manager"
+      "Property Manager", "Regional Property Manager", "Director of Property Management",
+      "Operations Director", "Portfolio Operations Manager", "VP Operations",
+      "General Manager", "Senior Asset Manager"
     ],
     "service": [
-      "Owner", "Shop Foreman", "Service Manager", "Service Advisor",
-      "Lead Technician", "Parts Coordinator", "Operations Manager"
+      "Managing Director", "Investment Director", "Acquisitions Director",
+      "Principal", "Partner", "VP Investments", "Real Estate Counsel",
+      "Director of Real Estate"
     ]
   },
   "phoneFormatWeights": [
@@ -179,91 +174,91 @@
     ["personal:yahoo", 1]
   ],
   "objectionTags": [
-    "oem_only_policy",
-    "existing_supplier",
+    "not_selling_now",
+    "existing_broker",
+    "market_too_soft",
+    "portfolio_too_small",
+    "captive_owner",
+    "needs_partner_approval",
     "not_decision_maker",
-    "moves_via_auction",
-    "no_aged_inventory",
-    "tried_locator_service",
-    "corporate_controls_parts",
+    "just_refinanced",
+    "wants_to_hold",
+    "buy_box_full",
     "sounds_robotic",
-    "just_renewed_contract",
-    "needs_pm_approval",
-    "covid_overstock_already_cleared",
-    "captive_oem_distributor"
+    "compliance_review_blocked"
   ],
   "followUpActions": [
-    "Send platform walkthrough link",
-    "Loop in MotorNexo marketplace lead",
-    "Send aged-inventory monetization one-pager",
-    "Forward to parts manager",
-    "Schedule follow-up after inventory cycle close",
+    "Send valuation worksheet",
+    "Loop in Apex acquisitions lead",
+    "Send off-market deck",
+    "Forward to portfolio manager",
+    "Schedule follow-up after next investment committee",
     "Add to quarterly nudge sequence",
-    "Send OEM sourcing case study",
-    "Send buyer-network onboarding deck",
-    "Drop sample SKU velocity report"
+    "Send recent comparable case study",
+    "Send buy-side onboarding deck",
+    "Drop sample off-market deal sheet"
   ],
   "transcriptOpeners": {
     "seller": [
-      "Hi {first}, this is Xylo calling on behalf of MotorNexo — I have ninety seconds about your aged parts shelf, is now a good time?",
-      "Hey {first}, Xylo here from MotorNexo. Quick one about obsolete inventory at {company} — can I grab a minute?",
-      "{first}? This is Xylo with MotorNexo. We work with parts departments at groups like {company}. Got ninety seconds?",
-      "Hi, am I speaking with {first}? Calling from MotorNexo about something most parts managers are sitting on — got a minute?"
+      "Hi {first}, this is Lara calling on behalf of Apex Capital, I have ninety seconds on a free valuation for your asset, is now a good time?",
+      "Hey {first}, Lara here from Apex Capital. Quick one about a sell-versus-hold decision at {company}, can I grab a minute?",
+      "{first}? This is Lara with Apex Capital. We work with owners at groups like {company}. Got ninety seconds?",
+      "Hi, am I speaking with {first}? Calling from Apex Capital about something most owners are sitting on, got a minute?"
     ],
     "buyer": [
-      "Hi {first}, Xylo from MotorNexo. Quick question on how {company} is sourcing hard-to-find parts right now — ninety seconds?",
-      "Hey {first}, this is Xylo with MotorNexo. Shops your size are pulling OEM parts in under an hour through us — can I share how?",
-      "{first}? Xylo with MotorNexo. Got a minute? Wanted to ask about your backorder situation."
+      "Hi {first}, Lara from Apex Capital. Quick question on how {company} is sourcing off-market deals right now, ninety seconds?",
+      "Hey {first}, this is Lara with Apex Capital. Funds your size are picking up off-market inventory through us before it hits LoopNet, can I share how?",
+      "{first}? Lara with Apex Capital. Got a minute? Wanted to ask about your buy box this year."
     ]
   },
   "transcriptBookPitches": {
     "seller": [
-      "We turn aged parts into cash by listing them across a verified buyer network — no commission, no listing fee. Three dealer groups your size moved over a hundred thousand in dead stock last quarter. Worth fifteen minutes Thursday?",
-      "Most parts managers we talk to have six figures sitting on the shelf past 180 days. We pull it through the buyer network and you get cash on the wire. Could I grab fifteen minutes to walk you through it?",
-      "Free to list, free to sell. Dealers in your zone are clearing six-month-plus inventory in roughly thirty days through us. Want to see the dashboard?"
+      "We run a free initial valuation so owners can see what the off-market would actually pay, no listing involved, no obligation. Three sponsors your size took the valuation last quarter and two of them moved off-market inside thirty days. Worth fifteen minutes Thursday?",
+      "Most owners we talk to haven't had an outside valuation in two or three years. We pull comps, model the three paths, and you decide. Could I grab fifteen minutes to walk you through it?",
+      "Free valuation, no listing agreement, no pressure. Owners in your zone are seeing real off-market interest on similar assets. Want to see the worksheet?"
     ],
     "buyer": [
-      "We help shops find OEM parts faster across a verified dealer network — usually under thirty minutes for what used to take days on backorder. Worth a fifteen-minute look?",
-      "Body shops in your area are pulling hard-to-source SKUs from us in under an hour instead of waiting on backorder. Want a quick walkthrough Thursday?",
-      "Free to use on the buyer side — you just search the network, see who has the part, and order. Could I show you the search side in fifteen?"
+      "We feed verified investors sourced, off-market deal flow that matches the buy box, usually three to five clean looks a quarter that never hit the public market. Worth a fifteen-minute look?",
+      "Funds in your area are filling their buy box from our off-market pipeline instead of fighting on LoopNet. Want a quick walkthrough Thursday?",
+      "Free for verified investors on the buy side, you give us the buy box, we send curated off-market inventory. Could I show you the marketplace in fifteen?"
     ]
   },
   "transcriptUserInterested": [
-    "Yeah, dead stock is a real problem. Send something over.",
+    "Yeah, sell-versus-hold is on our mind. Send something over.",
     "Free, really? What's the catch?",
     "Thursday at two works. Send the invite to my email.",
-    "Send me the link, I'll loop in our parts manager.",
-    "Interesting. We tried something similar with Hollander, didn't stick. What's different?",
-    "Sure, what's the platform called again?",
-    "OK, send the deck. I'll review with the GM.",
-    "We've got about eighty grand sitting past nine months. Talk to me.",
-    "Yeah we use a locator service now but it's slow. Worth hearing.",
-    "Send the case study, I'll forward to the owner."
+    "Send me the link, I'll loop in our asset manager.",
+    "Interesting. We tried an off-market shop before, didn't stick. What's different?",
+    "Sure, what's the firm called again?",
+    "OK, send the deck. I'll review with the partners.",
+    "We've been thinking about trimming one asset. Talk to me.",
+    "Yeah we use a couple brokers now but deal flow is slow. Worth hearing.",
+    "Send the case study, I'll forward to the principals."
   ],
   "transcriptUserObjection": [
-    "We've got a guy we always go to. Not looking right now.",
-    "We use OEM only — talk to corporate, not me.",
-    "Manager isn't in. Try back next week.",
-    "We don't carry aged stock — we send it to auction.",
+    "We've got a broker we always go to. Not looking right now.",
+    "We just refinanced, talk to me in a year.",
+    "Decision-maker isn't in. Try back next week.",
+    "We're holders, we don't sell. Pass.",
     "Sounds robotic, not interested.",
-    "We're moving to in-house parts only. Pass.",
-    "Just renewed with our DMS vendor. Buried.",
-    "I'd need the parts manager's approval and he's slammed.",
-    "Already cleared our covid overstock. Don't need it.",
-    "Captive distributor handles all our parts. Hands tied.",
+    "Our buy box is full right now.",
+    "Just had a compliance review. Buried.",
+    "I'd need my partner's approval and they're slammed.",
+    "Market's too soft, we're sitting tight.",
+    "Family office handles all of this, hands tied.",
     "Take me off this list please."
   ],
   "transcriptCloseBooked": [
-    "Done. Calendar invite for {day} at 10am Pacific going to {first}@{domain}. I'll loop in our marketplace lead.",
+    "Done. Calendar invite for {day} at 10am Pacific going to {first}@{domain}. I'll loop in our acquisitions lead.",
     "Great, fifteen-minute slot {day} morning. Invite hitting your inbox in five.",
-    "Confirmed — {day} at 2pm PT. Looking forward to it.",
+    "Confirmed, {day} at 2pm PT. Looking forward to it.",
     "Perfect, sending the invite now. Talk {day}."
   ],
   "transcriptCloseLost": [
-    "Totally understand. Mind if I check back end of quarter when inventory cycles?",
-    "No worries. I'll add you to a quarterly nudge — only if something changes.",
+    "Totally understand. Mind if I check back end of quarter when the picture changes?",
+    "No worries. I'll add you to a quarterly nudge, only if something changes.",
     "Appreciate the time. I'll send a one-pager in case it helps anyone on your team.",
-    "Got it. I'll mark you down and only reach back out if we ship something new."
+    "Got it. I'll mark you down and only reach back out if we have something on-market for you."
   ],
   "leadSources": [
     "Website form",
@@ -284,10 +279,10 @@
   ],
   "noteFragments": [
     "Asked to be called between 8-10am only.",
-    "Spanish-speaking — flagged for follow-up.",
+    "Spanish-speaking, flagged for follow-up.",
     "Out on vacation until next Monday.",
-    "Parts manager is the actual buyer, not this contact.",
-    "Family-owned, 3 rooftops.",
+    "Asset manager is the actual decision-maker, not this contact.",
+    "Family-owned sponsor, 3 assets.",
     "Said maybe Q3.",
     "DM voicemail twice, no callback.",
     "Asked to email instead of calling.",

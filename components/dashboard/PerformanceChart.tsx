@@ -46,10 +46,36 @@ export function PerformanceChart({
 }) {
   const [metric, setMetric] = useState<Metric>("calls");
 
-  const rows = data.map((d) => ({
-    label: d.label,
-    value: metric === "bookRate" ? d.bookRate * 100 : d[metric],
-  }));
+  // Smoothing window scales with range. Centred rolling average for raw
+  // counts; for the book-rate ratio we sum meetings and calls inside the
+  // window first, then divide, which stays stable when daily meeting counts
+  // are small (~7/day) and would otherwise jitter between 0% and 8%.
+  const window = range === "7d" ? 3 : range === "30d" ? 5 : 9;
+  const half = Math.floor(window / 2);
+  const rows = data.map((d, i) => {
+    const lo = Math.max(0, i - half);
+    const hi = Math.min(data.length, i + half + 1);
+    let sumCalls = 0;
+    let sumConnected = 0;
+    let sumMeetings = 0;
+    for (let j = lo; j < hi; j++) {
+      sumCalls += data[j].calls;
+      sumConnected += data[j].connected;
+      sumMeetings += data[j].meetings;
+    }
+    const n = hi - lo;
+    let value: number;
+    if (metric === "bookRate") {
+      value = sumCalls > 0 ? (sumMeetings / sumCalls) * 100 : 0;
+    } else if (metric === "calls") {
+      value = Math.round(sumCalls / n);
+    } else if (metric === "connected") {
+      value = Math.round(sumConnected / n);
+    } else {
+      value = Math.round(sumMeetings / n);
+    }
+    return { label: d.label, value };
+  });
 
   return (
     <SectionCard

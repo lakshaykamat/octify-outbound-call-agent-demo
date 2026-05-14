@@ -39,7 +39,7 @@ import type { LeadSource, LeadStatus, NewCampaign } from "@/lib/mock";
 type Step = 1 | 2 | 3 | 4;
 
 const DEFAULT_OPENING =
-  "Hi {first_name}, this is Xylo from Motornexo. I'm reaching out because we work with dealerships in {region} that have aged or excess parts inventory. Quick question — are you the right person to talk to about moving slow-moving SKUs?";
+  "Hi {first_name}, this is Lara from Apex Capital. I'm reaching out because we work with property owners in {region} weighing whether to sell, refi, or hold an asset. Quick question, are you the right person to talk to about that on your side?";
 
 const DEFAULT_OBJECTIONS = [
   "We already have a system for that",
@@ -123,7 +123,7 @@ function AudienceStep({
           className="mt-2"
           value={state.name}
           onChange={(e) => onChange({ ...state, name: e.target.value })}
-          placeholder="e.g. Q3 California dealerships"
+          placeholder="e.g. Q3 California property owners"
         />
       </div>
 
@@ -338,10 +338,10 @@ function ScheduleStep({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="America/Los_Angeles">Pacific — America/Los_Angeles</SelectItem>
-            <SelectItem value="America/Denver">Mountain — America/Denver</SelectItem>
-            <SelectItem value="America/Chicago">Central — America/Chicago</SelectItem>
-            <SelectItem value="America/New_York">Eastern — America/New_York</SelectItem>
+            <SelectItem value="America/Los_Angeles">Pacific, America/Los_Angeles</SelectItem>
+            <SelectItem value="America/Denver">Mountain, America/Denver</SelectItem>
+            <SelectItem value="America/Chicago">Central, America/Chicago</SelectItem>
+            <SelectItem value="America/New_York">Eastern, America/New_York</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -467,7 +467,7 @@ function PreviewPanel({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-muted-foreground">Agent</span>
-          <span>{agentName || "—"}</span>
+          <span>{agentName || "-"}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-muted-foreground">Window</span>
@@ -478,7 +478,7 @@ function PreviewPanel({
         <div className="flex items-center justify-between">
           <span className="text-muted-foreground">Days</span>
           <span>
-            {[...state.workdays].sort().map((i) => DAYS[i]).join(" ") || "—"}
+            {[...state.workdays].sort().map((i) => DAYS[i]).join(" ") || "-"}
           </span>
         </div>
         <div className="flex items-center justify-between">

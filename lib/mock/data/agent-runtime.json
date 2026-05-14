@@ -1,13 +1,13 @@
 {
   "script": {
-    "opening":       "Hey {{firstName}}, this is Xylo calling from MotorNexo. Quick one — do you have ninety seconds for me to share why I'm calling, and then you can tell me if it's worth a longer chat?",
-    "qualification": "We work with dealerships, collision centers, and independent shops in {{region}}. Just so I'm not wasting your time — are you the person who looks after parts inventory or sourcing at {{company}}, or is that someone else on the team?",
-    "pitch":         "Two things teams like yours tell us: aged parts sitting on the shelf are frozen capital, and hard-to-source SKUs hold bays hostage for days. MotorNexo turns the first into cash and shortens the second — it's a verified B2B marketplace across dealers, body shops, and service centers. It's free to use, and most members move their first aged-inventory dollars within two weeks.",
-    "objections":    "Totally fair. The fastest way to know whether it fits is to see your aged-inventory snapshot in MotorNexo and run one live search against the network. Could I grab fifteen minutes with you to walk through it on your real SKUs?",
-    "close":         "Okay — I'd love to book a quick fifteen-to-twenty minute demo so we can pull your data in and show you the moves in real time. I have Thursday 10am or Friday 2pm Pacific — which works better?"
+    "opening":       "Hi {{firstName}}, this is Lara calling from Apex Capital. Quick one, do you have ninety seconds for me to share why I'm calling, and then you can tell me if it's worth a longer chat?",
+    "qualification": "We work with property owners, investors, and property management firms in {{region}}. Just so I'm not wasting your time, are you the person who looks at sell, refi, or acquisition decisions for {{company}}, or is that someone else on the team?",
+    "pitch":         "Two things owners and investors tell us. First, underperforming equity sitting in an asset is real money, and most owners want to know what the market would actually pay without putting a sign on the property. Second, the best deals never hit the public market. Apex Capital runs both sides: a free initial valuation for owners weighing sell, refi, or hold, and an off-market deal pipeline for investors. Discovery call is fifteen to twenty minutes.",
+    "objections":    "Totally fair. The fastest way to know whether it fits is a free valuation snapshot on your actual asset, or in your case, a quick view of off-market deals in your buy box. Could I grab fifteen to twenty minutes with you to walk through it?",
+    "close":         "Okay, I'd love to book a quick fifteen-to-twenty minute discovery call so we can pull the numbers in and look at real options. I have Thursday 10am or Friday 2pm Pacific, which works better?"
   },
   "earlierScriptOverrides": {
-    "pitch":         "MotorNexo is a B2B parts marketplace — you can move aged inventory and source hard-to-find parts in one place. It's free to use.",
+    "pitch":         "Apex Capital helps owners decide whether to sell, refi, or hold a property without listing publicly, and helps investors find off-market deals. Free initial valuation.",
     "close":         "Could I send a one-pager and circle back next week to find a time?"
   },
   "voiceOptions": [
@@ -21,13 +21,13 @@
   "versions": [
     {
       "id": "ver_04",
-      "label": "v4 · Sharper aged-inventory pitch",
+      "label": "v4 · Sharper sell-vs-hold pitch",
       "createdAt": "2026-05-10T14:11:00.000Z",
-      "author": "noor@motornexo.com",
-      "note": "Tightened the dual seller/buyer value prop, added two-slot close.",
+      "author": "noor@apexcapital.com",
+      "note": "Tightened the dual owner/investor value prop, added two-slot close.",
       "snapshot": {
-        "name": "Xylo · MotorNexo SDR",
-        "objective": "Qualify decision-makers at dealerships, body shops, and service centers, surface aged-inventory or sourcing pain, and book a 15–20 min product demo with a MotorNexo specialist.",
+        "name": "Lara · Apex Capital SDR",
+        "objective": "Qualify decision-makers at property owners, investment firms, and property management groups, surface a sell/refi/hold or acquisition pain, and book a 15-20 min discovery call with an Apex Capital specialist.",
         "voiceId": "11labs-clara",
         "speed": 1.02,
         "temperature": 0.4,
@@ -38,11 +38,11 @@
       "id": "ver_03",
       "label": "v3 · Pre-rewrite pitch",
       "createdAt": "2026-05-04T09:24:00.000Z",
-      "author": "ravi@motornexo.com",
+      "author": "ravi@apexcapital.com",
       "note": "Working draft before the dual-angle rewrite.",
       "snapshot": {
-        "name": "Xylo · MotorNexo SDR",
-        "objective": "Qualify shops and dealers and offer a demo where it fits.",
+        "name": "Lara · Apex Capital SDR",
+        "objective": "Qualify owners and investors and offer a discovery call where it fits.",
         "voiceId": "11labs-clara",
         "speed": 1.00,
         "temperature": 0.4,
@@ -56,8 +56,8 @@
       "author": "ankur@octifytechnologies.com",
       "note": "Promoted from staging.",
       "snapshot": {
-        "name": "Xylo · MotorNexo SDR",
-        "objective": "Qualify shops and dealers and offer a demo where it fits.",
+        "name": "Lara · Apex Capital SDR",
+        "objective": "Qualify owners and investors and offer a discovery call where it fits.",
         "voiceId": "11labs-clara",
         "speed": 1.00,
         "temperature": 0.5,
@@ -67,18 +67,18 @@
   ],
   "agentConfig": {
     "enabled": true,
-    "objective": "Qualify decision-makers at dealerships, body shops, and service centers in California, surface aged-inventory or hard-to-source pain, and book a 15–20 min product demo with a MotorNexo specialist when interest is real.",
+    "objective": "Qualify decision-makers at property owners, investment firms, and property management groups in California, surface a sell/refi/hold or off-market acquisition pain, and book a 15-20 min discovery call with an Apex Capital specialist when interest is real.",
     "crmProvider": "hubspot",
     "agent": {
       "retellAgentId": "agent_01HXC7M3PQR8V2N4",
       "retellLlmId": "llm_01HXC7M5T9K2B6X8",
       "retellKnowledgeBaseId": "kb_01HXC8N2P6T4M7W9",
-      "name": "Xylo · MotorNexo SDR",
-      "fromNumber": "+16193042264",
+      "name": "Lara · Apex Capital SDR",
+      "fromNumber": "+13105550182",
       "voice": { "voiceId": "11labs-clara", "language": "en-US", "speed": 1.02 },
       "llm": {
         "model": "claude-sonnet-4-6",
-        "systemPrompt": "You are Xylo, an outbound SDR for MotorNexo — a verified B2B auto parts marketplace. Be warm, brief, and specific. Ask one question at a time. Tailor the angle to the listener: dealerships and dealer groups care about moving aged or excess parts; body shops and service centers care about sourcing scarce OEM parts fast. If the contact is a decision-maker (parts manager, fixed ops director, GM, dealer principal, service manager, shop owner), surface one pain point and offer the calendar to book a 15–20 min demo. Never quote commissions, transaction economics, or internal pricing — defer to the demo. Never name specific competitors unless the prospect names them first.",
+        "systemPrompt": "You are Lara, an outbound SDR for Apex Capital, a boutique commercial real estate brokerage and acquisitions firm in Southern California. Be warm, brief, and decisive. Ask one question at a time. Tailor the angle to the listener: property owners and sponsors care about whether to sell, refi, or hold without listing publicly; investors and family offices care about off-market deal flow that matches their buy box. If the contact is a decision-maker (managing partner, principal broker, asset manager, director of acquisitions, owner, investment director), surface one pain point and offer the calendar to book a 15-20 min discovery call. Never quote commissions, fee splits, or transaction economics, defer to the discovery call. Never name specific competitors unless the prospect names them first.",
         "temperature": 0.4,
         "maxTokens": 800
       }
@@ -98,9 +98,9 @@
       "crmWritebackMaxAttempts": 3
     },
     "stageMapping": {
-      "pipelineId": "pipeline_motornexo_outbound_2026",
+      "pipelineId": "pipeline_apex_capital_outbound_2026",
       "newStageId": "stage_new",
-      "onAppointmentScheduledStageId": "stage_demo_booked",
+      "onAppointmentScheduledStageId": "stage_discovery_booked",
       "onFollowUpStageId": "stage_follow_up",
       "onNoAnswerStageId": "stage_no_answer",
       "onClosedLostStageId": "stage_closed_lost",

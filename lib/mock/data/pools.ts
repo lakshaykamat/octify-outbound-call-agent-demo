@@ -1,4 +1,4 @@
-// All pool *data* lives in pools.json — this file is the typed entry point.
+// All pool *data* lives in pools.json, this file is the typed entry point.
 // JSON modules widen to `string[]`, so the TS export casts back into the
 // narrow literal-union types defined in ../types.ts. Bulk content stays in
 // JSON so it's diff-friendly and editable without recompiling.
@@ -70,7 +70,7 @@ export const TRANSCRIPT_AGENT_CLOSE_LOST = j.transcriptCloseLost;
 export const TRANSCRIPT_USER_VM = j.transcriptUserVm;
 export const NOTE_FRAGMENTS = j.noteFragments;
 
-// Derived combined views — not data, kept here so callers that don't care
+// Derived combined views, not data, kept here so callers that don't care
 // about the seller/buyer split keep a single import.
 export const TRANSCRIPT_OPENERS = [
   ...TRANSCRIPT_OPENERS_SELLER,

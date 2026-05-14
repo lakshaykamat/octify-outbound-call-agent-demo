@@ -1,6 +1,6 @@
 import { QueryClient, isServer } from "@tanstack/react-query";
 
-// Don't retry on 4xx — those are client/auth errors the caller can't fix by waiting.
+// Don't retry on 4xx, those are client/auth errors the caller can't fix by waiting.
 function shouldRetry(failureCount: number, error: unknown): boolean {
   const status = (error as { status?: number })?.status;
   if (typeof status === "number" && status >= 400 && status < 500) return false;

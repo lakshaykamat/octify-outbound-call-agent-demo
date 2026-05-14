@@ -31,7 +31,7 @@ export function CommandPalette() {
   const [q, setQ] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Light data probes for search hits — only top items.
+  // Light data probes for search hits, only top items.
   const leads = useLeads({ limit: 6 });
   const campaigns = useCampaigns();
   const calls = useCalls({ page: 1, limit: 6 });

@@ -14,7 +14,7 @@ function downloadBlob(blob: Blob, filename: string) {
 }
 
 function todayFilename() {
-  return `motornexo-calls-${new Date().toISOString().slice(0, 10)}.csv`;
+  return `apex-capital-calls-${new Date().toISOString().slice(0, 10)}.csv`;
 }
 
 export function useExportCalls() {

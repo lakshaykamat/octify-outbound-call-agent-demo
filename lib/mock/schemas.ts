@@ -271,7 +271,7 @@ export type Organization = z.infer<typeof OrganizationSchema>;
 
 // Mirrors the user document returned by /auth/users (api-gateway
 // AuthService.findAllByOrg). The Mongo user has no `name`, `lastActiveAt`,
-// `invitedAt`, or `status` — surface what's actually there.
+// `invitedAt`, or `status`, surface what's actually there.
 export const MemberSchema = z.object({
   _id: z.string(),
   email: z.string(),

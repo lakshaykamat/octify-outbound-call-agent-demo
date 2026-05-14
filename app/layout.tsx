@@ -12,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Motornexo Outbound call agent",
-  description: "Outbound call agent for Motornexo.",
+  title: "XYLO AI",
+  description: "XYLO AI, outbound call agent platform.",
 };
 
 export default function RootLayout({

@@ -76,7 +76,7 @@ export default function LivePage() {
   }, [snapshot.data]);
 
   // Generate events as a Poisson process so arrivals cluster and stretch
-  // the way real outbound traffic does — no metronome, no uniform spacing.
+  // the way real outbound traffic does, no metronome, no uniform spacing.
   useEffect(() => {
     if (leads.length === 0) return;
     let cancelled = false;
@@ -139,15 +139,19 @@ export default function LivePage() {
       if (!cancelled) schedule();
     };
 
-    const schedule = () => {
-      // Exponential inter-arrival time with mean 4s — gives a realistic mix
-      // of back-to-back arrivals and 10-15s lulls.
+    const schedule = (firstTick = false) => {
+      if (firstTick) {
+        timer = setTimeout(tick, 250);
+        return;
+      }
+      // Exponential inter-arrival time with mean 1.5s, keeps the feed
+      // visibly active without losing the bursty arrival feel.
       const u = Math.random();
-      const delayMs = Math.max(400, Math.min(18000, -Math.log(1 - u) * 4000));
+      const delayMs = Math.max(200, Math.min(6000, -Math.log(1 - u) * 1500));
       timer = setTimeout(tick, delayMs);
     };
 
-    schedule();
+    schedule(true);
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);

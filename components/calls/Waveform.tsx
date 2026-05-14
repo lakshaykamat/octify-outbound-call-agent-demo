@@ -17,7 +17,7 @@ function generateBars(callId: string, count: number): number[] {
   let seed = 0;
   for (let i = 0; i < callId.length; i++) seed = (seed * 31 + callId.charCodeAt(i)) >>> 0;
   const rand = seededRandom(seed || 1);
-  // Tapered amplitude — louder in middle, quieter at ends, with a few peaks.
+  // Tapered amplitude, louder in middle, quieter at ends, with a few peaks.
   return Array.from({ length: count }, (_, i) => {
     const pos = i / count;
     const envelope = Math.sin(pos * Math.PI) * 0.8 + 0.2;

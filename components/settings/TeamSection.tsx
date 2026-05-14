@@ -48,8 +48,8 @@ export function TeamSection() {
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState<Member["role"]>("member");
   const [pending, setPending] = useState<Pending[]>([
-    { id: "inv_01", email: "dana@motornexo.com", role: "admin", invitedAt: "2026-05-10" },
-    { id: "inv_02", email: "jules@motornexo.com", role: "member", invitedAt: "2026-05-12" },
+    { id: "inv_01", email: "dana@apexcapital.com", role: "admin", invitedAt: "2026-05-10" },
+    { id: "inv_02", email: "jules@apexcapital.com", role: "member", invitedAt: "2026-05-12" },
   ]);
 
   function sendInvite() {

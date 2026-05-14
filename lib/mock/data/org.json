@@ -1,26 +1,26 @@
 {
   "id": "org_xylo_demo_001",
   "_id": "org_xylo_demo_001",
-  "name": "MotorNexo",
-  "website": "https://motornexo.com",
-  "industry": "Automotive — B2B Auto Parts Marketplace",
-  "description": "MotorNexo is a verified B2B auto parts marketplace built for the automotive repair ecosystem. It helps franchised dealerships, collision centers, and independent repair shops do two things at once: move aged or excess parts inventory (turning frozen capital into cash) and find hard-to-source parts faster across a broader verified network — so fewer bays go cold waiting on a part.",
+  "name": "Apex Capital",
+  "website": "https://apexcapital.com",
+  "industry": "Commercial Real Estate, Brokerage & Investment",
+  "description": "Apex Capital is a boutique commercial real estate brokerage and acquisitions firm based in Southern California. We help commercial property owners (multifamily, retail strips, small office, light industrial) decide whether to sell, refinance, or hold, and we connect investors with off-market acquisition opportunities. The initial valuation and discovery conversation is free.",
   "customerSegment": "b2b",
   "icps": [
-    "SELLER — Franchised dealerships (1–15 rooftops) with aged/excess parts inventory to monetize",
-    "BUYER — Body shops and collision centers (1–20 locations) needing fast OEM parts sourcing",
-    "BUYER — Independent service centers (3–25 bays, 2+ locations) chasing hard-to-find parts",
-    "SELLER + BUYER — Multi-rooftop dealer groups who both offload excess stock and source scarce parts"
+    "SELLER, Property owners and sponsors weighing sell, refi, or hold on aging or underperforming assets",
+    "BUYER, Real estate investment groups and family offices sourcing off-market acquisitions",
+    "BUYER, Property management firms with portfolio owners exploring repositioning or disposition",
+    "SELLER + BUYER, Multi-asset sponsors who are both pruning the portfolio and looking for the next deal"
   ],
   "icpLocations": ["Los Angeles, California", "San Diego, California"],
-  "ownerRole": "Dealer Principal / GM / Owner / Fixed Ops Director / Controller",
-  "productOrServiceSummary": "A verified B2B auto parts marketplace with four core workflows: (1) Inventory — upload, manage, and monitor aged/obsolete parts with velocity and risk scoring; (2) Marketplace — search supplier inventory, compare availability, and purchase directly from verified network members; (3) Orders — track purchases and sales with full transaction history; (4) Backorders — create and monitor demand for unavailable SKUs until fulfilled. Free to use for buyers and sellers.",
-  "salesMotion": "Outbound demo-booking via AI voice. Seller pitch to parts managers and fixed ops directors (move aged inventory into cash). Buyer pitch to service managers, shop owners, and production managers (find hard-to-source parts faster). Dealer groups get both angles. Goal every call: book a 15–20 min demo.",
+  "ownerRole": "Managing Partner / Principal / Asset Manager / Director of Acquisitions / Owner",
+  "productOrServiceSummary": "Four core service lines: (1) Valuation Desk, a free initial property valuation and decision worksheet (sell vs refi vs hold); (2) Off-Market Marketplace, investors search pre-listing inventory across the Apex Capital network; (3) Disposition Services, a managed off-market sale for owners who want to test the market without a public listing; (4) Acquisition Sourcing, buy-side off-market sourcing for investors with a defined buy box. Discovery call is 15-20 minutes, free.",
+  "salesMotion": "Outbound discovery-booking via AI voice. Seller pitch to property owners, asset managers, and sponsors (evaluate sell vs refi vs hold without listing publicly). Buyer pitch to acquisitions directors, investment principals, and family offices (off-market deal flow that matches the buy box). Multi-asset sponsors get both angles. Goal every call: book a 15-20 min discovery call.",
   "salesChannel": "Outbound AI voice calling (direct sales)",
-  "pricingNote": "Free to use. Do not discuss commissions, transaction economics, or internal pricing details on calls — defer to the demo.",
+  "pricingNote": "Initial valuation and discovery call are free. Do not discuss commissions, fee splits, or transaction economics on calls, defer to the discovery conversation.",
   "contactInfo": {
-    "phone": "+16193042264",
-    "email": "info@motornexo.com",
+    "phone": "+13105550182",
+    "email": "info@apexcapital.com",
     "bookingUrl": "",
     "socialLinks": {}
   },
@@ -35,7 +35,7 @@
   "location": {
     "address": "",
     "city": "",
-    "country": "Mexico",
+    "country": "United States",
     "mapsUrl": "",
     "facilities": []
   },

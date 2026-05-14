@@ -35,7 +35,7 @@ import {
 
 function RecordingCell({ call }: { call: XyloCall }) {
   if (!call.recordingUrl) {
-    return <span className="text-muted-foreground">—</span>;
+    return <span className="text-muted-foreground">-</span>;
   }
   return (
     <a
@@ -108,7 +108,7 @@ function useColumns(onSelect: (id: string) => void): ColumnDef<XyloCall>[] {
               {outcomeLabel(outcome)}
             </Badge>
           ) : (
-            <span className="text-muted-foreground">—</span>
+            <span className="text-muted-foreground">-</span>
           );
         },
       },
@@ -138,7 +138,7 @@ function useColumns(onSelect: (id: string) => void): ColumnDef<XyloCall>[] {
         accessorFn: (call) => call.analysis?.score ?? -1,
         cell: ({ row }) => (
           <div className="text-right tabular-nums">
-            {row.original.analysis?.score ?? "—"}
+            {row.original.analysis?.score ?? "-"}
           </div>
         ),
       },

@@ -98,7 +98,7 @@ function isActive(pathname: string, url: string) {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const session = useSession();
   const user = session.data?.user;
-  const orgName = user?.organization?.name ?? "Motornexo";
+  const orgName = user?.organization?.name ?? "Apex Capital";
   const pathname = usePathname() ?? "/";
   const sections = useNavSections();
 

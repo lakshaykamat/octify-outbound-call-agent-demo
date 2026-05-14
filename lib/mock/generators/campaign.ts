@@ -21,7 +21,7 @@ export function makeCampaign(
   const name = `${NAME_PREFIXES[index % NAME_PREFIXES.length]}${index >= NAME_PREFIXES.length ? ` ${Math.floor(index / NAME_PREFIXES.length) + 1}` : ""}`;
   const audienceSize = rng.int(80, Math.min(900, Math.floor(totalLeads / 4)));
   const callsMade = status === "draft" ? 0 : rng.int(Math.floor(audienceSize * 0.2), Math.floor(audienceSize * 1.5));
-  // Per-campaign book rate variance — band is editable in campaigns.json.
+  // Per-campaign book rate variance, band is editable in campaigns.json.
   const bookRate = rng.float(BOOK_RATE_RANGE.min, BOOK_RATE_RANGE.max);
   const meetingsBooked = Math.round(callsMade * bookRate);
   const createdAt = new Date(now.getTime() - rng.int(7, 60) * 24 * 3600_000);

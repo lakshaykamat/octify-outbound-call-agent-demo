@@ -39,7 +39,7 @@ export const OUTCOME_OPTIONS: { value: Outcome; label: string }[] = (
 ).map((value) => ({ value, label: OUTCOME_LABEL[value] }));
 
 export function outcomeLabel(value: Outcome | null | undefined): string {
-  return value ? OUTCOME_LABEL[value] : "—";
+  return value ? OUTCOME_LABEL[value] : "-";
 }
 
 export function outcomeBadgeVariant(value: Outcome): BadgeVariant {
@@ -47,7 +47,7 @@ export function outcomeBadgeVariant(value: Outcome): BadgeVariant {
 }
 
 export function sentimentLabel(value: Sentiment | null | undefined): string {
-  return value ? SENTIMENT_LABEL[value] : "—";
+  return value ? SENTIMENT_LABEL[value] : "-";
 }
 
 export function sentimentTone(value: Sentiment | null | undefined): string {

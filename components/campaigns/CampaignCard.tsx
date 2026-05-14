@@ -48,7 +48,7 @@ export function CampaignCard({
   const deltaSymbol = delta > 0 ? "▴" : delta < 0 ? "▾" : "·";
   const showAction =
     (c.status === "active" || c.status === "paused") && onToggleStatus;
-  const agentLabel = agentName.replace(/^Xylo\s*·\s*/, "");
+  const agentLabel = agentName.replace(/^Lara\s*·\s*/, "");
 
   return (
     <div className="group relative flex flex-col rounded-xl border bg-card transition-colors hover:border-foreground/20">

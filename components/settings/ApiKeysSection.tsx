@@ -64,7 +64,7 @@ export function ApiKeysSection() {
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Create API key</DialogTitle>
-                  <DialogDescription>You'll see the full secret once — store it somewhere safe.</DialogDescription>
+                  <DialogDescription>You'll see the full secret once, store it somewhere safe.</DialogDescription>
                 </DialogHeader>
                 <Input placeholder="e.g. Webhook receiver" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
                 <DialogFooter>

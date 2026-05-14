@@ -1,4 +1,4 @@
-// Mulberry32 — small, fast, deterministic 32-bit PRNG.
+// Mulberry32, small, fast, deterministic 32-bit PRNG.
 // Same seed = same numbers, every run. Foundation of the demo's reproducibility.
 
 export type Rng = {

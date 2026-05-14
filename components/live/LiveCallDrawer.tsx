@@ -16,25 +16,25 @@ import type { LiveEvent } from "./LiveFeed";
 
 const SCRIPTS: Record<LiveEvent["outcome"], { role: "agent" | "user"; text: string; sentiment: "positive" | "neutral" | "negative" }[]> = {
   booked: [
-    { role: "agent", text: "Hi {name}, this is Xylo from MotorNexo. Quick question about aged parts inventory?", sentiment: "neutral" },
+    { role: "agent", text: "Hi {name}, this is Lara from Apex Capital. Quick question about a sell-versus-hold decision on the asset?", sentiment: "neutral" },
     { role: "user", text: "Sure, what about it?", sentiment: "neutral" },
-    { role: "agent", text: "We help dealerships in {region} monetize SKUs that have been sitting more than 90 days. Worth a 15-minute look?", sentiment: "neutral" },
-    { role: "user", text: "Yeah, we've got a stack of inventory we'd love to move.", sentiment: "positive" },
-    { role: "agent", text: "How does Thursday at 2pm work for a quick demo?", sentiment: "neutral" },
+    { role: "agent", text: "We run a free off-market valuation for owners in {region} weighing sell, refi, or hold. Worth a 15-minute look?", sentiment: "neutral" },
+    { role: "user", text: "Yeah, we've been thinking about trimming one asset.", sentiment: "positive" },
+    { role: "agent", text: "How does Thursday at 2pm work for a quick discovery call?", sentiment: "neutral" },
     { role: "user", text: "Thursday works. Send the invite to my email.", sentiment: "positive" },
-    { role: "agent", text: "Perfect — booked. You'll get a calendar invite in the next few minutes.", sentiment: "positive" },
+    { role: "agent", text: "Perfect, booked. You'll get a calendar invite in the next few minutes.", sentiment: "positive" },
   ],
   connected: [
-    { role: "agent", text: "Hi {name}, this is Xylo from MotorNexo. Got a minute?", sentiment: "neutral" },
-    { role: "user", text: "I'm in the middle of something — what's this about?", sentiment: "neutral" },
-    { role: "agent", text: "Quick — we help dealerships move aged parts inventory. Any pain there?", sentiment: "neutral" },
+    { role: "agent", text: "Hi {name}, this is Lara from Apex Capital. Got a minute?", sentiment: "neutral" },
+    { role: "user", text: "I'm in the middle of something, what's this about?", sentiment: "neutral" },
+    { role: "agent", text: "Quick, we run a free off-market valuation for owners weighing sell or refi. Anything on the table?", sentiment: "neutral" },
     { role: "user", text: "Some, but we're not actively looking right now.", sentiment: "neutral" },
     { role: "agent", text: "Totally understand. Can I send a short overview to revisit later?", sentiment: "neutral" },
     { role: "user", text: "Yeah, that's fine.", sentiment: "neutral" },
   ],
   voicemail: [
-    { role: "agent", text: "Hi {name}, this is Xylo calling from MotorNexo.", sentiment: "neutral" },
-    { role: "agent", text: "We help dealerships in {region} monetize aged parts inventory.", sentiment: "neutral" },
+    { role: "agent", text: "Hi {name}, this is Lara calling from Apex Capital.", sentiment: "neutral" },
+    { role: "agent", text: "We run free off-market valuations for owners in {region} weighing sell, refi, or hold.", sentiment: "neutral" },
     { role: "agent", text: "I'll send you a short note by email. Talk soon.", sentiment: "neutral" },
   ],
   "no-answer": [],
@@ -116,7 +116,7 @@ export function LiveCallDrawer({
               </DrawerDescription>
               <div className="flex items-center gap-2 pt-2">
                 <Badge variant="outline">In progress</Badge>
-                <Badge variant="outline">Xylo · Octify SDR</Badge>
+                <Badge variant="outline">Lara · Apex SDR</Badge>
               </div>
             </>
           ) : (

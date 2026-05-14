@@ -50,8 +50,8 @@ function ProfileTab({ lead }: { lead: Lead }) {
         <div className="space-y-2">
           <MetaRow icon={<MailIcon className="size-3.5" />} value={lead.email} />
           <MetaRow icon={<PhoneIcon className="size-3.5" />} value={lead.phone} />
-          <MetaRow icon={<Building2Icon className="size-3.5" />} value={`${lead.company} · ${lead.title || "—"}`} />
-          <MetaRow icon={<MapPinIcon className="size-3.5" />} value={`${lead.city || "—"}${lead.region ? ", " + lead.region : ""}`} />
+          <MetaRow icon={<Building2Icon className="size-3.5" />} value={`${lead.company} · ${lead.title || "-"}`} />
+          <MetaRow icon={<MapPinIcon className="size-3.5" />} value={`${lead.city || "-"}${lead.region ? ", " + lead.region : ""}`} />
         </div>
       </div>
 
@@ -62,7 +62,7 @@ function ProfileTab({ lead }: { lead: Lead }) {
         <div className="space-y-3 text-sm">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Industry</span>
-            <span>{lead.industry || "—"}</span>
+            <span>{lead.industry || "-"}</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Score</span>

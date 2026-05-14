@@ -243,7 +243,7 @@ export function InboxList() {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Toolbar — lives above the list card */}
+      {/* Toolbar, lives above the list card */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <Segmented
@@ -364,7 +364,7 @@ export function InboxList() {
                     className={cn("absolute left-0 top-1.5 bottom-1.5 w-0.5 rounded-r-sm", meta.rail)}
                   />
 
-                  {/* Checkbox — visible on hover or when selected */}
+                  {/* Checkbox, visible on hover or when selected */}
                   <input
                     type="checkbox"
                     checked={isSelected}
@@ -397,7 +397,7 @@ export function InboxList() {
                         {item.title}
                       </span>
                       <span className="hidden truncate text-xs text-muted-foreground sm:inline">
-                        — {item.summary}
+                       , {item.summary}
                       </span>
                     </div>
                     <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">

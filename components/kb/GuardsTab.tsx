@@ -57,7 +57,7 @@ function QualifyingList({ items }: { items: string[] }) {
                 onChange={(e) => {
                   const next = [...items];
                   next[i] = e.target.value;
-                  // Local update — commit on blur.
+                  // Local update, commit on blur.
                   e.target.dataset.dirty = "true";
                 }}
                 onBlur={(e) => {
@@ -125,7 +125,7 @@ function DoNotMentionList({ items }: { items: string[] }) {
     <SectionCard
       bare
       title="Do not mention"
-      description="Topics the agent must avoid in any call — compliance, sensitive deals, internal jargon."
+      description="Topics the agent must avoid in any call, compliance, sensitive deals, internal jargon."
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap gap-2">

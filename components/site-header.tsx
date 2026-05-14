@@ -26,7 +26,7 @@ function pickTitle(path: string) {
   for (const key of Object.keys(TITLES).sort((a, b) => b.length - a.length)) {
     if (key === "/" ? path === "/" : path.startsWith(key)) return TITLES[key];
   }
-  return "Motornexo";
+  return "XYLO AI";
 }
 
 export function SiteHeader() {

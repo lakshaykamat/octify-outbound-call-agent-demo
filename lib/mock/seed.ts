@@ -7,7 +7,7 @@ import type {
 import { makeLead, makeLeadFromBusiness, type SeedBusiness } from "./generators/lead";
 import { makeCall } from "./generators/call";
 import { makeCampaign } from "./generators/campaign";
-import { activityMultiplier, dailyAnomaly, weekModifier } from "./distributions";
+import { activityMultiplier, dailyAnomaly, dayOfWeekFactor, weekModifier } from "./distributions";
 import {
   staticAgentConfig, staticAgentScript, staticAgentVersions,
   staticKnowledgeBase, staticVoiceOptions,
@@ -15,7 +15,7 @@ import {
 import orgJson from "./data/org.json";
 import teamJson from "./data/team.json";
 import scenariosJson from "./data/scenarios.json";
-// Real prospect businesses — edit lib/mock/data/leads.json directly to add,
+// Real prospect businesses, edit lib/mock/data/leads.json directly to add,
 // remove, or tweak entries. Each row hydrates one Lead with a synthesized
 // contact person on top.
 import seededLeads from "./data/leads.json";
@@ -57,7 +57,7 @@ const ORG_ID = (orgJson as { id: string }).id;
 
 // Per-scenario volume targets live in data/scenarios.json so a non-engineer
 // can tune the demo size without touching code. callsPerWeekday is the
-// *Tue–Thu* target — Mon/Fri come in lower and weekends are dark, so the
+// *Tue–Thu* target, Mon/Fri come in lower and weekends are dark, so the
 // daily mean lands at roughly 65–75% of that number.
 const SCENARIO_VOLUME = scenariosJson as Record<Scenario, { leads: number; days: number; callsPerWeekday: number }>;
 
@@ -110,12 +110,12 @@ export function seedStore(scenario: Scenario = "happy-path"): SeededStore {
   const members = makeMembers();
   const agents = makeAgents();
 
-  // Leads: real prospect businesses imported from MotorNexo's Google-Maps
+  // Leads: real prospect businesses imported from Apex Capital's public-data
   // pull come first (verified company + phone + ICP score), in a shuffled
   // order. If the scenario calls for more leads than the import provides,
   // top up with fully synthetic ones so volumes still hit their targets.
   const seedPool = seededLeads as SeedBusiness[];
-  // Fisher–Yates: produces a uniform permutation off the seeded rng so the
+  // Fisher-Yates: produces a uniform permutation off the seeded rng so the
   // real-business slot order is reproducible run to run.
   const shuffledSeeds = [...seedPool];
   for (let i = shuffledSeeds.length - 1; i > 0; i--) {
@@ -145,7 +145,7 @@ export function seedStore(scenario: Scenario = "happy-path"): SeededStore {
   }
 
   // Agent attribution: only enabled agents take calls, and one carries the
-  // majority of the load — typical of pilot deployments where a primary AI
+  // majority of the load, typical of pilot deployments where a primary AI
   // SDR handles most volume and a secondary one specializes (enterprise,
   // renewals, etc). Weighted so totals are visibly uneven on the dashboard.
   const dialingAgents = agents.filter((a) => a.enabled);
@@ -158,27 +158,32 @@ export function seedStore(scenario: Scenario = "happy-path"): SeededStore {
         ]
       : dialingAgents.map((a) => [a.id, 1] as [string, number]);
 
-  // Calls: walk each day of the window, scale by weekModifier × dailyAnomaly
-  // × activityMultiplier. Per-day noise is high enough that no two weekdays
-  // come out identical, which matches what real call logs look like.
+  // Calls: per-day target = baseline × weekModifier × dailyAnomaly × dowFactor
+  // × small shock. Distribute across business hours using activityMultiplier
+  // RENORMALISED so the day's call total stays close to the target regardless
+  // of within-day shape. Low gaussian noise keeps the chart readable.
   const calls: XyloCall[] = [];
+  const hours: number[] = [];
+  for (let h = 8; h < 19; h++) hours.push(h);
   for (let d = 0; d < volume.days; d++) {
     const day = new Date(now.getTime() - d * 24 * 3600_000);
     const dow = day.getDay();
     const weekIdx = Math.floor(d / 7);
-    // Each day gets a small persistent shock (a particular Wed just runs hot,
-    // a particular Thu runs cool) layered on top of the weekly anomaly list.
-    const dayShock = 1 + rng.gaussian(0, 0.18);
-    const dayTarget =
+    const dayShock = 1 + rng.gaussian(0, 0.04);
+    const dayTarget = Math.max(
+      0,
       volume.callsPerWeekday *
-      weekModifier(weekIdx) *
-      dailyAnomaly(d) *
-      Math.max(0.3, dayShock);
-    // Distribute across business hours.
-    for (let hour = 8; hour < 19; hour++) {
-      const mult = activityMultiplier(dow, hour);
-      const expected = (dayTarget / 11) * mult;
-      const n = Math.max(0, Math.round(expected + rng.gaussian(0, expected * 0.35)));
+        weekModifier(weekIdx) *
+        dailyAnomaly(d) *
+        dayOfWeekFactor(dow) *
+        Math.max(0.7, dayShock),
+    );
+    const hourMults = hours.map((h) => activityMultiplier(dow, h));
+    const sumMult = hourMults.reduce((s, m) => s + m, 0) || 1;
+    for (let i = 0; i < hours.length; i++) {
+      const hour = hours[i];
+      const expected = dayTarget * (hourMults[i] / sumMult);
+      const n = Math.max(0, Math.round(expected + rng.gaussian(0, expected * 0.08)));
       for (let k = 0; k < n; k++) {
         const minute = rng.int(0, 59);
         const sec = rng.int(0, 59);

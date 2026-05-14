@@ -51,7 +51,7 @@ export function Heatmap({ data }: { data: DashboardData["heatmap"] }) {
                       <div
                         title={
                           cell
-                            ? `${day} ${h}:00 — ${(cell.connectRate * 100).toFixed(1)}% connect (${cell.calls} calls)`
+                            ? `${day} ${h}:00, ${(cell.connectRate * 100).toFixed(1)}% connect (${cell.calls} calls)`
                             : ""
                         }
                         className={cn(

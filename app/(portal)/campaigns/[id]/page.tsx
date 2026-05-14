@@ -211,7 +211,7 @@ export default function CampaignDetailPage({ params }: { params: Promise<{ id: s
                   <span className="tabular-nums font-semibold">
                     {s ? ((s.connected / s.dialed) * 100).toFixed(1) : "0"}%
                   </span>{" "}
-                  — in the healthy band for B2B outbound voice.
+                 , in the healthy band for B2B outbound voice.
                 </p>
               </div>
               <div className="rounded-lg border bg-muted/30 p-3">

@@ -1,6 +1,6 @@
 # Xylo Portal
 
-Read-only client UI for Xylo voice agent calls. Standalone Next.js app — not part of the groovo-platform pnpm workspace. Move freely.
+Read-only client UI for Xylo voice agent calls. Standalone Next.js app, not part of the groovo-platform pnpm workspace. Move freely.
 
 ## Stack
 
@@ -23,8 +23,8 @@ Open http://localhost:3000.
 
 ## Pages
 
-- `/login` — email + password (hits `POST /auth/login` on api-gateway)
-- `/calls` — KPI strip, calls table, detail drawer, CSV export
+- `/login`, email + password (hits `POST /auth/login` on api-gateway)
+- `/calls`, KPI strip, calls table, detail drawer, CSV export
 
 ## Auth flow
 
@@ -50,19 +50,19 @@ All responses are unwrapped from the api-gateway `{ statusCode, success, message
 
 ## CSV export
 
-Client-side — `buildCallsCsv` walks the paginated `/xylo/calls` endpoint (200 per page, 50-page cap) and assembles a CSV blob in the browser. No backend change required.
+Client-side, `buildCallsCsv` walks the paginated `/xylo/calls` endpoint (200 per page, 50-page cap) and assembles a CSV blob in the browser. No backend change required.
 
 ## Security
 
 - `proxy.ts` redirects unauthed traffic before any page renders.
 - `next.config.ts` ships CSP, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options`.
 - Phone numbers are masked in the table; full number shows only in the detail drawer.
-- The portal is read-only — no write endpoints exposed.
+- The portal is read-only, no write endpoints exposed.
 - Cookie is set by the api-gateway (`HttpOnly; Secure; SameSite=Lax`); JS never touches it.
 
 ## Scripts
 
-- `pnpm dev` — dev server
-- `pnpm build` — production build
-- `pnpm start` — run production build
-- `pnpm lint` — ESLint
+- `pnpm dev`, dev server
+- `pnpm build`, production build
+- `pnpm start`, run production build
+- `pnpm lint`, ESLint

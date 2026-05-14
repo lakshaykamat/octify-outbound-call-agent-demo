@@ -5,11 +5,11 @@ import { LEAD_SOURCES, LEAD_STATUSES, NOTE_FRAGMENTS } from "../data/pools";
 import { makeBusiness, makeCity, makeEmail, makePerson, makePhone, makeTitle } from "./identity";
 import type { BusinessType } from "../data/pools";
 
-// Real prospect businesses imported from the MotorNexo CRM pull. Each row is
-// a verified company (name + phone + address + ICP score); the contact-person
-// name/email is synthesized on top during lead creation. When the import
-// includes a real `contactTitle` we use it as-is — otherwise we synthesize
-// from the business type.
+// Real prospect businesses imported from the Apex Capital CRM pull. Each row
+// is a verified company (name + phone + address + ICP score); the contact-
+// person name/email is synthesized on top during lead creation. When the
+// import includes a real `contactTitle` we use it as-is, otherwise we
+// synthesize from the business type.
 export type SeedBusiness = {
   company: string;
   businessCategory: string;
@@ -24,8 +24,9 @@ export type SeedBusiness = {
   contactTitle?: string;
 };
 
-// CRM-shaped source mix. CSV imports dominate any dealer outreach — most lists
-// come from bought data or trade-show scans rather than inbound forms.
+// CRM-shaped source mix. CSV imports dominate any owner/investor outreach,
+// most lists come from bought data or industry-event scans rather than
+// inbound forms.
 const SOURCE_WEIGHTS: [LeadSource, number][] = [
   ["CSV import", 38],
   ["Apollo", 22],
@@ -46,15 +47,16 @@ const STATUS_WEIGHTS: [LeadStatus, number][] = [
 
 void LEAD_SOURCES; void LEAD_STATUSES;
 
-// Slug a company name into a plausible domain — "Kearny Mesa Chevrolet Parts
-// Department" → "kearnymesachevy.com" — by stripping common suffix words and
-// trimming the result.
+// Slug a company name into a plausible domain, "Summit Capital Partners" ->
+// "summit.com", by stripping common suffix words and trimming the result.
 const DOMAIN_DROP_WORDS = [
-  "parts department", "parts center", "parts", "department",
-  "service & parts center", "auto group", "auto body", "body shop",
-  "collision center", "collision", "auto service", "auto repair",
-  "automotive", "service", "center", "supplier", "store", "salvage",
-  "junkyard", "warehouse", "llc", "inc", "co",
+  "capital partners", "realty group", "property management",
+  "asset management", "investments", "real estate", "holdings",
+  "equity partners", "family office", "ventures", "advisors", "commercial",
+  "residential", "portfolio services", "management group",
+  "real estate services", "realty advisors", "investment group",
+  "multifamily management", "capital", "realty", "brokers", "partners",
+  "group", "llc", "inc", "co",
 ];
 function companyDomain(company: string): string {
   let s = company.toLowerCase();
@@ -62,15 +64,15 @@ function companyDomain(company: string): string {
     s = s.replace(new RegExp(`\\b${w}\\b`, "g"), " ");
   }
   s = s.replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "").trim();
-  if (!s) s = "shop";
+  if (!s) s = "firm";
   if (s.length > 24) s = s.slice(0, 24);
   return `${s}.com`;
 }
 
 const INDUSTRY_BY_TYPE: Record<BusinessType, string> = {
-  dealer: "Automotive — Franchised Dealership",
-  body_shop: "Automotive — Collision Repair",
-  service: "Automotive — Independent Service",
+  dealer: "Commercial Real Estate, Brokerage",
+  body_shop: "Commercial Real Estate, Property Management",
+  service: "Commercial Real Estate, Investment",
 };
 
 export function makeLead(rng: Rng, orgId: string, createdAt: Date): Lead {
@@ -116,7 +118,7 @@ export function makeLeadFromBusiness(
   const person = makePerson(rng);
   const domain = companyDomain(business.company);
   const status = rng.weighted(STATUS_WEIGHTS);
-  // Source mapping: real businesses came from a Google-Maps pull, which we
+  // Source mapping: real businesses came from a public-data pull, which we
   // surface as "CSV import" (the closest CRM-shaped label users recognize).
   const source: LeadSource = "CSV import";
   return {
@@ -134,12 +136,12 @@ export function makeLeadFromBusiness(
     region: business.region,
     status,
     source,
-    // ICP score from the import is on the 0–100 band — use it directly so
+    // ICP score from the import is on the 0-100 band, use it directly so
     // the dashboard's score filter pulls real prospect bands.
     score: business.icpScore,
     campaignId: null,
     lastTouchedAt: null,
-    // Prefer the ICP reasoning when present — it's specific, actionable, and
+    // Prefer the ICP reasoning when present, it's specific, actionable, and
     // exactly what an SDR would jot down as a research note.
     createdAt: createdAt.toISOString(),
     notes: business.icpReasoning || rng.pick(NOTE_FRAGMENTS),
