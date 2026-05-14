@@ -1,0 +1,6 @@
+{
+  "happy-path":     { "leads": 900,  "days": 90, "callsPerWeekday": 28 },
+  "first-day":      { "leads": 30,   "days": 7,  "callsPerWeekday": 5 },
+  "power-user":     { "leads": 1800, "days": 90, "callsPerWeekday": 62 },
+  "investor-pitch": { "leads": 1300, "days": 90, "callsPerWeekday": 44 }
+}

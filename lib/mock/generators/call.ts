@@ -122,8 +122,6 @@ export function makeCall(
     };
   }
 
-  void agentId;
-
   return {
     _id: `call_${rng.uuid().slice(0, 16)}`,
     orgId,
@@ -141,5 +139,7 @@ export function makeCall(
     crmWritebackStatus: analysis ? rng.weighted([
       ["success", 88], ["pending", 8], ["failed", 4],
     ] as const) : null,
+    agentId,
+    campaignId: lead.campaignId,
   };
 }

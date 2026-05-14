@@ -1,0 +1,29 @@
+{
+  "namePrefixes": [
+    "Q2 Inbound",
+    "Enterprise Outbound",
+    "SMB Re-engagement",
+    "Lapsed Trial",
+    "Webinar Follow-up",
+    "AE Booked Demos",
+    "Cold West Coast",
+    "ICP Tier 1",
+    "Apollo Tech Pull",
+    "LinkedIn Inbound",
+    "Renewal Risk Q3",
+    "Net-new EMEA"
+  ],
+  "statusWeights": [
+    ["active", 4],
+    ["paused", 4],
+    ["completed", 2],
+    ["draft", 2]
+  ],
+  "scheduleSummaries": [
+    "Mon–Fri · 9am–6pm PT",
+    "Tue–Thu · 10am–4pm ET",
+    "Mon–Fri · 8am–7pm local",
+    "Mon–Fri · 9am–5pm PT · cap 80/day"
+  ],
+  "bookRateRange": { "min": 0.02, "max": 0.11 }
+}

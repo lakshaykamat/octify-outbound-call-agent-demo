@@ -3,6 +3,23 @@ import type { Lead, LeadSource, LeadStatus } from "../types";
 import { leadScore } from "../distributions";
 import { LEAD_SOURCES, LEAD_STATUSES, NOTE_FRAGMENTS } from "../data/pools";
 import { makeBusiness, makeCity, makeEmail, makePerson, makePhone, makeTitle } from "./identity";
+import type { BusinessType } from "../data/pools";
+
+// Real prospect businesses imported from the MotorNexo Google-Maps pull.
+// Each row is a verified company (name + phone + address + ICP score);
+// the contact-person details are synthesized on top during lead creation.
+export type SeedBusiness = {
+  company: string;
+  businessCategory: string;
+  businessType: BusinessType;
+  phone: string;
+  address: string;
+  city: string;
+  region: string;
+  icpScore: number;
+  icpReasoning: string;
+  sourceLabel: string;
+};
 
 // CRM-shaped source mix. CSV imports dominate any dealer outreach — most lists
 // come from bought data or trade-show scans rather than inbound forms.
@@ -25,6 +42,33 @@ const STATUS_WEIGHTS: [LeadStatus, number][] = [
 ];
 
 void LEAD_SOURCES; void LEAD_STATUSES;
+
+// Slug a company name into a plausible domain — "Kearny Mesa Chevrolet Parts
+// Department" → "kearnymesachevy.com" — by stripping common suffix words and
+// trimming the result.
+const DOMAIN_DROP_WORDS = [
+  "parts department", "parts center", "parts", "department",
+  "service & parts center", "auto group", "auto body", "body shop",
+  "collision center", "collision", "auto service", "auto repair",
+  "automotive", "service", "center", "supplier", "store", "salvage",
+  "junkyard", "warehouse", "llc", "inc", "co",
+];
+function companyDomain(company: string): string {
+  let s = company.toLowerCase();
+  for (const w of DOMAIN_DROP_WORDS) {
+    s = s.replace(new RegExp(`\\b${w}\\b`, "g"), " ");
+  }
+  s = s.replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "").trim();
+  if (!s) s = "shop";
+  if (s.length > 24) s = s.slice(0, 24);
+  return `${s}.com`;
+}
+
+const INDUSTRY_BY_TYPE: Record<BusinessType, string> = {
+  dealer: "Automotive — Franchised Dealership",
+  body_shop: "Automotive — Collision Repair",
+  service: "Automotive — Independent Service",
+};
 
 export function makeLead(rng: Rng, orgId: string, createdAt: Date): Lead {
   const person = makePerson(rng);
@@ -53,5 +97,48 @@ export function makeLead(rng: Rng, orgId: string, createdAt: Date): Lead {
     lastTouchedAt: null,
     createdAt: createdAt.toISOString(),
     notes: rng.pick(NOTE_FRAGMENTS),
+  };
+}
+
+// Hydrate a real prospect business into a Lead. Phone, company, address,
+// industry, and ICP score come from the source row; contact-person details
+// (name, email, title) are synthesized so transcripts and email writebacks
+// have something to render. Source label is preserved from the import.
+export function makeLeadFromBusiness(
+  rng: Rng,
+  orgId: string,
+  createdAt: Date,
+  business: SeedBusiness,
+): Lead {
+  const person = makePerson(rng);
+  const domain = companyDomain(business.company);
+  const status = rng.weighted(STATUS_WEIGHTS);
+  // Source mapping: real businesses came from a Google-Maps pull, which we
+  // surface as "CSV import" (the closest CRM-shaped label users recognize).
+  const source: LeadSource = "CSV import";
+  return {
+    id: `lead_${rng.uuid().slice(0, 16)}`,
+    orgId,
+    firstName: person.firstName,
+    lastName: person.lastName,
+    fullName: person.fullName,
+    email: makeEmail(rng, person.firstName, person.lastName, domain),
+    phone: business.phone || makePhone(rng),
+    company: business.company,
+    title: makeTitle(rng, business.businessType),
+    industry: INDUSTRY_BY_TYPE[business.businessType],
+    city: business.city,
+    region: business.region,
+    status,
+    source,
+    // ICP score from the import is on the 0–100 band — use it directly so
+    // the dashboard's score filter pulls real prospect bands.
+    score: business.icpScore,
+    campaignId: null,
+    lastTouchedAt: null,
+    // Prefer the ICP reasoning when present — it's specific, actionable, and
+    // exactly what an SDR would jot down as a research note.
+    createdAt: createdAt.toISOString(),
+    notes: business.icpReasoning || rng.pick(NOTE_FRAGMENTS),
   };
 }
