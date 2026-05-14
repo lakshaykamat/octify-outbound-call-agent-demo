@@ -30,7 +30,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
-import { useInboxCounts, useSession } from "@/hooks/queries";
+import { useInboxCounts } from "@/hooks/queries";
 
 type NavItem = {
   title: string;
@@ -59,14 +59,17 @@ function useNavSections(): NavSection[] {
   return [
     {
       label: "Overview",
-      items: [
-        { title: "Dashboard", url: "/", icon: <LayoutDashboardIcon /> },
-      ],
+      items: [{ title: "Dashboard", url: "/", icon: <LayoutDashboardIcon /> }],
     },
     {
       label: "Engagement",
       items: [
-        { title: "Inbox", url: "/inbox", icon: <InboxIcon />, trailing: <UnreadBadge /> },
+        {
+          title: "Inbox",
+          url: "/inbox",
+          icon: <InboxIcon />,
+          trailing: <UnreadBadge />,
+        },
         { title: "Leads", url: "/leads", icon: <UsersIcon /> },
         { title: "Campaigns", url: "/campaigns", icon: <MegaphoneIcon /> },
         { title: "Live", url: "/live", icon: <RadioIcon /> },
@@ -77,13 +80,21 @@ function useNavSections(): NavSection[] {
       items: [
         { title: "Calls", url: "/calls", icon: <PhoneCallIcon /> },
         { title: "Agent", url: "/agent", icon: <BotIcon /> },
-        { title: "Knowledge Base", url: "/knowledge-base", icon: <BookOpenIcon /> },
+        {
+          title: "Knowledge Base",
+          url: "/knowledge-base",
+          icon: <BookOpenIcon />,
+        },
       ],
     },
     {
       label: "Account",
       items: [
-        { title: "Organisation", url: "/organization", icon: <Building2Icon /> },
+        {
+          title: "Organisation",
+          url: "/organization",
+          icon: <Building2Icon />,
+        },
         { title: "Settings", url: "/settings", icon: <Settings2Icon /> },
       ],
     },
@@ -96,9 +107,6 @@ function isActive(pathname: string, url: string) {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const session = useSession();
-  const user = session.data?.user;
-  const orgName = user?.organization?.name ?? "Apex Capital";
   const pathname = usePathname() ?? "/";
   const sections = useNavSections();
 
@@ -112,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <AudioWaveformIcon className="size-4" />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-medium">{orgName}</span>
+                <span className="font-medium">Xylo AI</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
