@@ -60,8 +60,7 @@ export function ObjectionsTab({ kb }: { kb: KnowledgeBase }) {
 
   return (
     <SectionCard
-      title="Objections"
-      description="What you hear in the wild, and how the agent handles each one."
+      bare
       action={
         <div className="flex gap-2">
           <Button size="sm" variant="outline" onClick={loadSuggestions} disabled={suggest.isPending}>

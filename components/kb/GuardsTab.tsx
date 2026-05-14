@@ -40,6 +40,7 @@ function QualifyingList({ items }: { items: string[] }) {
 
   return (
     <SectionCard
+      bare
       title="Qualifying questions"
       description="What the agent asks to confirm a prospect is worth booking time with."
     >
@@ -122,6 +123,7 @@ function DoNotMentionList({ items }: { items: string[] }) {
 
   return (
     <SectionCard
+      bare
       title="Do not mention"
       description="Topics the agent must avoid in any call — compliance, sensitive deals, internal jargon."
     >

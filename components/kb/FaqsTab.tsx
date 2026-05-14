@@ -68,8 +68,7 @@ export function FaqsTab({ kb }: { kb: KnowledgeBase }) {
 
   return (
     <SectionCard
-      title="FAQs"
-      description="Recurring questions and the canonical answer."
+      bare
       action={
         <div className="flex gap-2">
           <Button size="sm" variant="outline" onClick={loadSuggestions} disabled={suggest.isPending}>

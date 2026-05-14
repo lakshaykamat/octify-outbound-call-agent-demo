@@ -119,7 +119,7 @@ export function ScriptEditor() {
 
   if (script.isLoading || !script.data) {
     return (
-      <SectionCard title="Script" description="Sectioned talk track with per-section AI rewrites.">
+      <SectionCard bare>
         <div className="flex flex-col gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
             <Skeleton key={i} className="h-36" />
@@ -130,10 +130,7 @@ export function ScriptEditor() {
   }
 
   return (
-    <SectionCard
-      title="Script"
-      description="Sectioned talk track. Click AI rewrite for an alternative — it edits in place."
-    >
+    <SectionCard bare>
       <div className="flex flex-col gap-3">
         {SECTIONS.map((s) => (
           <SectionEditor

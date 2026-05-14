@@ -43,8 +43,7 @@ export function CaseStudiesTab({ kb }: { kb: KnowledgeBase }) {
 
   return (
     <SectionCard
-      title="Case studies"
-      description="Short, specific proof the agent can drop into a call."
+      bare
       action={
         <Button size="sm" onClick={() => setAdding(true)} disabled={adding}>
           <Plus className="size-3.5" />

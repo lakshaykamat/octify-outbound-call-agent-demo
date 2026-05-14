@@ -176,11 +176,7 @@ export function VersionsCard({ a }: { a: AgentConfig }) {
   }
 
   return (
-    <SectionCard
-      title="Versions"
-      description="Every save is captured. Restore puts the agent back to that exact state."
-      action={<History className="size-4 text-muted-foreground" />}
-    >
+    <SectionCard bare>
       <div className="flex flex-col gap-4">
         <div className="flex gap-2">
           <Input

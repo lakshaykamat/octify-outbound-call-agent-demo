@@ -113,28 +113,25 @@ export function ScheduleGrid({ a }: { a: AgentConfig }) {
   }
 
   return (
-    <SectionCard
-      title="Business hours"
-      description={`Click or drag to toggle. Times shown in ${a.businessHours.timezone || "local"}.`}
-      action={
-        <div className="flex items-center gap-2">
-          {dirty ? (
-            <Button variant="ghost" size="sm" onClick={reset}>
-              Reset
+    <SectionCard bare>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" onClick={() => preset("weekdays")}>Weekdays 9–6</Button>
+            <Button variant="outline" size="sm" onClick={() => preset("extended")}>Extended</Button>
+            <Button variant="outline" size="sm" onClick={() => preset("24x7")}>24 / 7</Button>
+            <Button variant="ghost" size="sm" onClick={() => preset("clear")}>Clear</Button>
+          </div>
+          <div className="flex items-center gap-2">
+            {dirty ? (
+              <Button variant="ghost" size="sm" onClick={reset}>
+                Reset
+              </Button>
+            ) : null}
+            <Button size="sm" onClick={save} disabled={!dirty || update.isPending}>
+              {update.isPending ? "Saving…" : "Save schedule"}
             </Button>
-          ) : null}
-          <Button size="sm" onClick={save} disabled={!dirty || update.isPending}>
-            {update.isPending ? "Saving…" : "Save schedule"}
-          </Button>
-        </div>
-      }
-    >
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => preset("weekdays")}>Weekdays 9–6</Button>
-          <Button variant="outline" size="sm" onClick={() => preset("extended")}>Extended</Button>
-          <Button variant="outline" size="sm" onClick={() => preset("24x7")}>24 / 7</Button>
-          <Button variant="ghost" size="sm" onClick={() => preset("clear")}>Clear</Button>
+          </div>
         </div>
         <div
           className="overflow-x-auto select-none"

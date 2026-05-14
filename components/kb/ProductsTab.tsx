@@ -119,8 +119,7 @@ export function ProductsTab({ kb }: { kb: KnowledgeBase }) {
 
   return (
     <SectionCard
-      title="Products"
-      description="What the agent can talk about, how it's priced, and the one-line pitch."
+      bare
       action={
         <Button size="sm" onClick={() => setAdding(true)} disabled={adding}>
           <Plus className="size-3.5" />

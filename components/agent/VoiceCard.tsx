@@ -171,10 +171,7 @@ export function VoiceCard({ a }: { a: AgentConfig }) {
   }
 
   return (
-    <SectionCard
-      title="Voice & tone"
-      description="Pick a voice and tune delivery. Changes apply to the next call."
-    >
+    <SectionCard bare>
       <div className="flex flex-col gap-5">
         {voices.isLoading ? (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
