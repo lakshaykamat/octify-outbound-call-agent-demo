@@ -133,9 +133,9 @@ export function seedStore(scenario: Scenario = "happy-path"): SeededStore {
     }
   }
 
-  // Campaigns: 12.
+  // Campaigns: 3.
   const campaigns: Campaign[] = [];
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 3; i++) {
     campaigns.push(makeCampaign(rng, ORG_ID, agents.map((a) => a.id), leads.length, i, now));
   }
 

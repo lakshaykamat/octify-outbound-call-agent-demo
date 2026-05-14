@@ -2,16 +2,7 @@
   "namePrefixes": [
     "Q2 Inbound",
     "Enterprise Outbound",
-    "SMB Re-engagement",
-    "Lapsed Trial",
-    "Webinar Follow-up",
-    "AE Booked Demos",
-    "Cold West Coast",
-    "ICP Tier 1",
-    "Apollo Tech Pull",
-    "LinkedIn Inbound",
-    "Renewal Risk Q3",
-    "Net-new EMEA"
+    "SMB Re-engagement"
   ],
   "statusWeights": [
     ["active", 4],

@@ -867,41 +867,41 @@ export async function runTestCall(phone: string): Promise<{ events: TestCallEven
 
   if (outcome === "voicemail") {
     events.push({ kind: "connected", at: t });
-    t += 600;
-    events.push({ kind: "transcript", at: t, role: "user", text: "Hi, you've reached me. Leave a message and I'll get back." });
     t += 2200;
+    events.push({ kind: "transcript", at: t, role: "user", text: "Hi, you've reached me. Leave a message and I'll get back." });
+    t += 8500;
     events.push({ kind: "transcript", at: t, role: "agent", text: "Hi — this is Xylo from Octify, I'll try again. Have a great day." });
-    t += 1800;
+    t += 6800;
     events.push({ kind: "outcome", at: t, outcome });
-    events.push({ kind: "ended", at: t + 400 });
+    events.push({ kind: "ended", at: t + 1200 });
     return simulate({ events }, 200, 400);
   }
 
   events.push({ kind: "connected", at: t });
-  t += 600;
+  t += 1800;
 
   const lines: Array<[TestCallEvent["role"], string, number]> = [
-    ["user", "Hello?", 900],
-    ["agent", `Hey, this is Xylo calling from Octify Technologies. I know I'm catching you cold — got ninety seconds for me to share why I'm calling, and then you can tell me if it's worth more time?`, 4200],
-    ["user", "Uh, sure, go ahead.", 1400],
-    ["agent", "Appreciate it. Teams like yours tell us the meaningful win isn't more dials — it's how fast every conversation lands in HubSpot with the right next step queued.", 4400],
-    ["user", "We already use a tool for that.", 1800],
+    ["user", "Hello?", 3200],
+    ["agent", `Hey, this is Xylo calling from Octify Technologies. I know I'm catching you cold — got ninety seconds for me to share why I'm calling, and then you can tell me if it's worth more time?`, 14500],
+    ["user", "Uh, sure, go ahead.", 4200],
+    ["agent", "Appreciate it. Teams like yours tell us the meaningful win isn't more dials — it's how fast every conversation lands in HubSpot with the right next step queued.", 15800],
+    ["user", "We already use a tool for that.", 5600],
   ];
 
   if (outcome === "not_interested") {
-    lines.push(["agent", "Got it. Mind if I ask which one — and if there's anything you'd want it to do better?", 3000]);
-    lines.push(["user", "Honestly we're heads down on a launch right now. Not the right time.", 2200]);
-    lines.push(["agent", "Totally fair. I'll drop a one-pager in email and circle back next quarter. Have a good one.", 2800]);
+    lines.push(["agent", "Got it. Mind if I ask which one — and if there's anything you'd want it to do better?", 10500]);
+    lines.push(["user", "Honestly we're heads down on a launch right now. Not the right time.", 8200]);
+    lines.push(["agent", "Totally fair. I'll drop a one-pager in email and circle back next quarter. Have a good one.", 10000]);
   } else if (outcome === "callback_requested") {
-    lines.push(["agent", "Makes sense. Would a thirty-second sample call plus a redacted CRM record be worth a look?", 3200]);
-    lines.push(["user", "Send it over. I'll have time Thursday.", 1600]);
-    lines.push(["agent", "Perfect — I'll email it now and follow up Thursday morning. Thanks for the time.", 2400]);
+    lines.push(["agent", "Makes sense. Would a thirty-second sample call plus a redacted CRM record be worth a look?", 11200]);
+    lines.push(["user", "Send it over. I'll have time Thursday.", 5600]);
+    lines.push(["agent", "Perfect — I'll email it now and follow up Thursday morning. Thanks for the time.", 8400]);
   } else {
-    lines.push(["agent", "Makes sense. The piece teams switch for is CRM writeback quality — every call summarised before the rep opens the lead. Want a twenty-minute look?", 4200]);
-    lines.push(["user", "Yeah okay, that could be useful.", 1600]);
-    lines.push(["agent", "Great. I've got Thursday 10am or Friday 2pm Pacific — which works?", 2400]);
-    lines.push(["user", "Thursday works.", 1100]);
-    lines.push(["agent", "Locked in — invite is on its way. Talk Thursday.", 2000]);
+    lines.push(["agent", "Makes sense. The piece teams switch for is CRM writeback quality — every call summarised before the rep opens the lead. Want a twenty-minute look?", 14200]);
+    lines.push(["user", "Yeah okay, that could be useful.", 5600]);
+    lines.push(["agent", "Great. I've got Thursday 10am or Friday 2pm Pacific — which works?", 8400]);
+    lines.push(["user", "Thursday works.", 3800]);
+    lines.push(["agent", "Locked in — invite is on its way. Talk Thursday.", 7000]);
   }
 
   for (const [role, text, dur] of lines) {
