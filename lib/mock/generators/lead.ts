@@ -5,9 +5,11 @@ import { LEAD_SOURCES, LEAD_STATUSES, NOTE_FRAGMENTS } from "../data/pools";
 import { makeBusiness, makeCity, makeEmail, makePerson, makePhone, makeTitle } from "./identity";
 import type { BusinessType } from "../data/pools";
 
-// Real prospect businesses imported from the MotorNexo Google-Maps pull.
-// Each row is a verified company (name + phone + address + ICP score);
-// the contact-person details are synthesized on top during lead creation.
+// Real prospect businesses imported from the MotorNexo CRM pull. Each row is
+// a verified company (name + phone + address + ICP score); the contact-person
+// name/email is synthesized on top during lead creation. When the import
+// includes a real `contactTitle` we use it as-is — otherwise we synthesize
+// from the business type.
 export type SeedBusiness = {
   company: string;
   businessCategory: string;
@@ -19,6 +21,7 @@ export type SeedBusiness = {
   icpScore: number;
   icpReasoning: string;
   sourceLabel: string;
+  contactTitle?: string;
 };
 
 // CRM-shaped source mix. CSV imports dominate any dealer outreach — most lists
@@ -125,7 +128,7 @@ export function makeLeadFromBusiness(
     email: makeEmail(rng, person.firstName, person.lastName, domain),
     phone: business.phone || makePhone(rng),
     company: business.company,
-    title: makeTitle(rng, business.businessType),
+    title: business.contactTitle?.trim() || makeTitle(rng, business.businessType),
     industry: INDUSTRY_BY_TYPE[business.businessType],
     city: business.city,
     region: business.region,
