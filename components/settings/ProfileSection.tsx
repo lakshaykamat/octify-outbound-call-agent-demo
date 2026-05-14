@@ -17,10 +17,9 @@ import { useSession } from "@/hooks/queries";
 import { toast } from "sonner";
 import { Camera } from "lucide-react";
 
-function initials(email: string) {
-  const local = email.split("@")[0] ?? email;
-  return local
-    .split(/[._-]/)
+function initials(value: string) {
+  return value
+    .split(/[\s._-]+/)
     .map((s) => s[0])
     .filter(Boolean)
     .slice(0, 2)
@@ -31,13 +30,14 @@ function initials(email: string) {
 export function ProfileSection() {
   const session = useSession();
   const [avatar, setAvatar] = useState<string | null>(null);
-  const [name, setName] = useState("Ankur Sharma");
-  const [email, setEmail] = useState<string | null>(null);
+  const [nameOverride, setNameOverride] = useState<string | null>(null);
+  const [usernameOverride, setUsernameOverride] = useState<string | null>(null);
   const [title, setTitle] = useState("Head of Sales Development");
 
   if (session.isLoading || !session.data) return <Skeleton className="h-72" />;
   const u = session.data.user;
-  const live = email ?? u.email;
+  const liveName = nameOverride ?? u.name;
+  const liveUsername = usernameOverride ?? u.username;
 
   function onAvatarPick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -64,7 +64,7 @@ export function ProfileSection() {
             <Avatar className="size-16">
               {avatar ? <AvatarImage src={avatar} alt="Avatar" /> : null}
               <AvatarFallback className="text-base">
-                {initials(live)}
+                {initials(liveName)}
               </AvatarFallback>
             </Avatar>
             <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 text-white opacity-0 transition group-hover:opacity-100">
@@ -84,22 +84,22 @@ export function ProfileSection() {
                 Name
               </div>
               <InlineEditField
-                value={name}
+                value={liveName}
                 onSave={async (v) => {
-                  setName(v);
+                  setNameOverride(v);
                   toast.success("Name updated");
                 }}
               />
             </div>
             <div>
               <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Email
+                Username
               </div>
               <InlineEditField
-                value={live}
+                value={`@${liveUsername}`}
                 onSave={async (v) => {
-                  setEmail(v);
-                  toast.success("Email updated");
+                  setUsernameOverride(v.replace(/^@/, ""));
+                  toast.success("Username updated");
                 }}
               />
             </div>

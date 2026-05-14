@@ -274,7 +274,8 @@ export type Organization = z.infer<typeof OrganizationSchema>;
 // `invitedAt`, or `status`, surface what's actually there.
 export const MemberSchema = z.object({
   _id: z.string(),
-  email: z.string(),
+  name: z.string(),
+  username: z.string(),
   role: z.enum(["owner", "admin", "member", "viewer"]),
   organizationId: z.string().optional(),
   credits: z.number().optional(),
@@ -293,7 +294,8 @@ export type MembersResponse = z.infer<typeof MembersResponseSchema>;
 
 export const SessionUserSchema = z.object({
   id: z.string(),
-  email: z.string(),
+  name: z.string(),
+  username: z.string(),
   credits: z.number().optional(),
   organizationId: z.string().nullable().optional(),
   role: z.enum(["owner", "admin", "member", "viewer"]).nullable().optional(),

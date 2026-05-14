@@ -29,10 +29,9 @@ const ROLE_VARIANT: Record<Member["role"], "default" | "secondary" | "outline"> 
   viewer: "outline",
 };
 
-function initials(email: string) {
-  const local = email.split("@")[0] ?? email;
-  return local
-    .split(/[._-]/)
+function initials(value: string) {
+  return value
+    .split(/[\s._-]+/)
     .map((s) => s[0])
     .filter(Boolean)
     .slice(0, 2)
@@ -118,10 +117,10 @@ export function TeamSection() {
         <ul className="divide-y">
           {members.data.members.map((m) => (
             <li key={m._id} className="flex items-center gap-3 py-3 first:pt-0">
-              <Avatar className="size-9"><AvatarFallback>{initials(m.email)}</AvatarFallback></Avatar>
+              <Avatar className="size-9"><AvatarFallback>{initials(m.name)}</AvatarFallback></Avatar>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">{m.email}</p>
-                <p className="text-xs text-muted-foreground">joined {new Date(m.createdAt).toISOString().slice(0, 10)}</p>
+                <p className="truncate text-sm font-medium">{m.name}</p>
+                <p className="truncate text-xs text-muted-foreground">@{m.username} · joined {new Date(m.createdAt).toISOString().slice(0, 10)}</p>
               </div>
               <Badge variant={ROLE_VARIANT[m.role]}>{m.role}</Badge>
               <DropdownMenu>
@@ -133,11 +132,11 @@ export function TeamSection() {
                   }
                 />
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => toast.message(`${m.email} promoted to admin`)}>Make admin</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => toast.message(`${m.email} demoted to viewer`)}>Make viewer</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => toast.message(`${m.name} promoted to admin`)}>Make admin</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => toast.message(`${m.name} demoted to viewer`)}>Make viewer</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={() => toast.success(`${m.email} removed`)}
+                    onClick={() => toast.success(`${m.name} removed`)}
                     className="text-destructive"
                   >
                     Remove
@@ -154,7 +153,7 @@ export function TeamSection() {
             <ul className="divide-y rounded-lg border">
               {pending.map((p) => (
                 <li key={p.id} className="flex items-center gap-3 px-3 py-2.5">
-                  <Avatar className="size-8"><AvatarFallback className="text-xs">{initials(p.email)}</AvatarFallback></Avatar>
+                  <Avatar className="size-8"><AvatarFallback className="text-xs">{initials(p.email.split("@")[0] ?? p.email)}</AvatarFallback></Avatar>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm">{p.email}</p>
                     <p className="text-xs text-muted-foreground">invited {p.invitedAt}</p>

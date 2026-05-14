@@ -169,7 +169,7 @@ export type InboxItem = {
   summary: string;
   createdAt: string;
   status: InboxItemStatus;
-  assigneeEmail: string | null;
+  assigneeUsername: string | null;
   meta: {
     leadName?: string;
     company?: string;

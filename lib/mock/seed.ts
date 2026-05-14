@@ -260,7 +260,8 @@ export function seedStore(scenario: Scenario = "happy-path"): SeededStore {
   const session: SessionResponse = {
     user: {
       id: members[0]._id,
-      email: members[0].email,
+      name: members[0].name,
+      username: members[0].username,
       credits: members[0].credits,
       organizationId: ORG_ID,
       role: members[0].role,

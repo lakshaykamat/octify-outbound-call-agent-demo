@@ -58,12 +58,11 @@ function timeAgo(iso: string): string {
   return `${d}d`;
 }
 
-function initialsOf(email: string | null): string {
-  if (!email) return "";
-  const local = email.split("@")[0];
-  const parts = local.split(/[.\-_]/).filter(Boolean);
+function initialsOf(value: string | null): string {
+  if (!value) return "";
+  const parts = value.split(/[.\-_]/).filter(Boolean);
   if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return local.slice(0, 2).toUpperCase();
+  return value.slice(0, 2).toUpperCase();
 }
 
 function Segmented<T extends string>({
@@ -115,34 +114,34 @@ function AssigneePicker({
   onAssign,
 }: {
   item: InboxItem;
-  members: { _id: string; email: string }[];
-  onAssign: (email: string | null) => void;
+  members: { _id: string; name: string; username: string }[];
+  onAssign: (username: string | null) => void;
 }) {
-  const initials = initialsOf(item.assigneeEmail);
+  const initials = initialsOf(item.assigneeUsername);
   return (
     <label className="group/assign relative inline-flex shrink-0 cursor-pointer items-center">
       <span
         className={cn(
           "inline-flex size-7 items-center justify-center rounded-full border text-[10px] font-semibold uppercase tracking-tight transition",
-          item.assigneeEmail
+          item.assigneeUsername
             ? "border-transparent bg-primary/15 text-primary"
             : "border-dashed border-muted-foreground/40 text-muted-foreground group-hover/assign:border-muted-foreground/70 group-hover/assign:text-foreground",
         )}
-        title={item.assigneeEmail ?? "Unassigned"}
+        title={item.assigneeUsername ?? "Unassigned"}
       >
         {initials || "+"}
       </span>
       <ChevronDown className="ml-0.5 size-3 text-muted-foreground opacity-0 transition-opacity group-hover/assign:opacity-100" />
       <select
-        value={item.assigneeEmail ?? ""}
+        value={item.assigneeUsername ?? ""}
         onChange={(e) => onAssign(e.target.value || null)}
         className="absolute inset-0 cursor-pointer opacity-0"
         aria-label="Assign"
       >
         <option value="">Unassigned</option>
         {members.map((m) => (
-          <option key={m._id} value={m.email}>
-            {m.email}
+          <option key={m._id} value={m.username}>
+            {m.name}
           </option>
         ))}
       </select>
@@ -213,12 +212,12 @@ export function InboxList() {
     toast.success(`Marked ${selected.size} read`);
     setSelected(new Set());
   }
-  async function assignTo(item: InboxItem, email: string | null) {
+  async function assignTo(item: InboxItem, username: string | null) {
     await updateOne.mutateAsync({
       id: item.id,
-      patch: { assigneeEmail: email, status: item.status === "unread" ? "read" : item.status },
+      patch: { assigneeUsername: username, status: item.status === "unread" ? "read" : item.status },
     });
-    toast.success(email ? `Assigned to ${email}` : "Unassigned");
+    toast.success(username ? `Assigned to @${username}` : "Unassigned");
   }
   async function resolve(item: InboxItem) {
     await updateOne.mutateAsync({ id: item.id, patch: { status: "resolved" } });
@@ -454,7 +453,7 @@ export function InboxList() {
                     <AssigneePicker
                       item={item}
                       members={memberList}
-                      onAssign={(email) => assignTo(item, email)}
+                      onAssign={(username) => assignTo(item, username)}
                     />
                   </div>
                 </li>
@@ -474,7 +473,7 @@ export function InboxList() {
             <InboxDetail
               item={openItemData}
               members={memberList}
-              onAssign={(email) => assignTo(openItemData, email)}
+              onAssign={(username) => assignTo(openItemData, username)}
               onResolve={() => resolve(openItemData)}
               onReopen={() => reopen(openItemData)}
               onClose={() => setOpenItemState(null)}
@@ -490,8 +489,8 @@ function InboxDetail({
   item, members, onAssign, onResolve, onReopen, onClose,
 }: {
   item: InboxItem;
-  members: { _id: string; email: string }[];
-  onAssign: (email: string | null) => void;
+  members: { _id: string; name: string; username: string }[];
+  onAssign: (username: string | null) => void;
   onResolve: () => Promise<void> | void;
   onReopen: () => Promise<void> | void;
   onClose: () => void;
@@ -549,13 +548,13 @@ function InboxDetail({
           <dt className="text-muted-foreground">Assignee</dt>
           <dd className="col-span-2">
             <select
-              value={item.assigneeEmail ?? ""}
+              value={item.assigneeUsername ?? ""}
               onChange={(e) => onAssign(e.target.value || null)}
               className="h-7 w-full rounded-md border bg-card px-2 text-xs"
             >
               <option value="">Unassigned</option>
               {members.map((m) => (
-                <option key={m._id} value={m.email}>{m.email}</option>
+                <option key={m._id} value={m.username}>{m.name}</option>
               ))}
             </select>
           </dd>

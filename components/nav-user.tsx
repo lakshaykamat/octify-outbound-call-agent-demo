@@ -23,10 +23,10 @@ import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "@/hooks/queries";
 
-function initials(name: string | undefined, email: string) {
-  const source = (name ?? email).trim();
+function initials(name: string | undefined, fallback: string) {
+  const source = (name ?? fallback).trim();
   if (!source) return "··";
-  const parts = source.split(/[\s@.]+/).filter(Boolean);
+  const parts = source.split(/\s+/).filter(Boolean);
   const a = parts[0]?.[0] ?? "";
   const b = parts[1]?.[0] ?? parts[0]?.[1] ?? "";
   return (a + b).toUpperCase().slice(0, 2);
@@ -48,7 +48,8 @@ export function NavUser() {
     );
   }
 
-  const name = user.email;
+  const name = user.name;
+  const username = user.username;
   const avatar: string | undefined = undefined;
 
   return (
@@ -64,13 +65,13 @@ export function NavUser() {
                 <Avatar className="size-8 rounded-lg">
                   {avatar ? <AvatarImage src={avatar} alt={name} /> : null}
                   <AvatarFallback className="rounded-lg">
-                    {initials(undefined, user.email)}
+                    {initials(name, "")}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{name}</span>
                   <span className="truncate text-xs text-foreground/70">
-                    {user.email}
+                    @{username}
                   </span>
                 </div>
                 <EllipsisVerticalIcon className="ml-auto size-4" />
@@ -87,13 +88,13 @@ export function NavUser() {
               <Avatar className="size-8">
                 {avatar ? <AvatarImage src={avatar} alt={name} /> : null}
                 <AvatarFallback className="rounded-lg">
-                  {initials(undefined, user.email)}
+                  {initials(name, "")}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{name}</span>
                 <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
+                  @{username}
                 </span>
               </div>
             </div>

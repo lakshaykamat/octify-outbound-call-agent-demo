@@ -813,7 +813,7 @@ export async function saveAgentVersion(note: string): Promise<AgentVersion> {
     id,
     label: `v${versionNumber + 1} · ${note.slice(0, 48) || "Manual save"}`,
     createdAt: new Date().toISOString(),
-    author: store.session.user.email,
+    author: store.session.user.name,
     note: note || "Manual save",
     snapshot: {
       name: cfg.agent.name,
@@ -1001,8 +1001,8 @@ export async function listInbox(q: InboxQuery = {}): Promise<InboxItem[]> {
   if (q.kind && q.kind !== "all") items = items.filter((i) => i.kind === q.kind);
   if (q.status && q.status !== "all") items = items.filter((i) => i.status === q.status);
   if (q.assignee && q.assignee !== "all") {
-    if (q.assignee === "unassigned") items = items.filter((i) => i.assigneeEmail === null);
-    else items = items.filter((i) => i.assigneeEmail === q.assignee);
+    if (q.assignee === "unassigned") items = items.filter((i) => i.assigneeUsername === null);
+    else items = items.filter((i) => i.assigneeUsername === q.assignee);
   }
   return simulate(items);
 }
@@ -1017,7 +1017,7 @@ export async function getInboxCounts(): Promise<{ unread: number; total: number 
 
 export async function updateInboxItem(
   id: string,
-  patch: Partial<Pick<InboxItem, "status" | "assigneeEmail">>,
+  patch: Partial<Pick<InboxItem, "status" | "assigneeUsername">>,
 ): Promise<InboxItem> {
   const store = getStore();
   const item = store.inbox.find((i) => i.id === id);
@@ -1028,7 +1028,7 @@ export async function updateInboxItem(
 
 export async function bulkUpdateInbox(
   ids: string[],
-  patch: Partial<Pick<InboxItem, "status" | "assigneeEmail">>,
+  patch: Partial<Pick<InboxItem, "status" | "assigneeUsername">>,
 ): Promise<{ updated: number }> {
   const store = getStore();
   let updated = 0;

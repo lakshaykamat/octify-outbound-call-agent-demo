@@ -407,7 +407,7 @@ export function useInboxCounts() {
 export function useUpdateInboxItem() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, patch }: { id: string; patch: Partial<Pick<InboxItem, "status" | "assigneeEmail">> }) =>
+    mutationFn: ({ id, patch }: { id: string; patch: Partial<Pick<InboxItem, "status" | "assigneeUsername">> }) =>
       updateInboxItem(id, patch),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["xylo", "inbox"] });
@@ -417,7 +417,7 @@ export function useUpdateInboxItem() {
 export function useBulkUpdateInbox() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ ids, patch }: { ids: string[]; patch: Partial<Pick<InboxItem, "status" | "assigneeEmail">> }) =>
+    mutationFn: ({ ids, patch }: { ids: string[]; patch: Partial<Pick<InboxItem, "status" | "assigneeUsername">> }) =>
       bulkUpdateInbox(ids, patch),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["xylo", "inbox"] });
