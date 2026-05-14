@@ -715,19 +715,29 @@ export async function getCampaignStats(id: string) {
   const store = getStore();
   const cmp = store.campaigns.find((c) => c.id === id);
   if (!cmp) throw new Error(`Campaign ${id} not found`);
-  // Synthesize per-campaign call rollups consistent with the campaign's stored
-  // book rate, even if the seeded calls don't carry campaignId.
+  // Synthesize per-campaign funnel rollups for a real-estate outbound campaign.
+  // Warm-ish lead lists (expired listings, FSBO, past-client sphere) pick up
+  // notably better than B2B cold, so connect lands in the 40s rather than the
+  // mid-20s a typical SaaS outbound motion would see.
   const dialed = cmp.callsMade;
-  const connected = Math.round(dialed * 0.3);
-  const conversations = Math.round(connected * 0.65);
-  const qualified = Math.round(conversations * 0.4);
+  const connected = Math.round(dialed * 0.42);
+  const conversations = Math.round(connected * 0.68);
   const booked = cmp.meetingsBooked;
+  // Qualified must dominate booked or the funnel reads broken. Take the
+  // larger of the rate-based estimate and a 2.4× backsolve from booked.
+  const qualified = Math.max(
+    Math.round(conversations * 0.42),
+    Math.round(booked * 2.4),
+  );
+  // Objection labels tuned for an expired-listings / FSBO real-estate motion.
+  // Counts are a share of *conversations*, not dials, since objections only
+  // surface once a prospect engages past the opener.
   const objections: Array<{ label: string; count: number }> = [
-    { label: "Pricing", count: Math.round(dialed * 0.12) },
-    { label: "Timing", count: Math.round(dialed * 0.09) },
-    { label: "Already have a solution", count: Math.round(dialed * 0.07) },
-    { label: "Not the decision maker", count: Math.round(dialed * 0.05) },
-    { label: "Send more info", count: Math.round(dialed * 0.04) },
+    { label: "Already relisted with another agent", count: Math.round(conversations * 0.31) },
+    { label: "Took the home off market", count: Math.round(conversations * 0.18) },
+    { label: "Burned by my last agent", count: Math.round(conversations * 0.14) },
+    { label: "Want full asking, won't go lower", count: Math.round(conversations * 0.11) },
+    { label: "Planning to FSBO instead", count: Math.round(conversations * 0.07) },
   ];
   return simulate({ dialed, connected, conversations, qualified, booked, objections });
 }

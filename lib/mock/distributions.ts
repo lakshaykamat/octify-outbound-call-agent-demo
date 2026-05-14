@@ -5,18 +5,18 @@
 import type { Outcome, Sentiment } from "./types";
 import type { Rng } from "./rng";
 
-// Outcome mix on dials that get past the no-answer roll. Calibrated to
-// real-world B2B cold-outbound benchmarks: roughly 1-in-4 dials reach a live
-// human, voicemail dominates the rest, and bad numbers are common on cold
-// lists. Meeting-booked ~3% of all dials lands in the "strong AI SDR" band.
+// Outcome mix on dials that get past the no-answer roll. Tuned for the
+// real-estate outbound scenario: warm-ish lists (expired listings, FSBO,
+// past-client sphere) convert harder than cold B2B. Meeting-booked lands
+// ~13% of all dials, with per-campaign variance spreading roughly 8–18%.
 const OUTCOME_WEIGHTS: [Outcome, number][] = [
-  ["voicemail", 36],
-  ["not_interested", 26],
-  ["wrong_number", 7],
+  ["voicemail", 30],
+  ["not_interested", 20],
+  ["wrong_number", 6],
   ["callback_requested", 9],
-  ["meeting_booked", 7],
-  ["other", 8],
-  ["opted_out", 4],
+  ["meeting_booked", 20],
+  ["other", 7],
+  ["opted_out", 3],
 ];
 
 const NO_ANSWER_RATE = 0.38;

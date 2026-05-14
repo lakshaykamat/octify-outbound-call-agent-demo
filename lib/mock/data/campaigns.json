@@ -1,8 +1,17 @@
 {
   "namePrefixes": [
-    "Q2 Inbound",
-    "Enterprise Outbound",
-    "SMB Re-engagement"
+    "Expired Listings Outreach",
+    "FSBO Conversion",
+    "Pre-Foreclosure Leads",
+    "Buyer Sphere Re-engagement",
+    "Open House Follow-up",
+    "Past Client Anniversary",
+    "Investor Buyer List",
+    "First-Time Homebuyer Outreach",
+    "Luxury Listings Spring",
+    "Downtown Condo Prospects",
+    "Suburban Family Homes",
+    "Rental Conversion Pipeline"
   ],
   "statusWeights": [
     ["active", 4],
@@ -11,10 +20,9 @@
     ["draft", 2]
   ],
   "scheduleSummaries": [
-    "Mon–Fri · 9am–6pm PT",
-    "Tue–Thu · 10am–4pm ET",
-    "Mon–Fri · 8am–7pm local",
-    "Mon–Fri · 9am–5pm PT · cap 80/day"
-  ],
-  "bookRateRange": { "min": 0.02, "max": 0.11 }
+    "Mon–Sat · 10am–7pm local",
+    "Tue–Sun · 11am–8pm local",
+    "Mon–Fri · 9am–6pm local · cap 100/day",
+    "Daily · 10am–7pm local"
+  ]
 }
