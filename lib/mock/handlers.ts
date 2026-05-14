@@ -370,6 +370,7 @@ export type DashboardKpi = {
   duration?: boolean;
   delta: number;
   spark: number[];
+  negativeMetric?: boolean;
 };
 
 export type DashboardData = {
@@ -544,10 +545,11 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
       spark: meetSpark,
     },
     {
-      label: "Ghosted",
+      label: "Bounce Rate",
       value: ghosted,
       delta: delta(ghosted, prevGhosted),
       spark: ghostedSpark,
+      negativeMetric: true,
     },
   ];
 

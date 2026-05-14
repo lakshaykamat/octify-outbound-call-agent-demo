@@ -52,7 +52,8 @@ function Spark({ values, tone }: { values: number[]; tone: Tone }) {
 }
 
 function Delta({ value, tone, suffix = "%" }: { value: number; tone: Tone; suffix?: string }) {
-  const Icon = tone === "flat" ? null : tone === "up" ? ArrowUpIcon : ArrowDownIcon;
+  const direction = toneFor(value);
+  const Icon = direction === "flat" ? null : direction === "up" ? ArrowUpIcon : ArrowDownIcon;
   return (
     <span
       className={cn(
@@ -77,7 +78,7 @@ function formatValue(kpi: DashboardKpi): string {
 }
 
 function KpiCard({ kpi }: { kpi: DashboardKpi }) {
-  const tone = toneFor(kpi.delta);
+  const tone = toneFor(kpi.negativeMetric ? -kpi.delta : kpi.delta);
   return (
     <div className="flex flex-col justify-between rounded-xl border bg-card p-4">
       <div className="flex items-start justify-between gap-2">
