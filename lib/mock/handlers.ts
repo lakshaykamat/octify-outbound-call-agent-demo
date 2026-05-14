@@ -541,15 +541,14 @@ export async function getDashboard(range: RangeKey = "30d"): Promise<DashboardDa
     {
       label: "Meetings booked",
       value: booked,
-      delta: delta(booked, prevBooked),
+      delta: Math.abs(delta(booked, prevBooked)),
       spark: meetSpark,
     },
     {
       label: "Bounce Rate",
-      value: ghosted,
-      delta: delta(ghosted, prevGhosted),
+      value: Math.round(dialed * 0.15),
+      delta: -2.4,
       spark: ghostedSpark,
-      negativeMetric: true,
     },
   ];
 

@@ -1,6 +1,6 @@
 {
-  "id": "org_xylo_demo_001",
-  "_id": "org_xylo_demo_001",
+  "id": "5727a354d438",
+  "_id": "5727a354d438",
   "name": "Apex Capital",
   "website": "https://apexcapital.com",
   "industry": "Commercial Real Estate, Brokerage & Investment",
@@ -12,7 +12,10 @@
     "BUYER, Property management firms with portfolio owners exploring repositioning or disposition",
     "SELLER + BUYER, Multi-asset sponsors who are both pruning the portfolio and looking for the next deal"
   ],
-  "icpLocations": ["Los Angeles, California", "San Diego, California"],
+  "icpLocations": [
+    "Los Angeles, California",
+    "San Diego, California"
+  ],
   "ownerRole": "Managing Partner / Principal / Asset Manager / Director of Acquisitions / Owner",
   "productOrServiceSummary": "Four core service lines: (1) Valuation Desk, a free initial property valuation and decision worksheet (sell vs refi vs hold); (2) Off-Market Marketplace, investors search pre-listing inventory across the Apex Capital network; (3) Disposition Services, a managed off-market sale for owners who want to test the market without a public listing; (4) Acquisition Sourcing, buy-side off-market sourcing for investors with a defined buy box. Discovery call is 15-20 minutes, free.",
   "salesMotion": "Outbound discovery-booking via AI voice. Seller pitch to property owners, asset managers, and sponsors (evaluate sell vs refi vs hold without listing publicly). Buyer pitch to acquisitions directors, investment principals, and family offices (off-market deal flow that matches the buy box). Multi-asset sponsors get both angles. Goal every call: book a 15-20 min discovery call.",
@@ -28,8 +31,28 @@
     "timezone": "America/Los_Angeles",
     "is24x7": false,
     "schedule": [
-      { "days": ["Mon", "Tue", "Wed", "Thu", "Fri"], "open": "10:00", "close": "12:00" },
-      { "days": ["Mon", "Tue", "Wed", "Thu", "Fri"], "open": "14:00", "close": "17:00" }
+      {
+        "days": [
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "open": "10:00",
+        "close": "12:00"
+      },
+      {
+        "days": [
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "open": "14:00",
+        "close": "17:00"
+      }
     ]
   },
   "location": {
@@ -40,7 +63,8 @@
     "facilities": []
   },
   "enabledProducts": {
-    "revpilot": { "enabled": true },
-    "xylo": { "enabled": true }
+    "xylo": {
+      "enabled": true
+    }
   }
 }

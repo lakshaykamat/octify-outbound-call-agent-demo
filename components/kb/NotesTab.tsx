@@ -34,7 +34,6 @@ function NoteCard({
 
   return (
     <SectionCard
-      bare
       title={title}
       description={description}
       action={

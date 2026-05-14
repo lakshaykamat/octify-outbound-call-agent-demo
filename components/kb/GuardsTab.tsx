@@ -40,7 +40,6 @@ function QualifyingList({ items }: { items: string[] }) {
 
   return (
     <SectionCard
-      bare
       title="Qualifying questions"
       description="What the agent asks to confirm a prospect is worth booking time with."
     >
@@ -123,11 +122,12 @@ function DoNotMentionList({ items }: { items: string[] }) {
 
   return (
     <SectionCard
-      bare
+      className="h-full"
+      contentClassName="flex-1 flex flex-col"
       title="Do not mention"
       description="Topics the agent must avoid in any call, compliance, sensitive deals, internal jargon."
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex h-full flex-col gap-3">
         <div className="flex flex-wrap gap-2">
           {items.length === 0 ? (
             <span className="text-sm text-muted-foreground">Nothing on the list.</span>
@@ -151,7 +151,7 @@ function DoNotMentionList({ items }: { items: string[] }) {
             ))
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="mt-auto flex gap-2 pt-3">
           <Input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
